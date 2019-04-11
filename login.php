@@ -9,10 +9,6 @@
         if (canILogin($username, $password) /*!= false */){
             // remember login (cookie)
 
-            /* $salt = "zlkvboerbpùregmogma'e'";
-            $cookieVal = $username . "," . md5($username.$salt);
-            setcookie("login", $cookieVal, time() + 60*60*24*7 ); //1 week */
-
             session_start();
             $_SESSION['username'] = $username;
             $_SESSION['loggedin'] = true;
@@ -31,12 +27,13 @@
 <head>
   <meta charset="UTF-8">
   <title>Social</title>
-  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<div class="socialLogin">
+	<div class="netflixLogin">
 		<div class="form form--login">
 			<form action="" method="post">
+            <h1>Login</h1>
+
 				<h2 form__title>Sign In</h2>
 
                 <?php if (isset($error) ): ?>

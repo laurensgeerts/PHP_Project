@@ -28,19 +28,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>IMDFlix</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Social - Register</title>
 </head>
 <body>
+<h1>Register</h1>
 <div>
     <div>
         <form action="" method="post">
-            <h2 form__title>Sign up for an account</h2>
+            <h2 form__title>Sign up here</h2>
 
             <?php  if (isset($error)):?>
             <div class="form__error">
                 <p>
-                    🎣
+                    Sign up failed
                 </p>
             </div>
             <?php endif; ?>

@@ -1,17 +1,12 @@
 <?php
 		session_start();
-
-		
-
 ?><!DOCTYPE html>
 <html lang="en">
-<head>s
+<head>
   <meta charset="UTF-8">
   <title>Social</title>
 </head>
 <body>
-  
-</div>
-
+<h1>Index</h1>
 </body>
 </html>
