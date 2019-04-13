@@ -1,23 +1,14 @@
 <?php
 
-class Db {
-    private static $conn;
+    class Db {
+        private static $conn;
 
-    //@return PDO connection
-    // ->if exists ->return existing 
-    // ->if !exists ->return new PDO conn
-    public static function getConnection(){
-
-        include_once("settings/db.php");
-        // self ipv $this
-        if( self::$conn == null){
-            self::$conn = new PDO('mysql:host='.$db['host'].';dbname='.$db['dbname'].''  , $db['username'], $db['password'] );
-            //echo "yaaassss";
-            return self::$conn;
-            
-        }else{
-            return self::$conn;
-            //echo "falsessss";
+        public static function getInstance(){
+            if( self::$conn == null ){
+                self::$conn = new PDO('mysql:host=localhost;dbname=PHPInspHunter', 'root', 'root', null);
+                return self::$conn;
+            } else {
+                return self::$conn;
+            }
         }
     }
-}

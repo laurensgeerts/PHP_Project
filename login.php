@@ -1,67 +1,85 @@
-<?php
-    include ('functions.inc.php');
+<?php 
+	include_once("classes/user.class.php");
 
-    if ( !empty($_POST) ){
-        // get username and PASSWORD from $_POST
-        $username = $_POST['email'];
-        $password = $_POST['password'];
-        // check if a user can login (function)
-        if (canILogin($username, $password) /*!= false */){
-            // remember login (cookie)
-
-            /* $salt = "zlkvboerbpùregmogma'e'";
-            $cookieVal = $username . "," . md5($username.$salt);
-            setcookie("login", $cookieVal, time() + 60*60*24*7 ); //1 week */
-
-            session_start();
-            $_SESSION['username'] = $username;
-            $_SESSION['loggedin'] = true;
-
-            // if yes --> index.php
-            /* ZEER BELANGRIJK */
+	
+	if(!empty($_POST)){
+		// username and password from $_POST
+		$email = htmlspecialchars($_POST['email']);
+		$password = htmlspecialchars($_POST['password']);
+		//echo $username; --> om te testen als deze stap werkt
+		$user = new User();
+		// check if user can login (functie)
+		if($user->canILogin($email, $password)){
+			//remember login(cookie)
+            session_start(); //altijd boven html
+            $_SESSION['email'] = $email;
+			$_SESSION['loggedin'] = true;
+			$_SESSION['userID'] = $user->fetchUserId($email);          
             header('Location: index.php');
-
-        } else {
-            // if no --> $error tonen
+		}else {
+            // if no -> $error tonen
             $error = true;
         }
-    }
+	}
+	
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Social</title>
-  <link rel="stylesheet" href="css/style.css">
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+   
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Mono" rel="stylesheet">
+    <title> | Login</title>
 </head>
+<style>
+    
+
+</style>
 <body>
-	<div class="socialLogin">
-		<div class="form form--login">
-			<form action="" method="post">
-				<h2 form__title>Sign In</h2>
+	<div id="loginform">
+		<div class="form">
 
-                <?php if (isset($error) ): ?>
-				<div class="form__error">
-					<p>
-						Sorry, we can't log you in with that email address and password. Can you try again?
-					</p>
-				</div>
-                <?php endif; ?>
 
-				<div class="form__field">
-					<label for="email">Email</label>
-					<input type="text" id="email" name="email">
-				</div>
-				<div class="form__field">
-					<label for="password">Password</label>
-					<input type="password" id="password" name="password">
-				</div>
 
-				<div class="form__field">
-					<input type="submit" value="Sign in" class="btn btn--primary">
-					<input type="checkbox" id="rememberMe"><label for="rememberMe" class="label__inline">Remember me</label>
-				</div>
-			</form>
+		<form action="" method="post" >
+			<h2 class="si">Sign In</h2>
+
+			
+    </div>
+
+	 <div class="container">
+
+			<div class="container1">
+	
+				
+				<input type="text" id="Email" name="email">
+			</div>
+			<div class="container2">
+				<label for="Password">Password</label>
+				<input type="password" id="Password" name="password">
+			</div>
+
+			<div class="container3">
+				<input type="submit" value="Sign in" class="btn">	
+			</div>
+
+
+		
+		<a href="register.php" class="link">register ></a>
+
+		
+
 		</div>
+		</form>
+		</div>
+
+		</div>
+
+
+	
 	</div>
 </body>
 </html>
