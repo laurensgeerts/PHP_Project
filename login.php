@@ -7,6 +7,7 @@
 	if(!empty($_POST)){
 		
 		$email = htmlspecialchars($_POST['email']);
+		$password = htmlspecialchars($_POST['password']);
 	
 		$user = new User();
 	
