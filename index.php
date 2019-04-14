@@ -6,6 +6,14 @@ if( $_SESSION['loggedin'] == false){
   header('Location: login.php');
 };
 
+include_once("classes/user.class.php");
+$user = new User();
+$user->setUser_id($_SESSION["user_id"]);
+
+
+$profile = $user->getUserInfo();
+
+
 
 
 	

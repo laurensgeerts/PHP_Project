@@ -83,7 +83,7 @@ $profile = $user->getUserInfo();
     <form method="post" action="" enctype="multipart/form-data" class="edit_profile">
     <h2>Edit profile</h2>
     <label for="profileImg">Mijn profielfoto</label>
-    <img src="<?php echo $profile['image'] ?>" alt="">
+    <img src="<?php echo $profile['image'] ?>" alt="profiel" style="width:100px;">
     <input type="file" name="profileImg" id="profileImg" accept="image/gif, image/jpeg, image/png, image/jpg">
 
     <label for="firstname">firstname</label>
