@@ -1,24 +1,34 @@
 <?php 
 	include_once("classes/user.class.php");
 
+
+
 	
 	if(!empty($_POST)){
-		// username and password from $_POST
+		
 		$email = htmlspecialchars($_POST['email']);
-		$password = htmlspecialchars($_POST['password']);
-		//echo $username; --> om te testen als deze stap werkt
+	
 		$user = new User();
-		// check if user can login (functie)
+	
 		if($user->canILogin($email, $password)){
-			//remember login(cookie)
-            session_start(); //altijd boven html
-            $_SESSION['email'] = $email;
+		
+            session_start(); 
+			$_SESSION['email'] = $email;
 			$_SESSION['loggedin'] = true;
-			$_SESSION['userID'] = $user->fetchUserId($email);          
+			$_SESSION["user_id"] = $user->getUserId($email);  
+			
+			
+			
+		
+			
+			
+			
+			    
             header('Location: index.php');
 		}else {
-            // if no -> $error tonen
-            $error = true;
+           
+		   
+		  echo "het werkt niet";
         }
 	}
 	
@@ -31,21 +41,20 @@
 	<link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
    
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Mono" rel="stylesheet">
-    <title> | Login</title>
-</head>
-<style>
-    
 
-</style>
+    <title>login </title>
+</head>
+
 <body>
+
+
 	<div id="loginform">
 		<div class="form">
 
 
 
 		<form action="" method="post" >
-			<h2 class="si">Sign In</h2>
+			<h2>login </h2>
 
 			
     </div>
@@ -68,7 +77,7 @@
 
 
 		
-		<a href="register.php" class="link">register ></a>
+		<a href="register.php" class="link">geen account? registreer hier!</a>
 
 		
 

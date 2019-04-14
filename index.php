@@ -1,19 +1,27 @@
 <?php
-		session_start();
 
+session_start();
+
+if( $_SESSION['loggedin'] == false){
+  header('Location: login.php');
+};
+
+
+
+	
+    
 		
+
+
 
 ?><!DOCTYPE html>
 <html lang="en">
-<head>s
+<head>
   <meta charset="UTF-8">
-  <title>Social</title>
+  <title>index</title>
 </head>
 <body>
-  index pagina
-<a href="logout.php">logout</a>
-<a href="edit_profile.php">edit profile</a>
-</div>
+<?php include_once("nav.inc.php"); ?>
 
 </body>
 </html>

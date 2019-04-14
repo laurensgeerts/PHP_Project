@@ -5,11 +5,12 @@ session_start();
 include_once("classes/user.class.php");
 $user = new User();
 $user->setUser_id($_SESSION["user_id"]);
+
+
 $profile = $user->getUserInfo();
 
 if(!empty($_POST["edit"])) {
-    //Image upload
-    //var_dump($_FILES['profileImg'][0]);
+
 
     if(!empty($_FILES['profileImg']['name'])) {
         $saveImage = new User();
@@ -25,14 +26,14 @@ if(!empty($_POST["edit"])) {
     }
 
     $user_edit = new User();
-    //$user_edit->setUser_id($_SESSION["user_id"]);
+    $user_edit->setUser_id($_SESSION["user_id"]);
     $user_edit->setFirstname($_POST["firstname"]);
     $user_edit->setLastname($_POST["lastname"]);
     if($profile['email'] == $_POST["email"]){
         $user_edit->setEmail($_POST["email"]);
     } elseif($user_edit->emailExists($_POST["email"])) {
-        $user_edit->setEmail($profile["email"]); //INDIEN BESTAAND
-        $error = "E-mailadres bestaat al";
+        $user_edit->setEmail($profile["email"]);
+       
     } else {
         $user_edit->setEmail($_POST["email"]);
     }
@@ -72,6 +73,9 @@ $profile = $user->getUserInfo();
     <title>Document</title>
 </head>
 <body>
+
+
+<?php include_once("nav.inc.php"); ?>
 
 
 

@@ -3,20 +3,23 @@
 include_once('db.class.php');
 
 class User{
-    private $id;
+   
     private $email;
     private $password;
     private $firstname;
     private $lastname;
     private $bio;
     private $image;
+    private $user_id;
+    private $password_update;
+    private $ImageName;
+    private $ImageSize;
+    private $ImageTmpName;
+
+
+
 
   
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
     public function setFirstname($firstname)
     {   if(empty($firstname)){
         throw new Exception("firstname fout");
@@ -55,16 +58,7 @@ class User{
 
 
  
-    public function setEmail($email) {     
-        if(empty($email)){
-            throw new Exception("Email cannot be empty");
-        }
-
-        
-        $this->email = $email;
-        return $this;
-    }
-
+  
 
 
     public function getPassword()
@@ -74,11 +68,11 @@ class User{
 
     public function setPassword($password)
     {
-        if(strlen($password) < 4){
+        if(strlen($password) < 6){
             throw new Exception("Password must be at least 6 characters");
         }
 
-        // PASSWORD_BCRYPT of PASSWORD_DEFAULT voor encryptie van password
+        //  PASSWORD_DEFAULT
         $hash = password_hash( $password, PASSWORD_DEFAULT);
         $this->password = $hash;
         return $this;
@@ -112,17 +106,19 @@ class User{
      * @return false if not sucessful
      */
     function canILogin( $email, $password) {
-        //connectie met database
+        
         $conn = Db::getInstance();
 
-        //zitten email en wachtwoord in de database 
+       
         $statement = $conn->prepare("select * from users where email = :email");
         $statement->bindParam(':email', $email);
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_OBJ);
+        
+       
         $passwordHash = $result->password;
 
-        //controleren of password juist is
+        
         if (password_verify($password, $passwordHash)) {
             return true;
         } else {
@@ -130,20 +126,8 @@ class User{
         }
 
      }
-   
 
-  
-    public function getUserId($email){
-        $conn = Db::getInstance();
-        $statement = $conn->prepare("select * from users where email = :email");
-        $statement->bindParam(':email', $email);
-        $statement->execute();
-        $result = $statement->fetch(PDO::FETCH_OBJ);
-        return $result->id;
-
-   }
-
-    public function fetchUserId($email){
+     public function getUserId($email){
         $conn = Db::getInstance();
         $statement = $conn->prepare("select * from users where email = :email");
         $statement->bindParam(':email', $email);
@@ -151,6 +135,20 @@ class User{
         $result = $statement->fetch(PDO::FETCH_OBJ);
         return $result->id;
     }
+   
+
+  
+     public function getUserInfo() {
+       
+        $conn = Db::getInstance();
+
+        
+        $statement = $conn->prepare("SELECT * FROM users WHERE id = :user_id LIMIT 1");
+        $statement->bindParam(":user_id", $this->user_id);
+        $statement->execute();
+        $result = $statement->fetch();
+        return $result;
+}
 
 
     /**
@@ -173,6 +171,213 @@ class User{
     public function setBio($bio)
     {
         $this->bio = $bio;
+
+        return $this;
+    }
+
+    public function update() {
+        
+        $conn = Db::getInstance();
+
+        
+        
+
+  
+        $statement = $conn->prepare("UPDATE users SET email=:email,firstname = :firstname,lastname=:lastname,bio=:bio,image=:image WHERE id = :user_id");
+        $statement->bindParam(":email", $this->email);
+        $statement->bindParam(":user_id", $this->user_id);
+        $statement->bindParam(":firstname", $this->firstname);
+        $statement->bindParam(":lastname", $this->lastname);
+       
+        $statement->bindParam(":bio", $this->bio);
+        $statement->bindParam(":image", $this->image);
+        $statement->execute();
+        return $statement;
+}
+
+public function updatePassword() {
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("UPDATE users SET password = :password WHERE id = :user_id");
+        $statement->bindParam(":user_id", $this->user_id);
+        $statement->bindParam(":password", $this->password);
+        $statement->execute();
+        return $statement;    
+}
+
+
+    /**
+     * Get the value of password_update
+     */ 
+    public function getPassword_update()
+    {
+        return $this->password_update;
+    }
+
+    /**
+     * Set the value of password_update
+     *
+     * @return  self
+     */ 
+    public function setPassword_update($password_update)
+    {
+        $this->password_update = $password_update;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of ImageName
+     */ 
+    public function getImageName()
+    {
+        return $this->ImageName;
+    }
+
+    /**
+     * Set the value of ImageName
+     *
+     * @return  self
+     */ 
+    public function setImageName($ImageName)
+    {
+        $this->ImageName = $ImageName;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of ImageSize
+     */ 
+    public function getImageSize()
+    {
+        return $this->ImageSize;
+    }
+
+    /**
+     * Set the value of ImageSize
+     *
+     * @return  self
+     */ 
+    public function setImageSize($ImageSize)
+    {
+        $this->ImageSize = $ImageSize;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of ImageTmpName
+     */ 
+    public function getImageTmpName()
+    {
+        return $this->ImageTmpName;
+    }
+
+    /**
+     * Set the value of ImageTmpName
+     *
+     * @return  self
+     */ 
+    public function setImageTmpName($ImageTmpName)
+    {
+        $this->ImageTmpName = $ImageTmpName;
+
+        return $this;
+    }
+
+    public function SaveProfileImg() {
+        $file_name = $_SESSION['user_id'] . "-" . time() . "-" . $this->ImageName;
+        $file_size = $this->ImageSize;
+        $file_tmp = $this->ImageTmpName;
+        $tmp = explode('.', $file_name);
+        $file_ext = end($tmp);
+        $expensions = array("jpeg", "jpg", "png", "gif");
+
+        if (in_array($file_ext, $expensions) === false) {
+                throw new Exception("kies uit jpeg jpg png gif.");
+        }
+
+        if ($file_size > 2097152) {
+                throw new Exception('file mag niet meer zijn dan 2M');
+        }
+
+        if (empty($errors) == true) {
+                move_uploaded_file($file_tmp, "data/profiel/" . $file_name);
+                return "data/profiel/" . $file_name;
+        } else {
+                echo "Error";
+        }
+}
+
+    /**
+     * Get the value of user_id
+     */ 
+  
+
+    /**
+     * Set the value of user_id
+     *
+     * @return  self
+     */ 
+    public function setUser_id($user_id)
+    {
+        $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    public function emailExists($email)
+    {
+    $conn = Db::getInstance();
+    $statement = $conn->prepare("select * from users where email = :email");
+    $statement->bindParam(":email", $email);
+    $statement->execute();
+    $count = $statement->rowCount();
+    if ($count > 0) {
+       return true;
+    }
+    else {
+        return false;
+    }
+}
+
+
+    /**
+     * Get the value of email
+     */ 
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set the value of email
+     *
+     * @return  self
+     */ 
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of image
+     */ 
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set the value of image
+     *
+     * @return  self
+     */ 
+    public function setImage($image)
+    {
+        $this->image = $image;
 
         return $this;
     }

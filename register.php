@@ -14,10 +14,10 @@ session_start();
             session_start();
             $_SESSION['email'] = $user->getEmail();
             $_SESSION['loggedin'] = true;
-            $_SESSION['userID'] = $user->fetchUserId($email);
+            $_SESSION["user_id"] = $user->getUserId($email); 
                 header('Location: index.php');
             }catch (Exception $e){
-                $error = $e->getMessage();
+               echo "werkt niet";
             }
         }
     }
@@ -36,28 +36,28 @@ session_start();
             
             <form action="" method="post">
                 <div class="form__field">
-                    <label for="firstname">firstname</label>
+                    <label for="firstname">voornaam:</label>
                     <input type="text" id="firstname" name="firstname" <?php if (isset($user)):?> value="<?php echo $user->getFirstname()()?>" <?php endif;?>>
-                    <label for="lastname">lastname</label>
+                    <label for="lastname">achternaam:</label>
                     <input type="text" id="lastname" name="lastname" <?php if (isset($user)):?> value="<?php echo $user->getLastname()()?>" <?php endif;?>>
                     </div>
                 <div class="form__field">
-                    <label for="email">Email</label>
+                    <label for="email">email:</label>
                     <input type="text" id="email" name="email" <?php if (isset($user)):?> value="<?php echo $user->getEmail()?>" <?php endif;?>>
                 </div>
                 <div class="form__field">
-                    <label for="password">Password</label>
+                    <label for="password">wachtwoord:</label>
                     <input type="password" id="password" name="password">
                 </div>
                 <div class="form__field">
-                    <label for="password_confirmation">Confirm your password</label>
+                    <label for="password_confirmation">bevestig je wachtwoord:</label>
                     <input type="password" id="password_confirmation" name="password_confirmation">
                 </div>
                 <div class="form__field">
                     <input type="submit" value="Sign me up!" class="btn btn--primary">
                 </div>
             </form>
-            <a href="login.php">Already have an account? Login here!</a>
+            <a href="login.php">heb je al een account? login hier!</a>
         </div>
 </body>
 </html>
