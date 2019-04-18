@@ -1,4 +1,5 @@
 <?php
+include_once("bootstrap.php");
 
 session_start();
 
