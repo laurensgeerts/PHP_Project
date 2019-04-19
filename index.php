@@ -30,9 +30,9 @@ if(!empty($_POST)){
     }
 
     $post = new Post();
-		$post->setImage($target_dir . basename($_FILES["fileToUpload"]["name"]));
-		$post->setDescription($_POST["description"]);
-	  $post->setUserId($_SESSION["user_id"]);
+    $post->setImage($target_dir . basename($_FILES["fileToUpload"]["name"]));
+    $post->setDescription($_POST["description"]);
+    $post->setUserId($_SESSION["user_id"]);
     $post->newPost();
       
   }else{
