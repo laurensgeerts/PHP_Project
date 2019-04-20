@@ -42,7 +42,7 @@ class Post
 
 	public static function getAll(){
         $conn = Db::getInstance();
-        $result = $conn->query("SELECT * FROM posts");
+        $result = $conn->query("SELECT posts.*,users.firstname,users.lastname FROM posts,users WHERE posts.user_id=users.id ");
 
         return $result->fetchAll(PDO::FETCH_CLASS, __CLASS__);
     }
