@@ -25,15 +25,18 @@ if(!empty($_POST)){
   if(!empty($_POST["description"])){
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
       echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+	    
+      $post = new Post();
+      $post->setImage($target_dir . basename($_FILES["fileToUpload"]["name"]));
+      $post->setDescription($_POST["description"]);
+      $post->setUserId($_SESSION["user_id"]);
+      $post->newPost();
+	    
     } else {
       echo "Sorry, there was an error uploading your file.";
     }
 
-    $post = new Post();
-    $post->setImage($target_dir . basename($_FILES["fileToUpload"]["name"]));
-    $post->setDescription($_POST["description"]);
-    $post->setUserId($_SESSION["user_id"]);
-    $post->newPost();
+    
       
   }else{
     echo "Please write a description";
