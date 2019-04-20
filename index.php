@@ -67,7 +67,7 @@ $posts = Post::getAll();
 	</form>
 	<?php foreach($posts as $post): ?>
 	    <article class="post" >
-		<p> <?php echo $post->firstname; echo $post->lastname?> </p>
+		<p> <?php echo $post->firstname." ".$post->lastname?;> </p>
         	<p> <?php echo $post->date_created; ?> </p>
 		<p> <?php echo $post->description; ?> </p>
 		<img src= " <?php echo $post->image; ?> " alt="">
