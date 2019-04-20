@@ -66,10 +66,11 @@ $posts = Post::getAll();
     	<input type="submit" value="Upload Image" name="submit" value="submit">
 	</form>
 	<?php foreach($posts as $post): ?>
-	    <article class="post" href="details.php?id=<?php echo $post->id;?>">
-			  <p> <?php echo $post->userId;?> </p>
-		    <p> <?php echo $post->description; ?> </p>
-		    <img src= " <?php echo $post->image; ?> " alt="">
+	    <article class="post" >
+		<p> <?php echo $post->firstname; echo $post->lastname?> </p>
+        	<p> <?php echo $post->date_created; ?> </p>
+		<p> <?php echo $post->description; ?> </p>
+		<img src= " <?php echo $post->image; ?> " alt="">
 	    </article>
 	<?php endforeach; ?>
   <script>
