@@ -2,7 +2,7 @@
 
 
 session_start();
-include_once("bootstrap.php");
+include_once("classes/user.class.php");
 $user = new User();
 $user->setUser_id($_SESSION["user_id"]);
 

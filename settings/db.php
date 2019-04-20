@@ -2,7 +2,7 @@
 
 $db = [
     "host" => 'localhost',
-    "dbname" => 'netflix',
+    "dbname" => 'InspirationHunter',
     "username" => "root",
     "password" => "root"
 ];

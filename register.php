@@ -1,6 +1,6 @@
 <?php
 session_start();
-    include_once("bootstrap.php");
+    include_once("classes/user.class.php");
     
     if( !empty($_POST) ){
         if( $_POST['password'] == $_POST['password_confirmation']){

@@ -1,11 +1,9 @@
 <?php
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 session_start();
-
 if( $_SESSION['loggedin'] == false){
   header('Location: login.php');
 };
@@ -13,37 +11,34 @@ if( $_SESSION['loggedin'] == false){
 include_once("classes/user.class.php");
 $user = new User();
 $user->setUser_id($_SESSION["user_id"]);
-
 $profile = $user->getUserInfo();
 
 include_once("classes/post.class.php");
 
 $target_dir = "data/uploads/";
-$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-
+$target_file = $target_dir.basename($_FILES["fileToUpload"]["name"]);
 if(!empty($_POST)){
   if(!empty($_POST["description"])){
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
       echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-	    
+
       $post = new Post();
       $post->setImage($target_dir . basename($_FILES["fileToUpload"]["name"]));
+      //var_dump($post->image);
       $post->setDescription($_POST["description"]);
+      //var_dump($post->description);
       $post->setUserId($_SESSION["user_id"]);
+      var_dump($post->userId );
       $post->newPost();
-	    
+
     } else {
       echo "Sorry, there was an error uploading your file.";
     }
-
-    
       
   }else{
     echo "Please write a description";
   }
-
 }
-
 $posts = Post::getAll();
 	
 ?>
@@ -67,9 +62,9 @@ $posts = Post::getAll();
 	</form>
 	<?php foreach($posts as $post): ?>
 	    <article class="post" >
-		    <p> <?php echo $post->firstname." ".$post->lastname;?> </p>
+			  <p> <?php echo $post->firstname." ".$post->lastname;?> </p>
         <p> <?php echo $post->date_created; ?> </p>
-		    <img src= " <?php echo $post->image; ?> " alt="">
+        <img src= " <?php echo $post->image; ?> " alt="">
 		    <p> <?php echo $post->description; ?> </p>
 	    </article>
 	<?php endforeach; ?>
