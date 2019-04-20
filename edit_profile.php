@@ -1,8 +1,8 @@
 <?php 
-
+include_once("classes/user.class.php");
 
 session_start();
-include_once("bootstrap.php");
+
 $user = new User();
 $user->setUser_id($_SESSION["user_id"]);
 
