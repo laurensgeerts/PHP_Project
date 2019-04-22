@@ -14,6 +14,7 @@ $user->setUser_id($_SESSION["user_id"]);
 $profile = $user->getUserInfo();
 
 include_once("classes/post.class.php");
+include_once("classes/allusers.class.php");
 
 $target_dir = "data/uploads/";
 $target_file = $target_dir.basename($_FILES["fileToUpload"]["name"]);
@@ -68,8 +69,28 @@ $posts = Post::getAll();
 		    <p> <?php echo $post->description; ?> </p>
 	    </article>
 	<?php endforeach; ?>
+
+  <div id=user_list>
+  
+  </div>
+
   <script>
     //e.preventDefault();er
+
+  //Get all users
+  function fetch_user(){
+    var action = 'fetch_user';
+      $.ajax({
+          url:"classes/allusers.class.php",
+          method:"POST",
+          data:{action:action},
+          succes:function(data)
+      {
+          $('#user_list').html(data);
+      }
+    });
+  }
+
   </script>
 </body>
 </html>
