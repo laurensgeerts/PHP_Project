@@ -60,12 +60,14 @@ $posts = Post::getAll();
 	</form>
 	<?php foreach($posts as $post): ?>
     <div class="grid-container">
-	    <article class="post" href="detail.php?id=<?php echo $post->id;?>">
-			  <p> <?php echo $post->firstname." ".$post->lastname;?> </p>
-        <p> <?php echo $post->date_created; ?> </p>
-        <img src= " <?php echo $post->image; ?> " alt="">
-		    <p> <?php echo $post->description; ?> </p>
-	    </article>
+      <div class="post">
+	      <article >
+			    <p> <?php echo $post->firstname." ".$post->lastname;?> </p>
+          <p> <?php echo $post->date_created; ?> </p>
+          <img src="<?php echo $post->image; ?>" alt="" href="detail.php?id=<?php echo $post->id;?>">
+		      <p> <?php echo $post->description; ?> </p>
+        </article>
+      </div>
     </div>  
 	<?php endforeach; ?>
   <script>
