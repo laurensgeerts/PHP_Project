@@ -76,7 +76,7 @@ class Comment{
         return $statement->execute();
     }
 
-    public function getAll(){
+    public static function getAll(){
         $conn = Db::getInstance();
         //$result = $conn->query("SELECT comments.*,users.firstname,users.lastname FROM posts,users WHERE posts.user_id=users.id ");
         return $result->fetchAll(PDO::FETCH_CLASS, __CLASS__);
