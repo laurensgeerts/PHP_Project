@@ -1,6 +1,15 @@
 *{
     background-color:#e8e8e8;
 }
+nav.navbar{
+    width: 100%;
+    height: 50px;
+    background-color: white;
+    /* position: fixed; */
+}
+nav.navbar a, nav.navbar p{
+    background-color: white;
+}
 
 div.post{
     width: 300px;
