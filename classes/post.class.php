@@ -60,8 +60,8 @@ class Post
 
     public static function getThisPost($id){
         $conn = Db::getInstance();
-        $result = $conn->query("SELECT posts.*,users.firstname,users.lastname FROM posts,users WHERE post.id=$id AND posts.user_id=users.id ");
-        return $result->fetchAll(PDO::FETCH_CLASS, __CLASS__);
+        $result = $conn->query("SELECT posts.*,users.firstname,users.lastname,users.picture FROM posts,users WHERE post.id=$id AND posts.user_id=users.id ");
+        return $result->fetch(PDO::FETCH_CLASS, __CLASS__);
     }
 }
 ?>

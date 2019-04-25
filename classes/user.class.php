@@ -183,7 +183,7 @@ class User{
         
 
   
-        $statement = $conn->prepare("UPDATE users SET email=:email,firstname = :firstname,lastname=:lastname,bio=:bio,image=:image WHERE id = :user_id");
+        $statement = $conn->prepare("UPDATE users SET email=:email,firstname = :firstname,lastname=:lastname,bio=:bio,picture=:image WHERE id = :user_id");
         $statement->bindParam(":email", $this->email);
         $statement->bindParam(":user_id", $this->user_id);
         $statement->bindParam(":firstname", $this->firstname);
