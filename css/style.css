@@ -10,6 +10,9 @@ div.post{
     border-radius: 10px;
     margin: 10px;
 }
+div.post article, div.post p{
+    background-color: white;
+}
 
 div.post img{
     width: 300px;
@@ -17,6 +20,8 @@ div.post img{
 
 div.post img.profilepic{
     width: 40px;
+    border-radius: 30px;
+    margin-bottom: 5px;
 }
 
 div.grid-container{
