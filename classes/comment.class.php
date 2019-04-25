@@ -66,5 +66,20 @@ class Comment{
 
         return $this;
     }
+
+    public function newComment(){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("INSERT INTO comments (user_id, post_id, comment, date_created) values (:userid, :postid, :comment, NOW())");
+        $statement->bindValue(":userid", $this->getUserId());
+        $statement->bindValue(":image", $this->getPostId());
+        $statement->bindValue(":description", $this->getComment());
+        return $statement->execute();
+    }
+
+    public function getAll(){
+        $conn = Db::getInstance();
+        //$result = $conn->query("SELECT comments.*,users.firstname,users.lastname FROM posts,users WHERE posts.user_id=users.id ");
+        return $result->fetchAll(PDO::FETCH_CLASS, __CLASS__);
+    }
 }
 ?>
