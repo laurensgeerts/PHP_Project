@@ -47,7 +47,7 @@ $posts = Post::getAll();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" media="screen" href="css/reset.css">
   <link rel="stylesheet" media="screen" href="css/style.css">
-  <title>index</title>
+  <title>Inspiration Hunter</title>
 </head>
 <body>
   <?php include_once("nav.inc.php"); ?>
@@ -60,7 +60,7 @@ $posts = Post::getAll();
 	</form>
 	<?php foreach($posts as $post): ?>
     <div class="grid-container">
-	    <article class="post" href="detail.php?">
+	    <article class="post" href="detail.php?id=<?php echo $post->id;?>">
 			  <p> <?php echo $post->firstname." ".$post->lastname;?> </p>
         <p> <?php echo $post->date_created; ?> </p>
         <img src= " <?php echo $post->image; ?> " alt="">
