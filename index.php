@@ -20,15 +20,13 @@ $target_file = $target_dir.basename($_FILES["fileToUpload"]["name"]);
 if(!empty($_POST)){
   if(!empty($_POST["description"])){
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-      echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+      $message="The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+      echo "<script type='text/javascript'>alert('$message');</script>";
 
       $post = new Post();
       $post->setImage($target_dir . basename($_FILES["fileToUpload"]["name"]));
-      //var_dump($post->image);
       $post->setDescription($_POST["description"]);
-      //var_dump($post->description);
       $post->setUserId($_SESSION["user_id"]);
-      var_dump($post->userId );
       $post->newPost();
 
     } else {
