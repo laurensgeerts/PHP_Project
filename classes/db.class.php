@@ -4,6 +4,7 @@ class Db {
     private static $conn;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         public static function getInstance(){
             if( self::$conn == null ){
                 self::$conn = new PDO('mysql:host=localhost;dbname=InspHunter_Jonas', 'root', 'root', null);
@@ -12,6 +13,8 @@ class Db {
                 return self::$conn;
             }
 =======
+=======
+>>>>>>> parent of 1d6c9b2... register en login zijn in orde
     //@return PDO connection
     // ->if exists ->return existing 
     // ->if !exists ->return new PDO conn
@@ -27,6 +30,9 @@ class Db {
         }else{
             return self::$conn;
             //echo "falsessss";
+<<<<<<< HEAD
+>>>>>>> parent of 1d6c9b2... register en login zijn in orde
+=======
 >>>>>>> parent of 1d6c9b2... register en login zijn in orde
         }
     }

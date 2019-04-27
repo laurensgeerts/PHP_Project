@@ -2,13 +2,17 @@
 
 class User{
 <<<<<<< HEAD
+<<<<<<< HEAD
    
+=======
+>>>>>>> parent of 1d6c9b2... register en login zijn in orde
 =======
 >>>>>>> parent of 1d6c9b2... register en login zijn in orde
     private $email;
     private $password;
     private $firstname;
     private $lastname;
+<<<<<<< HEAD
 <<<<<<< HEAD
     private $bio;
     private $image;
@@ -24,6 +28,9 @@ class User{
   
 =======
 
+=======
+
+>>>>>>> parent of 1d6c9b2... register en login zijn in orde
     /**
      * Get the value of email
      */ 
@@ -73,6 +80,9 @@ class User{
      *
      * @return  self
      */ 
+<<<<<<< HEAD
+>>>>>>> parent of 1d6c9b2... register en login zijn in orde
+=======
 >>>>>>> parent of 1d6c9b2... register en login zijn in orde
     public function setFirstname($firstname)
     {   if(empty($firstname)){
@@ -116,6 +126,7 @@ class User{
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
  
   
@@ -148,6 +159,9 @@ class User{
 =======
     // registers user into database and @return true if successful, @return false if unsuccessful
 >>>>>>> parent of 1d6c9b2... register en login zijn in orde
+=======
+    // registers user into database and @return true if successful, @return false if unsuccessful
+>>>>>>> parent of 1d6c9b2... register en login zijn in orde
     public function register(){
         // connectie
         $conn = new PDO('mysql:host=localhost; dbname=netflix', 'root', 'root');
@@ -164,6 +178,7 @@ class User{
         $result = $statement->execute();
         return $result;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
      /* check if email and password occur in database
      * @return true if successful
@@ -445,5 +460,17 @@ public function updatePassword() {
         return $this;
     }
 =======
+>>>>>>> parent of 1d6c9b2... register en login zijn in orde
+=======
+        // antwoord geven (true or false)
+    }
+
+    //maakt een usersessie aan en redirects naar de index page
+    public function login(){
+        session_start();
+        $_SESSION['username'] = $this->email;
+        header('Location: index.php');
+    }
+
 >>>>>>> parent of 1d6c9b2... register en login zijn in orde
 }

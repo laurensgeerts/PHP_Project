@@ -53,6 +53,7 @@ $posts = Post::getAll();
 </head>
 <body>
 <<<<<<< HEAD
+<<<<<<< HEAD
   <?php include_once("nav.inc.php"); ?>
   <!-- <form action="upload.php" method="post" enctype="multipart/form-data"> -->
   <form method="post" enctype="multipart/form-data">
@@ -73,6 +74,8 @@ $posts = Post::getAll();
     //e.preventDefault();er
   </script>
 =======
+=======
+>>>>>>> parent of 1d6c9b2... register en login zijn in orde
   
 </div>
 
