@@ -12,7 +12,6 @@
             if($security->passwordsAreSecure()){  
             $user = new User();
 <<<<<<< HEAD
-<<<<<<< HEAD
             $user->setFirstname(htmlspecialchars( $_POST['firstname']));
             $user->setLastname(htmlspecialchars( $_POST['lastname']));
             $user->setEmail(htmlspecialchars( $_POST['email']));
@@ -26,17 +25,12 @@
             }catch (Exception $e){
                echo "werkt niet";
 =======
-=======
->>>>>>> parent of 1d6c9b2... register en login zijn in orde
             $user->setEmail($_POST['email']);
             $user->setFirstname($_POST['firstname']);
             $user->setLastname($_POST['lastname']);
             $user->setPassword($_POST['password']);
             if($user->register()){
                 $user->login();
-<<<<<<< HEAD
->>>>>>> parent of 1d6c9b2... register en login zijn in orde
-=======
 >>>>>>> parent of 1d6c9b2... register en login zijn in orde
             }
             }
@@ -81,7 +75,6 @@
             </div>
             
 <<<<<<< HEAD
-<<<<<<< HEAD
             <form action="" method="post">
                 <div class="form__field">
                     <label for="firstname">voornaam:</label>
@@ -108,8 +101,6 @@
             <a href="login.php">heb je al een account? login hier!</a>
         </div>
 =======
-=======
->>>>>>> parent of 1d6c9b2... register en login zijn in orde
             </div>
             <div class="form__field">
                 <label for="password">Password</label>
@@ -127,9 +118,6 @@
         </form>
     </div>
 </div>
-<<<<<<< HEAD
->>>>>>> parent of 1d6c9b2... register en login zijn in orde
-=======
 >>>>>>> parent of 1d6c9b2... register en login zijn in orde
 </body>
 </html>
