@@ -20,15 +20,13 @@ $target_file = $target_dir.basename($_FILES["fileToUpload"]["name"]);
 if(!empty($_POST)){
   if(!empty($_POST["description"])){
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-      echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+      $message="The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+      echo "<script type='text/javascript'>alert('$message');</script>";
 
       $post = new Post();
       $post->setImage($target_dir . basename($_FILES["fileToUpload"]["name"]));
-      //var_dump($post->image);
       $post->setDescription($_POST["description"]);
-      //var_dump($post->description);
       $post->setUserId($_SESSION["user_id"]);
-      var_dump($post->userId );
       $post->newPost();
 
     } else {
@@ -49,10 +47,9 @@ $posts = Post::getAll();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" media="screen" href="css/reset.css">
   <link rel="stylesheet" media="screen" href="css/style.css">
-  <title>index</title>
+  <title>Inspiration Hunter</title>
 </head>
 <body>
-<<<<<<< HEAD
   <?php include_once("nav.inc.php"); ?>
   <!-- <form action="upload.php" method="post" enctype="multipart/form-data"> -->
   <form method="post" enctype="multipart/form-data">
@@ -62,20 +59,20 @@ $posts = Post::getAll();
     	<input type="submit" value="Upload Image" name="submit" value="submit">
 	</form>
 	<?php foreach($posts as $post): ?>
-	    <article class="post" >
-			  <p> <?php echo $post->firstname." ".$post->lastname;?> </p>
-        <p> <?php echo $post->date_created; ?> </p>
-        <img src= " <?php echo $post->image; ?> " alt="">
-		    <p> <?php echo $post->description; ?> </p>
-	    </article>
+    <div class="grid-container">
+      <div class="post">
+	      <article >
+          <img src="<?php echo $post->picture; ?>">
+			    <p> <?php echo $post->firstname." ".$post->lastname;?> </p>
+          <p> <?php echo $post->date_created; ?> </p>
+          <img src="<?php echo $post->image; ?>" alt="" href="detail.php?id=<?php echo $post->id;?>">
+		      <p> <?php echo $post->description; ?> </p>
+        </article>
+      </div>
+    </div>  
 	<?php endforeach; ?>
   <script>
     //e.preventDefault();er
   </script>
-=======
-  
-</div>
-
->>>>>>> parent of 1d6c9b2... register en login zijn in orde
 </body>
 </html>
