@@ -17,7 +17,21 @@ $profile = $user->getUserInfo();
 
 //get post --> display image, description, date, name poster, image poster 
 include_once("classes/post.class.php");
-$post=Post::getThisPost($id);
+$post=Post::getThisPost();
+include_once("classes/comment.class.php");
+if(!empty($_POST)){
+    $comment=new Comment;
+    $comment->setUserId($_SESSION["user_id"]);
+    $comment->setPostId($id);
+    $comment->setComment($_POST['comment']);
+    $comment->newComment();
+
+/**
+ * Get the value of id
+ */ 
+
+}
+// $comments=Comment::getAll();
 
 ?>
 <!DOCTYPE html>
@@ -35,9 +49,21 @@ $post=Post::getThisPost($id);
     <?php foreach($post as $post): ?>
         <img src="<?php echo $post->image; ?>" alt="">
         <div class="textOfPost">
+            <img src="<?php echo $post->picture; ?>" class="profilepic">
             <p> <?php echo $post->firstname." ".$post->lastname;?> </p>
             <p> <?php echo $post->date_created; ?> </p>
             <p> <?php echo $post->description; ?> </p>
+        </div>
+    <?php endforeach;?>
+    <form>
+        <input type="text" name="comment" id="comment" placeholder="write something nice">
+    </form>
+    <?php foreach($comments as $comment): ?>
+        <img src="<?php echo $post->image; ?>" alt="">
+        <div class="textOfPost">
+            <p> <?php echo $comment->firstname." ".$comment->lastname;?> </p>
+            <p> <?php echo $comment->date_created; ?> </p>
+            <p> <?php echo $comment->comment; ?> </p>
         </div>
     <?php endforeach;?>
 </body>
