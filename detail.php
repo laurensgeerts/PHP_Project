@@ -18,6 +18,7 @@ $profile = $user->getUserInfo();
 //get post --> display image, description, date, name poster, image poster 
 include_once("classes/post.class.php");
 $post=Post::getThisPost();
+
 include_once("classes/comment.class.php");
 if(!empty($_POST)){
     $comment=new Comment;
