@@ -1,9 +1,6 @@
 <?php 
 	include_once("classes/user.class.php");
 
-
-
-	
 	if(!empty($_POST)){
 		
 		$email = htmlspecialchars($_POST['email']);
@@ -17,18 +14,10 @@
 			$_SESSION['email'] = $email;
 			$_SESSION['loggedin'] = true;
 			$_SESSION["user_id"] = $user->getUserId($email);  
-			
-			
-			
-		
-			
-			
-			
-			    
+				    
             header('Location: index.php');
 		}else {
-           
-		   
+
 		  echo "het werkt niet";
         }
 	}
