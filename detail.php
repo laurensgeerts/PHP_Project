@@ -17,7 +17,7 @@ $profile = $user->getUserInfo();
 
 //get post --> display image, description, date, name poster, image poster 
 include_once("classes/post.class.php");
-$post=Post::getThisPost();
+$post=Post::getThisPost($id);
 
 include_once("classes/comment.class.php");
 if(!empty($_POST)){
@@ -26,13 +26,9 @@ if(!empty($_POST)){
     $comment->setPostId($id);
     $comment->setComment($_POST['comment']);
     $comment->newComment();
-
-/**
- * Get the value of id
- */ 
-
 }
-// $comments=Comment::getAll();
+//$comments=Comment::getAll();
+$comments = new Comment();
 
 ?>
 <!DOCTYPE html>
@@ -47,21 +43,25 @@ if(!empty($_POST)){
 </head>
 <body>
     <?php include_once("nav.inc.php"); ?>
-    <?php foreach($post as $post): ?>
-        <img src="<?php echo $post->image; ?>" alt="">
+        <!-- <img src="<?php //echo $post->image; ?>" alt="">
         <div class="textOfPost">
-            <img src="<?php echo $post->picture; ?>" class="profilepic">
-            <p> <?php echo $post->firstname." ".$post->lastname;?> </p>
-            <p> <?php echo $post->date_created; ?> </p>
-            <p> <?php echo $post->description; ?> </p>
+            <img src="<?php //echo $post->picture; ?>" class="profilepic">
+            <p> <?php //echo $post->firstname." ".$post->lastname;?> </p>
+            <p> <?php //echo $post->date_created; ?> </p>
+            <p> <?php //echo $post->description; ?> </p>
+        </div> -->
+        <img src="<?php echo $post['image']; ?>" alt="">
+        <div class="textOfPost">
+            <img src="<?php echo $post['picture']; ?>" class="profilepic">
+            <p> <?php echo $post['firstname']." ".$post['lastname'];?> </p>
+            <p> <?php echo $post['date_created']; ?> </p>
+            <p> <?php echo $post['description']; ?> </p>
         </div>
-    <?php endforeach;?>
-    <form>
+    <form method="post" enctype="multipart/form-data">
         <input type="text" name="comment" id="comment" placeholder="write something nice">
     </form>
     <?php foreach($comments as $comment): ?>
-        <img src="<?php echo $post->image; ?>" alt="">
-        <div class="textOfPost">
+        <div class="comment">
             <p> <?php echo $comment->firstname." ".$comment->lastname;?> </p>
             <p> <?php echo $comment->date_created; ?> </p>
             <p> <?php echo $comment->comment; ?> </p>

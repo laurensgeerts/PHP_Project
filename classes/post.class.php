@@ -43,25 +43,25 @@ class Post
         return $this;
     }
 
-    // /**
-    //  * Get the value of postId
-    //  */ 
-    // public function getPostId()
-    // {
-    //     return $this->postId;
-    // }
+    /**
+     * Get the value of postId
+     */ 
+    public function getPostId()
+    {
+        return $this->postId;
+    }
 
-    // /**
-    //  * Set the value of postId
-    //  *
-    //  * @return  self
-    //  */ 
-    // public function setPostId($postId)
-    // {
-    //     $this->postId = $postId;
+    /**
+     * Set the value of postId
+     *
+     * @return  self
+     */ 
+    public function setPostId($postId)
+    {
+        $this->postId = $postId;
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
     public function newPost(){
         $conn = Db::getInstance();
@@ -79,13 +79,24 @@ class Post
         return $result->fetchAll(PDO::FETCH_CLASS, __CLASS__);
     }
 
+    // public static function getThisPost($id){
+    //     $conn = Db::getInstance();
+    //     $statement = $conn->query("SELECT posts.*,users.firstname,users.lastname,users.picture FROM posts,users WHERE posts.id=:id AND posts.user_id=users.id ");
+    //     $statement->bindValue(":id",$id);
+    //     return $result=$statement->fetch(PDO::FETCH_ASSOC);
+    // }
+
     public static function getThisPost(){
+        try {
         $conn = Db::getInstance();
-        $statement = $conn->query("SELECT posts.*,users.firstname,users.lastname,users.picture FROM posts,users WHERE posts.id=:id AND posts.user_id=users.id ");
-        $statement->bindParam(":id",$_GET['id']);
-        return $result=$statement->fetch(PDO::FETCH_ASSOC);
+        $statement = $conn->prepare("SELECT posts.*,users.firstname,users.lastname,users.picture FROM posts,users WHERE posts.id=:id AND posts.user_id=users.id");
+        $statement->bindValue(":id", $_GET['id']);
+        var_dump($statement->fetchAll());
+        }
+        catch (Expection $e) {
+            echo "sorry, not working";
+        }
     }
 
-    
 }
 ?>

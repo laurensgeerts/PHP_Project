@@ -68,6 +68,7 @@ $posts = Post::getAll();
           <img src="<?php echo $post->image; ?>" alt="">
           <p> <?php echo $post->description; ?> </p>
           <a href="detail.php?id=<?php echo $post->id;?>">More</a>
+          
         </article>
       </div>
     </div>  
@@ -77,3 +78,10 @@ $posts = Post::getAll();
   </script>
 </body>
 </html>
+
+<!-- <img src="<?php echo $post['picture']; ?>" class="profilepic">
+          <p> <?php echo $post['firstname']." ".$post['lastname'];?> </p>
+          <p> <?php echo $post['date_created']; ?> </p>
+          <img src="<?php echo $post['image']; ?>" alt="">
+          <p> <?php echo $post['description']; ?> </p>
+          <a href="detail.php?id=<?php echo $post['id'];?>">More</a> -->
