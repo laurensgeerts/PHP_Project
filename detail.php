@@ -21,20 +21,19 @@ $post = Post::getThisPost($id);
 
 include_once 'ajax/postcomment.php';
 include_once 'classes/comment.class.php';
-if (!empty($_POST)) {
-    try {
-        $comment = new Comment();
-        $comment->setUserId($_SESSION['user_id']);
-        $comment->setPostId($id);
-        $comment->setComment($_POST['comment']);
-        $comment->newComment();
-    } catch (\Throwable $th) {
-        //throw $th;
-    }
-}
+// if (!empty($_POST)) {
+//     try {
+//         $comment = new Comment();
+//         $comment->setUserId($_SESSION['user_id']);
+//         $comment->setPostId($id);
+//         $comment->setComment($_POST['comment']);
+//         $comment->newComment();
+//     } catch (\Throwable $th) {
+//         //throw $th;
+//     }
+// }
 
-//$comments=Comment::getAll();
-$comments = new Comment();
+//$comments = Comment::getAll($id);
 
 ?>
 <!DOCTYPE html>
