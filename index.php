@@ -11,7 +11,7 @@ if( $_SESSION['loggedin'] == false){
 include_once("classes/user.class.php");
 $user = new User();
 $user->setUser_id($_SESSION["user_id"]);
-$profile = $user->getUserInfo();
+$profile = $user->getInfo();
 
 include_once("classes/post.class.php");
 

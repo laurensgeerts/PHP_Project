@@ -138,7 +138,7 @@ class User{
    
 
   
-     public function getUserInfo() {
+     public function getInfo() {
        
         $conn = Db::getInstance();
 
@@ -381,4 +381,14 @@ public function updatePassword() {
 
         return $this;
     }
+
+    public function searchProfile($searchProfile){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT * FROM users WHERE CONCAT(firstname, ' ', lastname) LIKE '%$searchProfile%' OR  firstname LIKE '%$searchProfile%' OR lastname  LIKE '%$searchProfile%' ");
+        $statement->bindValue(1, "%$searchProfile%", PDO::PARAM_STR);
+        $statement->execute();
+        
+        return  $statement->fetchAll(PDO::FETCH_CLASS, "User");
+     }
+
 }
