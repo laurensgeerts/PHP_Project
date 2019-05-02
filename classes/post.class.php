@@ -91,13 +91,15 @@ class Post
     //     return $result=$statement->fetch(PDO::FETCH_ASSOC);
     // }
 
-    public static function getThisPost($id)
+    public static function getById($id)
     {
         try {
             $conn = Db::getInstance();
             $statement = $conn->prepare('SELECT posts.*,users.firstname,users.lastname,users.picture FROM posts,users WHERE posts.id=:id AND posts.user_id=users.id ');
             $statement->bindValue(':id', $id);
-            var_dump($statement->fetch(PDO::FETCH_OBJ));
+            $statement->execute();
+
+            return $statement->fetch(PDO::FETCH_OBJ);
         } catch (Expection $e) {
             echo 'sorry, not working';
         }
