@@ -79,7 +79,7 @@ class Post
     public static function getAll()
     {
         $conn = Db::getInstance();
-        $result = $conn->query('SELECT posts.*,users.firstname,users.lastname FROM posts,users WHERE posts.user_id=users.id ');
+        $result = $conn->query('SELECT posts.*,users.firstname,users.lastname, users.picture FROM posts,users WHERE posts.user_id=users.id ');
 
         return $result->fetchAll(PDO::FETCH_CLASS, __CLASS__);
     }
@@ -95,7 +95,7 @@ class Post
     {
         try {
             $conn = Db::getInstance();
-            $statement = $conn->prepare('SELECT posts.*,users.firstname,users.lastname,users.picture FROM posts,users WHERE posts.id=:id AND posts.user_id=users.id ');
+            $statement = $conn->prepare('SELECT posts.*,users.firstname,users.lastname,users.picture FROM posts,users WHERE posts.id=:id AND posts.user_id=users.id ORDER BY id ASC ');
             $statement->bindValue(':id', $id);
             $statement->execute();
 

@@ -1,16 +1,6 @@
 <?php
-// move to bootstrap
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-session_start();
 
-include_once 'classes/post.class.php';
-include_once 'classes/user.class.php';
-
-if ($_SESSION['loggedin'] == false) {
-    header('Location: login.php');
-}
+include_once 'bootstrap.php';
 
 $user = new User();
 $user->setUser_id($_SESSION['user_id']);
@@ -64,12 +54,11 @@ $posts = Post::getAll();
       <div class="post">
 	      <article >
           <img src="<?php echo $post->picture; ?>" class="profilepic">
-          <p> <?php echo $post->firstname.' '.$post->lastname; ?> </p>
+          <p class="name"> <?php echo $post->firstname.' '.$post->lastname; ?> </p>
           <p> <?php echo $post->date_created; ?> </p>
           <img src="<?php echo $post->image; ?>" alt="">
           <p> <?php echo $post->description; ?> </p>
           <a href="detail.php?id=<?php echo $post->id; ?>">More</a>
-          
         </article>
       </div>
     </div>  

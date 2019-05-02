@@ -81,17 +81,6 @@ class Comment
 
     public static function getAll($id)
     {
-        // try {
-        //     $conn = Db::getInstance();
-        //     $result = $conn->query("SELECT comments.*,users.firstname,users.lastname FROM comments,users WHERE (comments.post_id=$id AND posts.user_id=users.id ");
-        //     //$statement->bindValue(":id", $id);
-        //     var_dump($result>fetch(PDO::FETCH_OBJ));
-        //     return $result->fetchAll(PDO::FETCH_CLASS, __CLASS__);
-        //     }
-        //     catch (Expection $e) {
-        //         echo "sorry, not working";
-        //     }
-
         $conn = Db::getInstance();
         $result = $conn->prepare('SELECT comments.*,users.firstname,users.lastname FROM comments,users,posts WHERE comments.post_id=:id AND comments.user_id=users.id');
         $result->bindParam(':id', $id);

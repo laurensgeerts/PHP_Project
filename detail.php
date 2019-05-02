@@ -1,19 +1,9 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
-include_once 'classes/user.class.php';
-include_once 'classes/post.class.php';
+include_once 'bootstrap.php';
 include_once 'ajax/postcomment.php';
-include_once 'classes/comment.class.php';
 
 $id = $_GET['id'];
-
-session_start();
-if ($_SESSION['loggedin'] == false) {
-    header('Location: login.php');
-}
 
 $user = new User();
 $user->setUser_id($_SESSION['user_id']);
@@ -37,13 +27,15 @@ $comments = Comment::getAll($id);
 </head>
 <body>
     <?php include_once 'nav.inc.php'; ?>
-        <img src="<?php echo $post->image; ?>" alt="">
+    <div class="detail">
+        <img src="<?php echo $post->image; ?>" alt="picture of this post" class="postImage">
         <div class="textOfPost">
             <img src="<?php echo $post->picture; ?>" class="profilepic">
             <p> <?php echo $post->firstname.' '.$post->lastname; ?> </p>
             <p> <?php echo $post->date_created; ?> </p>
             <p> <?php echo $post->description; ?> </p>
         </div>
+    </div>
     <form method="post" enctype="">
         <input type="text" name="comment" id="comment" placeholder="write something nice">
         <input id="btnSubmit" type="submit" value="Add comment" />
