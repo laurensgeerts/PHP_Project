@@ -48,21 +48,23 @@ $posts = Post::getAll();
     	<input type="file" name="fileToUpload" id="fileToUpload" value="upload picture">
 		  <input type="text" name="description" id="description" placeholder="describe your picture">
     	<input type="submit" value="Upload Image" name="submit" value="submit">
-	</form>
-	<?php foreach ($posts as $post): ?>
-    <div class="grid-container">
-      <div class="post">
+  </form>
+  <div class="grid-container">
+  
+	  <?php foreach ($posts as $post): ?>
+    <div class="post">
 	      <article >
           <img src="<?php echo $post->picture; ?>" class="profilepic">
-          <p class="name"> <?php echo $post->firstname.' '.$post->lastname; ?> </p>
           <p> <?php echo $post->date_created; ?> </p>
+          <p class="name"> <?php echo $post->firstname.' '.$post->lastname; ?> </p>
           <img src="<?php echo $post->image; ?>" alt="">
           <p> <?php echo $post->description; ?> </p>
           <a href="detail.php?id=<?php echo $post->id; ?>">More</a>
         </article>
-      </div>
-    </div>  
-	<?php endforeach; ?>
+        </div>
+    <?php endforeach; ?>
+    
+  </div> 
   <script>
     //e.preventDefault();er
   </script>

@@ -14,8 +14,7 @@ nav.navbar a, nav.navbar p{
 }
 
 div.post{
-    width: 300px;
-    /* min-height: 400px; */
+    max-width: 300px;
     padding: 10px;
     background-color: white;
     border-radius: 10px;
@@ -26,7 +25,7 @@ div.post article, div.post p, div.post a{
 }
 
 div.post img{
-    width: 300px;
+    max-width: 300px;
 }
 
 .profilepic{
@@ -41,11 +40,9 @@ div.post .name{
     float: right;
 }
 
-div.post article{
+div.grid-container{
     display: grid;
-    grid-column: 25% 25% 25% 25%;
-    /* grid-row-gap: 50px;
-    grid-column-gap: 20px; */
+    /* grid-gap: 10px; */
 }
 
 div.detail{
@@ -60,5 +57,24 @@ div.detail img{
     max-height: 700px;
 }
 
-div.textOfPost{
+
+@media only screen and (min-width:680px){
+    div.grid-container{
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+@media only screen and (min-width:1020px){
+    div.grid-container{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+}
+
+@media only screen and (min-width:1360px){
+    div.grid-container{
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
 }
