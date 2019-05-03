@@ -59,6 +59,7 @@ $posts = Post::getAll();
           <p class="name"> <?php echo $post->firstname.' '.$post->lastname; ?> </p>
           <img src="<?php echo $post->image; ?>" alt="">
           <p> <?php echo $post->description; ?> </p>
+          <div><a href="#" data-id="<?php echo $post->id ?>" class="like">Like</a> <span class='likes'><?php echo $post->getLikes(); ?></span> people like this </div>
           <a href="detail.php?id=<?php echo $post->id; ?>">More</a>
         </article>
         </div>
@@ -66,7 +67,30 @@ $posts = Post::getAll();
     
   </div> 
   <script>
-    //e.preventDefault();er
-  </script>
+		$("a.like").on("click",function(e){
+			//op welke post?
+			var postId = $(this).data('id');
+			var elLikes =$(this)parent().find(".likes");
+			var likes=elLikes.html();
+			
+			$.ajax({
+  				method: "POST",
+  				url: "ajax/postlike.php",
+  				data: {postId: postId},
+				dataType: "json"
+
+			})
+  			.done(function( res ) {
+    			if(res.status=="succes"){
+					likes++;
+					elLikes=html(likes);
+
+				}
+  			});
+
+			e.preventDefault();
+		});
+	</script>
+
 </body>
 </html>

@@ -84,13 +84,6 @@ class Post
         return $result->fetchAll(PDO::FETCH_CLASS, __CLASS__);
     }
 
-    // public static function getThisPost($id){
-    //     $conn = Db::getInstance();
-    //     $statement = $conn->query("SELECT posts.*,users.firstname,users.lastname,users.picture FROM posts,users WHERE posts.id=:id AND posts.user_id=users.id ");
-    //     $statement->bindValue(":id",$id);
-    //     return $result=$statement->fetch(PDO::FETCH_ASSOC);
-    // }
-
     public static function getById($id)
     {
         try {
@@ -103,5 +96,14 @@ class Post
         } catch (Expection $e) {
             echo 'sorry, not working';
         }
+    }
+
+    public function getLikes(){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT count(*) AS count FROM likes WHERE post_id=:postid");
+        $statement->bindValue(":postid", $this->id);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result['count'];
     }
 }
