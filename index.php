@@ -11,7 +11,7 @@ if( $_SESSION['loggedin'] == false){
 include_once("classes/user.class.php");
 $user = new User();
 $user->setUser_id($_SESSION["user_id"]);
-$profile = $user->getUserInfo();
+$profile = $user->getInfo();
 
 include_once("classes/post.class.php");
 
@@ -52,6 +52,7 @@ $posts = Post::getAll();
   <title>index</title>
 </head>
 <body>
+
   <?php include_once("nav.inc.php"); ?>
   <!-- <form action="upload.php" method="post" enctype="multipart/form-data"> -->
   <form method="post" enctype="multipart/form-data">
@@ -71,5 +72,7 @@ $posts = Post::getAll();
   <script>
     //e.preventDefault();er
   </script>
+
+
 </body>
 </html>

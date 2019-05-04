@@ -1,13 +1,19 @@
 <?php
 
-include_once('db.class.php');
-
 class User{
+<<<<<<< HEAD
+<<<<<<< HEAD
    
+=======
+>>>>>>> parent of 1d6c9b2... register en login zijn in orde
+=======
+>>>>>>> parent of 1d6c9b2... register en login zijn in orde
     private $email;
     private $password;
     private $firstname;
     private $lastname;
+<<<<<<< HEAD
+<<<<<<< HEAD
     private $bio;
     private $image;
     private $user_id;
@@ -20,14 +26,74 @@ class User{
 
 
   
+=======
+
+=======
+
+>>>>>>> parent of 1d6c9b2... register en login zijn in orde
+    /**
+     * Get the value of email
+     */ 
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set the value of email
+     *
+     * @return  self
+     */ 
+    public function setEmail($email)
+    {   if(empty($email)){
+        throw new Exception("email fout");
+    }
+    //todo valid emai? -> filter_var()
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of password
+     */ 
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set the value of password
+     *
+     * @return  self
+     */ 
+    public function setPassword($password)
+    {
+
+        $this->password = $password;
+
+        return $this;
+    }
+
+        /**
+     * Set the value of firstname
+     *
+     * @return  self
+     */ 
+<<<<<<< HEAD
+>>>>>>> parent of 1d6c9b2... register en login zijn in orde
+=======
+>>>>>>> parent of 1d6c9b2... register en login zijn in orde
     public function setFirstname($firstname)
     {   if(empty($firstname)){
         throw new Exception("firstname fout");
     }
     //todo valid emai? -> filter_var()
         $this->firstname = $firstname;
+
         return $this;
     }
+
     /**
      * Get the value of firstname
      */ 
@@ -35,6 +101,7 @@ class User{
     {
         return $this->firstname;
     }
+
         /**
      * Set the value of lastname
      *
@@ -46,8 +113,10 @@ class User{
     }
     //todo valid emai? -> filter_var()
         $this->lastname = $lastname;
+
         return $this;
     }
+
     /**
      * Get the value of firstname
      */ 
@@ -56,6 +125,8 @@ class User{
         return $this->lastname;
     }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 
  
   
@@ -85,22 +156,30 @@ class User{
         @return true if succesfull
         @return 
     */
+=======
+    // registers user into database and @return true if successful, @return false if unsuccessful
+>>>>>>> parent of 1d6c9b2... register en login zijn in orde
+=======
+    // registers user into database and @return true if successful, @return false if unsuccessful
+>>>>>>> parent of 1d6c9b2... register en login zijn in orde
     public function register(){
-        //connectie
-        $conn = Db::getInstance();
-        
-        // query (insert)
+        // connectie
+        $conn = new PDO('mysql:host=localhost; dbname=netflix', 'root', 'root');
+        // query (sql injectie)
         $statement =$conn-> prepare("insert into users (email, password, firstname, lastname) values (:email, :password, :firstname, :lastname);");
-        $statement->bindParam(':email', $this->email);
-        $statement->bindParam(':password', $this->password);
+        $hash = password_hash($this->password, PASSWORD_BCRYPT);
+        $statement->bindParam(":email",$this->email);
         $statement->bindParam(":firstname",$this->firstname);
         $statement->bindParam(":lastname",$this->lastname);
-        $result = $statement->execute();
-     
-        //return true/false
-        return $result;
-    }
 
+        
+        $statement->bindParam(":password" , $hash);
+        //execute
+        $result = $statement->execute();
+        return $result;
+
+<<<<<<< HEAD
+<<<<<<< HEAD
      /* check if email and password occur in database
      * @return true if successful
      * @return false if not sucessful
@@ -138,7 +217,7 @@ class User{
    
 
   
-     public function getUserInfo() {
+     public function getInfo() {
        
         $conn = Db::getInstance();
 
@@ -149,20 +228,19 @@ class User{
         $result = $statement->fetch();
         return $result;
 }
+=======
+        // antwoord geven (true or false)
+    }
+>>>>>>> parent of 1d6c9b2... register en login zijn in orde
 
-
-    /**
-     * Get the value of id
-     */ 
-   
-    /**
-     * Get the value of bio
-     */ 
-    public function getBio()
-    {
-        return $this->bio;
+    //maakt een usersessie aan en redirects naar de index page
+    public function login(){
+        session_start();
+        $_SESSION['username'] = $this->email;
+        header('Location: index.php');
     }
 
+<<<<<<< HEAD
     /**
      * Set the value of bio
      *
@@ -381,4 +459,31 @@ public function updatePassword() {
 
         return $this;
     }
+<<<<<<< HEAD
+
+    public function searchProfile($searchProfile){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT * FROM users WHERE CONCAT(firstname, ' ', lastname) LIKE '%$searchProfile%' OR  firstname LIKE '%$searchProfile%' OR lastname  LIKE '%$searchProfile%' ");
+        $statement->bindValue(1, "%$searchProfile%", PDO::PARAM_STR);
+        $statement->execute();
+        
+        return  $statement->fetchAll(PDO::FETCH_CLASS, "User");
+     }
+
+=======
+=======
+>>>>>>> parent of 1d6c9b2... register en login zijn in orde
+=======
+        // antwoord geven (true or false)
+    }
+
+    //maakt een usersessie aan en redirects naar de index page
+    public function login(){
+        session_start();
+        $_SESSION['username'] = $this->email;
+        header('Location: index.php');
+    }
+
+>>>>>>> parent of 1d6c9b2... register en login zijn in orde
+>>>>>>> 4aa116691bcdfa4da10ba6a4806c5b5ee7a30712
 }

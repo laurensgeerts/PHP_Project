@@ -57,5 +57,14 @@ class Post
         $result = $conn->query("SELECT posts.*,users.firstname,users.lastname FROM posts,users WHERE posts.user_id=users.id ");
         return $result->fetchAll(PDO::FETCH_CLASS, __CLASS__);
     }
+
+    public function searchPost($searchPost){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT * FROM posts WHERE description LIKE '%$searchPost%'  ");
+        $statement->bindValue(1, "%$searchPost%", PDO::PARAM_STR);
+        $statement->execute();
+        
+        return  $statement->fetchAll(PDO::FETCH_CLASS, __CLASS__);
+     }
 }
 ?>
