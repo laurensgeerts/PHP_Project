@@ -1,9 +1,9 @@
 <?php
 
-include_once('db.class.php');
+include_once 'db.class.php';
 
-class User{
-   
+class User
+{
     private $email;
     private $password;
     private $firstname;
@@ -16,50 +16,48 @@ class User{
     private $ImageSize;
     private $ImageTmpName;
 
-
-
-
-  
     public function setFirstname($firstname)
-    {   if(empty($firstname)){
-        throw new Exception("firstname fout");
-    }
-    //todo valid emai? -> filter_var()
+    {
+        if (empty($firstname)) {
+            throw new Exception('firstname fout');
+        }
+        //todo valid emai? -> filter_var()
         $this->firstname = $firstname;
+
         return $this;
     }
+
     /**
-     * Get the value of firstname
-     */ 
+     * Get the value of firstname.
+     */
     public function getFirstname()
     {
         return $this->firstname;
     }
-        /**
-     * Set the value of lastname
+
+    /**
+     * Set the value of lastname.
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setLastname($lastname)
-    {   if(empty($lastname)){
-        throw new Exception("lastname fout");
-    }
-    //todo valid emai? -> filter_var()
+    {
+        if (empty($lastname)) {
+            throw new Exception('lastname fout');
+        }
+        //todo valid emai? -> filter_var()
         $this->lastname = $lastname;
+
         return $this;
     }
+
     /**
-     * Get the value of firstname
-     */ 
+     * Get the value of firstname.
+     */
     public function getLastname()
     {
         return $this->lastname;
     }
-
-
- 
-  
-
 
     public function getPassword()
     {
@@ -68,30 +66,30 @@ class User{
 
     public function setPassword($password)
     {
-        if(strlen($password) < 6){
-            throw new Exception("Password must be at least 6 characters");
+        if (strlen($password) < 6) {
+            throw new Exception('Password must be at least 6 characters');
         }
 
         //  PASSWORD_DEFAULT
-        $hash = password_hash( $password, PASSWORD_DEFAULT);
+        $hash = password_hash($password, PASSWORD_DEFAULT);
         $this->password = $hash;
+
         return $this;
     }
 
-  
-    
     /*
         sign up a new user
         @return true if succesfull
-        @return 
+        @return
     */
-    public function register(){
+    public function register()
+    {
         //connectie
         $conn = Db::getInstance();
         if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        } 
-        echo "Connected successfully";
+            die('Connection failed: '.$conn->connect_error);
+        }
+        echo 'Connected successfully';
         //test
         //$sql = "INSERT INTO test (test)
         //VALUES ('gang')";
@@ -99,85 +97,79 @@ class User{
         VALUES ('testboy2', 'lol')";
         $conn->exec($sql);
 
-
         // query (insert)
-        $statement =$conn-> prepare("insert into users (email, password, firstname, lastname) values (:email, :password, :firstname, :lastname);");
+        $statement = $conn->prepare('insert into users (email, password, firstname, lastname) values (:email, :password, :firstname, :lastname);');
         $statement->bindParam(':email', $this->email);
         $statement->bindParam(':password', $this->password);
-        $statement->bindParam(":firstname",$this->firstname);
-        $statement->bindParam(":lastname",$this->lastname);
-        $result = $statement->execute(); 
+        $statement->bindParam(':firstname', $this->firstname);
+        $statement->bindParam(':lastname', $this->lastname);
+        $result = $statement->execute();
         //return true/false
         return $result;
     }
 
-     /* check if email and password occur in database
-     * @return true if successful
-     * @return false if not sucessful
-     */
-    function canILogin( $email, $password) {
-        
+    /* check if email and password occur in database
+    * @return true if successful
+    * @return false if not sucessful
+    */
+    public function canILogin($email, $password)
+    {
         $conn = Db::getInstance();
 
-       
-        $statement = $conn->prepare("select * from users where email = :email");
+        $statement = $conn->prepare('select * from users where email = :email');
         $statement->bindParam(':email', $email);
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_OBJ);
-        
-       
+
         $passwordHash = $result->password;
 
-        
         if (password_verify($password, $passwordHash)) {
             return true;
         } else {
             return false;
         }
+    }
 
-     }
-
-     public function getUserId($email){
+    public function getUserId($email)
+    {
         $conn = Db::getInstance();
-        $statement = $conn->prepare("select * from users where email = :email");
+        $statement = $conn->prepare('select * from users where email = :email');
         $statement->bindParam(':email', $email);
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_OBJ);
+
         return $result->id;
     }
-   
 
-  
-     public function getUserInfo() {
-       
+    public function getUserInfo()
+    {
         $conn = Db::getInstance();
 
-        
-        $statement = $conn->prepare("SELECT * FROM users WHERE id = :user_id LIMIT 1");
-        $statement->bindParam(":user_id", $this->user_id);
+        $statement = $conn->prepare("SELECT * FROM users WHERE id = ':user_id' LIMIT 1");
+        $statement->bindParam(':user_id', $this->user_id);
         $statement->execute();
         $result = $statement->fetch();
+
         return $result;
-}
-
+    }
 
     /**
-     * Get the value of id
-     */ 
-   
+     * Get the value of id.
+     */
+
     /**
-     * Get the value of bio
-     */ 
+     * Get the value of bio.
+     */
     public function getBio()
     {
         return $this->bio;
     }
 
     /**
-     * Set the value of bio
+     * Set the value of bio.
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setBio($bio)
     {
         $this->bio = $bio;
@@ -185,49 +177,47 @@ class User{
         return $this;
     }
 
-    public function update() {
-        
+    public function update()
+    {
         $conn = Db::getInstance();
 
-        
-        
+        $statement = $conn->prepare('UPDATE users SET email=:email,firstname = :firstname,lastname=:lastname,bio=:bio,picture=:image WHERE id = :user_id');
+        $statement->bindParam(':email', $this->email);
+        $statement->bindParam(':user_id', $this->user_id);
+        $statement->bindParam(':firstname', $this->firstname);
+        $statement->bindParam(':lastname', $this->lastname);
 
-  
-        $statement = $conn->prepare("UPDATE users SET email=:email,firstname = :firstname,lastname=:lastname,bio=:bio,picture=:image WHERE id = :user_id");
-        $statement->bindParam(":email", $this->email);
-        $statement->bindParam(":user_id", $this->user_id);
-        $statement->bindParam(":firstname", $this->firstname);
-        $statement->bindParam(":lastname", $this->lastname);
-       
-        $statement->bindParam(":bio", $this->bio);
-        $statement->bindParam(":image", $this->image);
+        $statement->bindParam(':bio', $this->bio);
+        $statement->bindParam(':image', $this->image);
         $statement->execute();
+
         return $statement;
-}
+    }
 
-public function updatePassword() {
+    public function updatePassword()
+    {
         $conn = Db::getInstance();
-        $statement = $conn->prepare("UPDATE users SET password = :password WHERE id = :user_id");
-        $statement->bindParam(":user_id", $this->user_id);
-        $statement->bindParam(":password", $this->password);
+        $statement = $conn->prepare('UPDATE users SET password = :password WHERE id = :user_id');
+        $statement->bindParam(':user_id', $this->user_id);
+        $statement->bindParam(':password', $this->password);
         $statement->execute();
-        return $statement;    
-}
 
+        return $statement;
+    }
 
     /**
-     * Get the value of password_update
-     */ 
+     * Get the value of password_update.
+     */
     public function getPassword_update()
     {
         return $this->password_update;
     }
 
     /**
-     * Set the value of password_update
+     * Set the value of password_update.
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setPassword_update($password_update)
     {
         $this->password_update = $password_update;
@@ -236,18 +226,18 @@ public function updatePassword() {
     }
 
     /**
-     * Get the value of ImageName
-     */ 
+     * Get the value of ImageName.
+     */
     public function getImageName()
     {
         return $this->ImageName;
     }
 
     /**
-     * Set the value of ImageName
+     * Set the value of ImageName.
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setImageName($ImageName)
     {
         $this->ImageName = $ImageName;
@@ -256,18 +246,18 @@ public function updatePassword() {
     }
 
     /**
-     * Get the value of ImageSize
-     */ 
+     * Get the value of ImageSize.
+     */
     public function getImageSize()
     {
         return $this->ImageSize;
     }
 
     /**
-     * Set the value of ImageSize
+     * Set the value of ImageSize.
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setImageSize($ImageSize)
     {
         $this->ImageSize = $ImageSize;
@@ -276,18 +266,18 @@ public function updatePassword() {
     }
 
     /**
-     * Get the value of ImageTmpName
-     */ 
+     * Get the value of ImageTmpName.
+     */
     public function getImageTmpName()
     {
         return $this->ImageTmpName;
     }
 
     /**
-     * Set the value of ImageTmpName
+     * Set the value of ImageTmpName.
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setImageTmpName($ImageTmpName)
     {
         $this->ImageTmpName = $ImageTmpName;
@@ -295,40 +285,41 @@ public function updatePassword() {
         return $this;
     }
 
-    public function SaveProfileImg() {
-        $file_name = $_SESSION['user_id'] . "-" . time() . "-" . $this->ImageName;
+    public function SaveProfileImg()
+    {
+        $file_name = $_SESSION['user_id'].'-'.time().'-'.$this->ImageName;
         $file_size = $this->ImageSize;
         $file_tmp = $this->ImageTmpName;
         $tmp = explode('.', $file_name);
         $file_ext = end($tmp);
-        $expensions = array("jpeg", "jpg", "png", "gif");
+        $expensions = array('jpeg', 'jpg', 'png', 'gif');
 
         if (in_array($file_ext, $expensions) === false) {
-                throw new Exception("kies uit jpeg jpg png gif.");
+            throw new Exception('kies uit jpeg jpg png gif.');
         }
 
         if ($file_size > 2097152) {
-                throw new Exception('file mag niet meer zijn dan 2M');
+            throw new Exception('file mag niet meer zijn dan 2M');
         }
 
         if (empty($errors) == true) {
-                move_uploaded_file($file_tmp, "data/profiel/" . $file_name);
-                return "data/profiel/" . $file_name;
+            move_uploaded_file($file_tmp, 'data/profiel/'.$file_name);
+
+            return 'data/profiel/'.$file_name;
         } else {
-                echo "Error";
+            echo 'Error';
         }
-}
+    }
 
     /**
-     * Get the value of user_id
-     */ 
-  
+     * Get the value of user_id.
+     */
 
     /**
-     * Set the value of user_id
+     * Set the value of user_id.
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setUser_id($user_id)
     {
         $this->user_id = $user_id;
@@ -338,33 +329,31 @@ public function updatePassword() {
 
     public function emailExists($email)
     {
-    $conn = Db::getInstance();
-    $statement = $conn->prepare("select * from users where email = :email");
-    $statement->bindParam(":email", $email);
-    $statement->execute();
-    $count = $statement->rowCount();
-    if ($count > 0) {
-       return true;
+        $conn = Db::getInstance();
+        $statement = $conn->prepare('select * from users where email = :email');
+        $statement->bindParam(':email', $email);
+        $statement->execute();
+        $count = $statement->rowCount();
+        if ($count > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
-    else {
-        return false;
-    }
-}
-
 
     /**
-     * Get the value of email
-     */ 
+     * Get the value of email.
+     */
     public function getEmail()
     {
         return $this->email;
     }
 
     /**
-     * Set the value of email
+     * Set the value of email.
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setEmail($email)
     {
         $this->email = $email;
@@ -373,18 +362,18 @@ public function updatePassword() {
     }
 
     /**
-     * Get the value of image
-     */ 
+     * Get the value of image.
+     */
     public function getImage()
     {
         return $this->image;
     }
 
     /**
-     * Set the value of image
+     * Set the value of image.
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setImage($image)
     {
         $this->image = $image;
