@@ -45,8 +45,7 @@ $colors = $extractor->extract(5);
     <title>post <?php echo $id; ?></title>
 </head>
 <body>
-    <?php echo $picture; ?>
-    <?php  echo $colors; ?>
+    
     <?php include_once 'nav.inc.php'; ?>
     <div class="detail">
         <img src="<?php echo $post->image; ?>" alt="picture of this post" class="postImage">
