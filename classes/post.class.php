@@ -64,11 +64,14 @@ class Post
         WHERE
         posts.user_id IN 
             (
-            SELECT follow_to FROM followers WHERE follow_from = 5
+            SELECT follow_to FROM followers WHERE follow_from = '.$UsId.'
             /* Fetchen met $UsId werkt nog niet */
             )
         ORDER BY posts.date_created desc
+        LIMIT 20
 ');
+        echo $UsId;
+        $result->execute();
 
 >>>>>>> parent of c1b2adc... Feature 5 - Limit
         return $result->fetchAll(PDO::FETCH_CLASS, __CLASS__);
