@@ -72,19 +72,19 @@ class Post
     ');
         $result->execute();
 
-      //  return $result->fetchAll(PDO::FETCH_CLASS, __CLASS__);
-   // }
-
-    public function searchPost($searchPost)
-    {
-        $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT * FROM posts WHERE description LIKE '%$searchPost%'  ");
-        $statement->bindValue(1, "%$searchPost%", PDO::PARAM_STR);
-        $statement->execute();
-
-        return  $statement->fetchAll(PDO::FETCH_CLASS, __CLASS__);
+        return $result->fetchAll(PDO::FETCH_CLASS, __CLASS__);
     }
 
+    /*  public function searchPost($searchPost)
+      {
+          $conn = Db::getInstance();
+          $statement = $conn->prepare("SELECT * FROM posts WHERE description LIKE '%$searchPost%'  ");
+          $statement->bindValue(1, "%$searchPost%", PDO::PARAM_STR);
+          $statement->execute();
+
+          return  $statement->fetchAll(PDO::FETCH_CLASS, __CLASS__);
+      }
+*/
     public static function getThisPost($id)
     {
         $conn = Db::getInstance();
