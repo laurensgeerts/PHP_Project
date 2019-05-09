@@ -54,7 +54,23 @@ class Post
 
     public static function getAll(){
         $conn = Db::getInstance();
+<<<<<<< HEAD
         $result = $conn->query("SELECT posts.*,users.firstname,users.lastname FROM posts,users WHERE posts.user_id=users.id ");
+=======
+        $result = $conn->query(
+        'SELECT posts.*, users.firstname, users.lastname
+        FROM posts INNER JOIN users
+        ON posts.user_id = users.id
+        WHERE
+        posts.user_id IN 
+            (
+            SELECT follow_to FROM followers WHERE follow_from = 5
+            /* Fetchen met $UsId werkt nog niet */
+            )
+        ORDER BY posts.date_created desc
+');
+
+>>>>>>> parent of c1b2adc... Feature 5 - Limit
         return $result->fetchAll(PDO::FETCH_CLASS, __CLASS__);
     }
 
