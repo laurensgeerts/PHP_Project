@@ -2,6 +2,7 @@
     class Like{
         private $postId;
         private $userId;
+        private $type;
 
         /**
          * Get the value of postId
@@ -43,14 +44,47 @@
                 return $this;
         }
 
-        public function save(){
-
-            // @todo: hook in a new function that checks if a user has already liked a post
-
-            $conn = Db::getInstance();
-            $statement = $conn->prepare("insert into likes (post_id, user_id, date_created) values (:postid, :userid, NOW())");
-            $statement->bindValue(":postid", $this->getPostId());
-            $statement->bindValue(":userid", $this->getUserId());
-            return $statement->execute();
+        /**
+         * Get the value of type
+         */ 
+        public function getType()
+        {
+                return $this->type;
         }
+
+        /**
+         * Set the value of type
+         *
+         * @return  self
+         */ 
+        public function setType($type)
+        {
+                $this->type = $type;
+
+                return $this;
+        }
+
+        public function save(){
+            // @todo: hook in a new function that checks if a user has already liked a post
+            $conn = Db::getInstance();
+            $statement=$conn->prepare("SELECT * from likes where post_id=:postId AND `user_id`=:userId");
+            $statement->bindValue(":postId", $this->getPostId());
+            $statement->bindValue(":userId", $this->getUserId());
+            $statement->execute();
+            $stm=$statement->fetch(PDO::FETCH_BOUND);
+
+            if($stm=false){
+                $result = $conn->prepare("INSERT into likes (post_id, `user_id`, `type`, date_created) VALUES (:postid, :userid, 1 ,NOW())");
+                $result->bindValue(":postid", $this->getPostId());
+                $result->bindValue(":userid", $this->getUserId());
+                return $result->execute();
+            }else{
+                $result=$conn->prepare("UPDATE likes set `type`=:type where post_id=:postId AND `user_id`=:userId");
+                $result->bindValue(":postId", $this->getPostId());
+                $result->bindValue(":userId", $this->getUserId());
+                $result->bindValue(":type", $this->getType());
+                return $result->execute();
+            }
+        }
+
     }

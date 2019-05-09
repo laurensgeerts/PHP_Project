@@ -37,6 +37,7 @@ $comments = Comment::getAll($id);
         </div>
     </div>
     <form method="post" enctype="">
+        <input type="checkbox" name="Inappropriate">Mark this post as inappropriate<br>
         <input type="text" name="comment" id="comment" placeholder="write something nice">
         <input id="btnSubmit" type="submit" value="Add comment" />
     </form>
@@ -66,8 +67,9 @@ $comments = Comment::getAll($id);
   		    .done(function( res ) {
     		    //alert( "Data Saved: " + msg );
 			    if(res.status == 'succes'){
-				
-			}
+                    var comment = res.data.comment;
+                    var li = ;
+			    }
   		    });
 		    e.preventDefault();
 	    });

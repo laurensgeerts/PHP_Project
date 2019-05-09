@@ -10,13 +10,16 @@ if (!empty($_POST)) {
     try {
         $comment = new Comment();
         $comment->setUserId($_SESSION['user_id']);
-        $comment->setPostId($id);
+        $comment->setPostId($_GET['id']);
         $comment->setComment($_POST['comment']);
         $comment->newComment();
 
         $result = [
             'status' => 'succes',
             'message' => 'ya did it',
+            'data'=>[
+                'comment' => htmlspecialchars($_POST['comment'], ENT_QUOTES),
+            ],
         ];
     } catch (trowable $t) {
         $result = [

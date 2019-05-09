@@ -5,7 +5,8 @@
 
     if(!empty($_POST)){
         $postId=$_POST['postId'];
-        $userId = 1;
+        $userId=$_SESSION['user_id'];
+        
 
         $l = new Like();
         $l->setPostId($postId);

@@ -100,10 +100,14 @@ class Post
 
     public function getLikes(){
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT count(*) AS count FROM likes WHERE post_id=:postid");
+        $statement = $conn->prepare("SELECT count(*) AS countLikes FROM likes WHERE post_id=:postid AND `type`=1");
         $statement->bindValue(":postid", $this->id);
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_ASSOC);
-        return $result['count'];
+        return $result['countLikes'];
+    }
+
+    public function setInappropriate(){
+        
     }
 }
