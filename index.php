@@ -1,26 +1,20 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
-session_start();
-if ($_SESSION['loggedin'] == false) {
-    header('Location: login.php');
-}
+include_once 'bootstrap.php';
 
-include_once 'classes/user.class.php';
 $user = new User();
 $user->setUser_id($_SESSION['user_id']);
 $profile = $user->getUserInfo();
-include_once 'classes/post.class.php';
 
-$target_dir = 'data/uploads/';
+$target_dir = 'data/uploads/'; // zet in config
+
 if (!empty($_POST)) {
     $target_file = $target_dir.basename($_FILES['fileToUpload']['name']);
     if (!empty($_POST['description'])) {
         if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file)) {
             $message = 'The file '.basename($_FILES['fileToUpload']['name']).' has been uploaded.';
             echo "<script type='text/javascript'>alert('$message');</script>";
+            // zet potentieel in image classe bv Image::upload($file)
 
             $post = new Post();
             $post->setImage($target_dir.basename($_FILES['fileToUpload']['name']));
@@ -34,7 +28,7 @@ if (!empty($_POST)) {
         echo 'Please write a description';
     }
 }
-$posts = Post::getPosts($_SESSION['user_id']);
+$posts = Post::getAll();
 
 ?>
 <!DOCTYPE html>
@@ -55,24 +49,24 @@ $posts = Post::getPosts($_SESSION['user_id']);
 		  <input type="text" name="description" id="description" placeholder="describe your picture">
     	<input type="submit" value="Upload Image" name="submit" value="submit">
   </form>
+  <div class="grid-container">
   
-	<?php foreach ($posts as $post): ?>
-    <div class="grid-container">
-      <div class="post">
+	  <?php foreach ($posts as $post): ?>
+    <div class="post">
 	      <article >
-          <img src="<?php echo $post->picture; ?>">
-			    <p> <?php echo $post->firstname.' '.$post->lastname; ?> </p>
+          <img src="<?php echo $post->picture; ?>" class="profilepic">
           <p> <?php echo $post->date_created; ?> </p>
-          <img src="<?php echo $post->image; ?>" alt="" href="detail.php?id=<?php echo $post->id; ?>">
-		      <p> <?php echo $post->description; ?> </p>
+          <p class="name"> <?php echo $post->firstname.' '.$post->lastname; ?> </p>
+          <img src="<?php echo $post->image; ?>" alt="">
+          <p> <?php echo $post->description; ?> </p>
+          <a href="detail.php?id=<?php echo $post->id; ?>">More</a>
         </article>
-      </div>
-    </div>  
-	<?php endforeach; ?>
+        </div>
+    <?php endforeach; ?>
+    
+  </div> 
   <script>
     //e.preventDefault();er
   </script>
-
-
 </body>
 </html>

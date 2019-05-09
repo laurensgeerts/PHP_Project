@@ -1,23 +1,24 @@
 <?php
 
-include_once("classes/user.class.php");
 
-include_once("classes/post.class.php");
+include_once 'bootstrap.php';
 
 
-if(!empty($_POST['searchProfile'])){
-    $user = new User();
-    $res_profile = $user->searchProfile($_POST['searchProfile']);
 
-}
 
 if (!empty($_POST['searchPost'])){
-$post = new Post();
 
-$res_post = $post->searchPost($_POST['searchPost']);
+  $post = new Post();
+  $res_post = $post->searchPost($_POST['searchPost']);
 
 
 }
+
+else 
+{
+  echo "vul hier iets in";
+}
+
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -33,35 +34,29 @@ $res_post = $post->searchPost($_POST['searchPost']);
 
 <?php include_once("nav.inc.php"); ?>
 
-profielen:
-<form action="" method="post" id="form">
-    <input type="text" name="searchProfile" placeholder=" zoek hier naar een profiel " />
-    <input type="submit" value="Search" name="submit_search" id="submit">
-</form>
 
 
-<?php foreach($res_profile as $res_profile): ?>
-	    <article class="post" >
-			  <p> <?php echo $res_profile->getFirstname()." ".$res_profile->getLastname();?> </p>
-       
-        <img src= " <?php echo $res_profile->getImage(); ?> " alt="">
-		    <p> <?php echo $res_profile->getBio(); ?> </p>
-	    </article>
-    <?php endforeach; ?>
+
 
     <form action="" method="post" id="form">
     <input type="text" name="searchPost" placeholder=" zoek hier naar een post " />
     <input type="submit" value="Search" name="submit_search" id="submit">
 </form>
 
-
-<?php foreach($res_post as $post): ?>
-	    <article class="post" >
-			  
-        <p> <?php echo $post->date_created; ?> </p>
-        <img src= " <?php echo $post->image; ?> " alt="">
-		    <p> <?php echo $post->description; ?> </p>
-	    </article>
+<?php foreach ($res_post as $post): ?>
+    <div class="grid-container">
+      <div class="post">
+	      <article >
+          <img src="<?php echo $post->picture; ?>" class="profilepic">
+          <p> <?php echo $post->firstname.' '.$post->lastname; ?> </p>
+          <p> <?php echo $post->date_created; ?> </p>
+          <img src="<?php echo $post->image; ?>" alt="">
+          <p> <?php echo $post->description; ?> </p>
+          <a href="detail.php?id=<?php echo $post->id; ?>">More</a>
+          
+        </article>
+      </div>
+    </div>  
 	<?php endforeach; ?>
 
     

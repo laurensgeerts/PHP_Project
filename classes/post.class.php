@@ -7,6 +7,7 @@ class Post
     public $userId;
     public $image;
     public $description;
+    public $postId;
 
     public function getUserId()
     {
@@ -44,6 +45,26 @@ class Post
         return $this;
     }
 
+    /**
+     * Get the value of postId.
+     */
+    public function getPostId()
+    {
+        return $this->postId;
+    }
+
+    /**
+     * Set the value of postId.
+     *
+     * @return self
+     */
+    public function setPostId($postId)
+    {
+        $this->postId = $postId;
+
+        return $this;
+    }
+
     public function newPost()
     {
         $conn = Db::getInstance();
@@ -55,64 +76,41 @@ class Post
         return $statement->execute();
     }
 
-    /*
-        public static function getAll(){
-            $conn = Db::getInstance();
-            $result = $conn->query("SELECT posts.*,users.firstname,users.lastname FROM posts,users WHERE posts.user_id=users.id order by posts.date_created desc");
-            return $result->fetchAll(PDO::FETCH_CLASS, __CLASS__);
-        }
-    */
-    /*
-        public static function getPosts(){
-        SELECT posts.*, users.firstname
-        FROM posts INNER JOIN users
-        ON posts.user_id = users.id
-        WHERE
-        posts.user_id IN
-            (
-            SELECT follow_to FROM followers WHERE follow_from = 5
-            )
-        ORDER BY posts.date_created desc
-    var_dump($_SESSION['user_id']);
-    exit();
-        }
-    */
-    public static function getPosts($UsId)
+    public static function getAll()
     {
         $conn = Db::getInstance();
-        $result = $conn->query(
-        'SELECT posts.*, users.firstname, users.lastname
-        FROM posts INNER JOIN users
-        ON posts.user_id = users.id
-        WHERE
-        posts.user_id IN 
-            (
-            SELECT follow_to FROM followers WHERE follow_from = '.$UsId.'
-            /* Fetchen met $UsId werkt nog niet */
-            )
-        ORDER BY posts.date_created desc
-        LIMIT 20
-');
-        echo $UsId;
-        $result->execute();
+        $result = $conn->query('SELECT posts.*,users.firstname,users.lastname, users.picture FROM posts,users WHERE posts.user_id=users.id ');
 
         return $result->fetchAll(PDO::FETCH_CLASS, __CLASS__);
     }
 
-    public function searchPost($searchPost)
-    {
-        $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT * FROM posts WHERE description LIKE '%$searchPost%'  ");
-        $statement->bindValue(1, "%$searchPost%", PDO::PARAM_STR);
-        $statement->execute();
+    // public static function getThisPost($id){
+    //     $conn = Db::getInstance();
+    //     $statement = $conn->query("SELECT posts.*,users.firstname,users.lastname,users.picture FROM posts,users WHERE posts.id=:id AND posts.user_id=users.id ");
+    //     $statement->bindValue(":id",$id);
+    //     return $result=$statement->fetch(PDO::FETCH_ASSOC);
+    // }
 
-        return  $statement->fetchAll(PDO::FETCH_CLASS, __CLASS__);
+    public static function getById($id)
+    {
+        try {
+            $conn = Db::getInstance();
+            $statement = $conn->prepare('SELECT posts.*,users.firstname,users.lastname,users.picture FROM posts,users WHERE posts.id=:id AND posts.user_id=users.id ORDER BY id ASC ');
+            $statement->bindValue(':id', $id);
+            $statement->execute();
+
+            return $statement->fetch(PDO::FETCH_OBJ);
+        } catch (Expection $e) {
+            echo 'sorry, not working';
+        }
     }
 
-    /* public static function getThisPost($id){
-         $conn = Db::getInstance();
-         $result = $conn->query("SELECT posts.*,users.firstname,users.lastname,users.picture FROM posts,users WHERE post.id=$id AND posts.user_id=users.id ");
-         return $result->fetch(PDO::FETCH_CLASS, __CLASS__);
-     }
-*/
+    public function searchPost($searchPost){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT posts.*,users.firstname,users.lastname, users.picture FROM posts,users WHERE posts.user_id=users.id AND (posts.description LIKE '%$searchPost%' OR CONCAT(users.firstname, ' ', users.lastname) LIKE '%$searchPost%' OR  users.firstname LIKE '%$searchPost%' OR users.lastname  LIKE '%$searchPost%')");
+        $statement->bindValue(1, "%$searchPost%", PDO::PARAM_STR);
+        $statement->execute();
+        
+        return  $statement->fetchAll(PDO::FETCH_CLASS, __CLASS__);
+}
 }
