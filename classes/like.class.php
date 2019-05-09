@@ -74,9 +74,10 @@
             $stm=$statement->fetch(PDO::FETCH_BOUND);
 
             if($stm=false){
-                $result = $conn->prepare("INSERT into likes (post_id, `user_id`, `type`, date_created) VALUES (:postid, :userid, 1 ,NOW())");
+                $result = $conn->prepare("INSERT into likes (post_id, `user_id`, `type`, date_created) VALUES (:postid, :userid, :type ,NOW())");
                 $result->bindValue(":postid", $this->getPostId());
                 $result->bindValue(":userid", $this->getUserId());
+                $result->bindValue(":type", $this->getType());
                 return $result->execute();
             }else{
                 $result=$conn->prepare("UPDATE likes set `type`=:type where post_id=:postId AND `user_id`=:userId");

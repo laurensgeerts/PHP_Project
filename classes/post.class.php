@@ -107,7 +107,21 @@ class Post
         return $result['countLikes'];
     }
 
-    public function setInappropriate(){
-        
+    public function setInappropriate($userId){
+        $conn = Db::getInstance();
+        $statement=$conn->prepare("SELECT * from inappropriate where post_id=:postId AND `user_id`=:userId");
+        $statement->bindValue(":postId", $this->getPostId());
+        $statement->bindValue(":userId", $userId);
+        $statement->execute();
+        $stm=$statement->fetch(PDO::FETCH_BOUND);
+
+        if($stm=false){
+            $result = $conn->prepare("INSERT into likes (post_id, `user_id`) VALUES (:postid, :userid");
+            $result->bindValue(":postid", $this->getPostId());
+            $result->bindValue(":userid", $userId);
+            return $result->execute();
+        } else{
+
+        }
     }
 }

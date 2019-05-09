@@ -42,9 +42,8 @@ $comments = Comment::getAll($id);
         <input id="btnSubmit" type="submit" value="Add comment" />
     </form>
     <?php foreach ($comments as $comment): ?>
-        <div class="comment">
-            <p> <?php echo $comment->firstname.' '.$comment->lastname; ?> </p>
-            <p> <?php echo $comment->date_created; ?> </p>
+        <div class="commentBox" data-comment=<?php echo $id ?>>
+            <p><?php echo $comment->firstname.' '.$comment->lastname; ?> </p> 
             <p> <?php echo $comment->comment; ?> </p>
         </div>
     <?php endforeach; ?>
@@ -55,22 +54,27 @@ $comments = Comment::getAll($id);
     </script>
     <script>
 	    $("#btnSubmit").on("click",function(e){
-		    var text = $("#comment").val(); //waarde van de text input
-		    //console.log(text);
+		    var comment = $("#comment").val(); //waarde van de text input
+            var postId = <?php echo $id ?>;
+		    //console.log(postId);
 
 		    $.ajax({
   			    method: "POST",
   			    url: "ajax/postcomment.php",
- 			    data: { comment: comment },
+ 			    data: {comment:comment,postId:postId}, 
 			    dataType: 'json'
 		    })
   		    .done(function( res ) {
-    		    //alert( "Data Saved: " + msg );
+                console.log(res);
 			    if(res.status == 'succes'){
                     var comment = res.data.comment;
-                    var li = ;
+                    var li = "<p>"+ comment+"<p>";
+                    $(this).data("comment").append(p);
+                    $(this).data("comment").last().slideDown();
+                    $('#comment').val('').focus();
 			    }
   		    });
+              
 		    e.preventDefault();
 	    });
     </script>
