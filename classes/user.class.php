@@ -142,9 +142,9 @@ class User
     }
 
   
-     public function getInfo() {
+     
        
-    public function getUserInfo()
+    public function getInfo()
     {
         $conn = Db::getInstance();
 
@@ -384,21 +384,11 @@ class User
         return $this;
     }
 
-    public function searchProfile($searchProfile){
-        $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT * FROM users WHERE CONCAT(firstname, ' ', lastname) LIKE '%$searchProfile%' OR  firstname LIKE '%$searchProfile%' OR lastname  LIKE '%$searchProfile%' ");
-        $statement->bindValue(1, "%$searchProfile%", PDO::PARAM_STR);
-        $statement->execute();
-        
-        return  $statement->fetchAll(PDO::FETCH_CLASS, "User");
-     }
+  
 
-        // antwoord geven (true or false)
+     
     }
 
-    //maakt een usersessie aan en redirects naar de index page
-    public function login(){
-        session_start();
-        $_SESSION['username'] = $this->email;
-        header('Location: index.php');
-    }
+   
+   
+    

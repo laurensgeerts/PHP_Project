@@ -77,7 +77,7 @@ class Post
     exit();
         }
     */
-    public static function getPosts($UsId)
+   /* public static function getPosts($UsId)
     {
         $conn = Db::getInstance();
         $result = $conn->query(
@@ -88,16 +88,15 @@ class Post
         posts.user_id IN 
             (
             SELECT follow_to FROM followers WHERE follow_from = '.$UsId.'
-            /* Fetchen met $UsId werkt nog niet */
+            /* Fetchen met $UsId werkt nog niet 
             )
         ORDER BY posts.date_created desc
         LIMIT 20
-');
-        echo $UsId;
-        $result->execute();
+');*/
+      //    $result->execute();
 
-        return $result->fetchAll(PDO::FETCH_CLASS, __CLASS__);
-    }
+      //  return $result->fetchAll(PDO::FETCH_CLASS, __CLASS__);
+   // }
 
     public function searchPost($searchPost)
     {

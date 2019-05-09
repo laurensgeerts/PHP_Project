@@ -11,7 +11,7 @@ if ($_SESSION['loggedin'] == false) {
 include_once 'classes/user.class.php';
 $user = new User();
 $user->setUser_id($_SESSION['user_id']);
-$profile = $user->getUserInfo();
+$profile = $user->getInfo();
 include_once 'classes/post.class.php';
 
 $target_dir = 'data/uploads/';
@@ -34,7 +34,7 @@ if (!empty($_POST)) {
         echo 'Please write a description';
     }
 }
-$posts = Post::getPosts($_SESSION['user_id']);
+//$posts = Post::getPosts($_SESSION['user_id']);
 
 ?>
 <!DOCTYPE html>

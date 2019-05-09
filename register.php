@@ -11,7 +11,7 @@ session_start();
             $user->setEmail(htmlspecialchars( $_POST['email']));
             $user->setPassword(htmlspecialchars( $_POST['password']));
             $user->register();
-            session_start();
+          
             $_SESSION['email'] = $user->getEmail();
             $_SESSION['loggedin'] = true;
             $_SESSION["user_id"] = $user->getUserId($email); 
