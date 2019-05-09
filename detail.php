@@ -2,6 +2,14 @@
 
 include_once 'bootstrap.php';
 include_once 'ajax/postcomment.php';
+require_once 'ColorExtractor/Color.php';
+require_once 'ColorExtractor/ColorExtractor.php';
+require_once 'ColorExtractor/Palette.php';
+
+
+     use ColorExtractor\Color;
+     use ColorExtractor\ColorExtractor;
+     use ColorExtractor\Palette;
 
 $id = $_GET['id'];
 
@@ -14,7 +22,18 @@ $post = Post::getById($id);
 
 $comments = Comment::getAll($id);
 
+$picture = $post->image;
+
+$palette = Palette::fromFilename($picture);
+
+$extractor = new ColorExtractor($palette);
+
+$colors = $extractor->extract(5);
+
+
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +45,8 @@ $comments = Comment::getAll($id);
     <title>post <?php echo $id; ?></title>
 </head>
 <body>
+    <?php echo $picture; ?>
+    <?php  echo $colors; ?>
     <?php include_once 'nav.inc.php'; ?>
     <div class="detail">
         <img src="<?php echo $post->image; ?>" alt="picture of this post" class="postImage">
@@ -34,8 +55,14 @@ $comments = Comment::getAll($id);
             <p> <?php echo $post->firstname.' '.$post->lastname; ?> </p>
             <p> <?php echo $post->date_created; ?> </p>
             <p> <?php echo $post->description; ?> </p>
+           
+            <?php foreach($colors as $c):?>
+                    <div style="width:40px;height:40px;background-color:<?php  echo Color::fromIntToHex($c); ?>;display:inline-block;border-radius:30px;"></div>
+                <?php endforeach; ?> 
+               
         </div>
     </div>
+    
     <form method="post" enctype="">
         <input type="text" name="comment" id="comment" placeholder="write something nice">
         <input id="btnSubmit" type="submit" value="Add comment" />
