@@ -1,25 +1,25 @@
 <?php
 session_start();
-    include_once("classes/user.class.php");
-    
-    if( !empty($_POST) ){
-        if( $_POST['password'] == $_POST['password_confirmation']){
-            try{
-            $user = new User();
-            $user->setFirstname(htmlspecialchars( $_POST['firstname']));
-            $user->setLastname(htmlspecialchars( $_POST['lastname']));
-            $user->setEmail(htmlspecialchars( $_POST['email']));
-            $user->setPassword(htmlspecialchars( $_POST['password']));
-            $user->register();
-          
-            $_SESSION['email'] = $user->getEmail();
-            $_SESSION['loggedin'] = true;
-            $_SESSION["user_id"] = $user->getUserId($email); 
-              /*  header('Location: index.php');*/
-            echo 'gelukt';
-            }catch (Exception $e){
+include_once 'classes/user.class.php';
+
+    if (!empty($_POST)) {
+        if ($_POST['password'] == $_POST['password_confirmation']) {
+            try {
+                $user = new User();
+                $user->setFirstname(htmlspecialchars($_POST['firstname']));
+                $user->setLastname(htmlspecialchars($_POST['lastname']));
+                $user->setEmail(htmlspecialchars($_POST['email']));
+                $user->setPassword(htmlspecialchars($_POST['password']));
+                $user->register();
+
+                $_SESSION['email'] = $user->getEmail();
+                $_SESSION['loggedin'] = true;
+                $_SESSION['user_id'] = $user->getUserId($email);
+                /*  header('Location: index.php');*/
+                echo 'gelukt';
+            } catch (Exception $e) {
                 echo "<script type='text/javascript'>alert('registration failed');</script>";
-                /*header('Location: register.php');     */      
+                /*header('Location: register.php');     */
             }
         }
     }
@@ -35,8 +35,8 @@ session_start();
 </head>
 <body>
                 <?php
-                    if(isset($_SESSION["error"])){
-                        $error = $_SESSION["error"];
+                    if (isset($_SESSION['error'])) {
+                        $error = $_SESSION['error'];
                         echo "<span>$error</span>";
                     }
                 ?>
@@ -45,13 +45,13 @@ session_start();
             <form action="" method="post">
                 <div class="form__field">
                     <label for="firstname">voornaam:</label>
-                    <input type="text" id="firstname" name="firstname" <?php if (isset($user)):?> value="<?php echo $user->getFirstname()()?>" <?php endif;?>>
+                    <input type="text" id="firstname" name="firstname" <?php if (isset($user)):?> value="<?php echo $user->getFirstname()(); ?>" <?php endif; ?>>
                     <label for="lastname">achternaam:</label>
-                    <input type="text" id="lastname" name="lastname" <?php if (isset($user)):?> value="<?php echo $user->getLastname()()?>" <?php endif;?>>
+                    <input type="text" id="lastname" name="lastname" <?php if (isset($user)):?> value="<?php echo $user->getLastname()(); ?>" <?php endif; ?>>
                     </div>
                 <div class="form__field">
                     <label for="email">email:</label>
-                    <input type="text" id="email" name="email" <?php if (isset($user)):?> value="<?php echo $user->getEmail()?>" <?php endif;?>>
+                    <input type="text" id="email" name="email" <?php if (isset($user)):?> value="<?php echo $user->getEmail(); ?>" <?php endif; ?>>
                 </div>
                 <div class="form__field">
                     <label for="password">wachtwoord:</label>
@@ -71,5 +71,5 @@ session_start();
 </html>
 
 <?php
-    unset($_SESSION["error"]);
+    unset($_SESSION['error']);
 ?>

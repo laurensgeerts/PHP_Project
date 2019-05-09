@@ -12,12 +12,13 @@ include_once 'classes/user.class.php';
 $user = new User();
 $user->setUser_id($_SESSION['user_id']);
 $profile = $user->getInfo();
+
 include_once 'classes/post.class.php';
 
 $target_dir = 'data/uploads/';
 if (!empty($_POST)) {
-    $target_file = $target_dir.basename($_FILES['fileToUpload']['name']);
     if (!empty($_POST['description'])) {
+        $target_file = $target_dir.basename($_FILES['fileToUpload']['name']);
         if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file)) {
             $message = 'The file '.basename($_FILES['fileToUpload']['name']).' has been uploaded.';
             echo "<script type='text/javascript'>alert('$message');</script>";
@@ -34,7 +35,7 @@ if (!empty($_POST)) {
         echo 'Please write a description';
     }
 }
-//$posts = Post::getPosts($_SESSION['user_id']);
+$posts = Post::getAll($_SESSION['user_id']);
 
 ?>
 <!DOCTYPE html>
@@ -54,8 +55,7 @@ if (!empty($_POST)) {
     	<input type="file" name="fileToUpload" id="fileToUpload" value="upload picture">
 		  <input type="text" name="description" id="description" placeholder="describe your picture">
     	<input type="submit" value="Upload Image" name="submit" value="submit">
-  </form>
-  
+	</form>
 	<?php foreach ($posts as $post): ?>
     <div class="grid-container">
       <div class="post">

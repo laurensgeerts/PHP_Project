@@ -148,7 +148,7 @@ class User
     {
         $conn = Db::getInstance();
 
-        $statement = $conn->prepare("SELECT * FROM users WHERE id = ':user_id' LIMIT 1");
+        $statement = $conn->prepare('SELECT * FROM users WHERE id = :user_id LIMIT 1');
         $statement->bindParam(':user_id', $this->user_id);
         $statement->execute();
         $result = $statement->fetch();

@@ -55,45 +55,22 @@ class Post
         return $statement->execute();
     }
 
-    /*
-        public static function getAll(){
-            $conn = Db::getInstance();
-            $result = $conn->query("SELECT posts.*,users.firstname,users.lastname FROM posts,users WHERE posts.user_id=users.id order by posts.date_created desc");
-            return $result->fetchAll(PDO::FETCH_CLASS, __CLASS__);
-        }
-    */
-    /*
-        public static function getPosts(){
-        SELECT posts.*, users.firstname
-        FROM posts INNER JOIN users
-        ON posts.user_id = users.id
-        WHERE
-        posts.user_id IN
-            (
-            SELECT follow_to FROM followers WHERE follow_from = 5
-            )
-        ORDER BY posts.date_created desc
-    var_dump($_SESSION['user_id']);
-    exit();
-        }
-    */
-   /* public static function getPosts($UsId)
+    public static function getAll($UsId)
     {
         $conn = Db::getInstance();
         $result = $conn->query(
-        'SELECT posts.*, users.firstname, users.lastname
-        FROM posts INNER JOIN users
-        ON posts.user_id = users.id
-        WHERE
-        posts.user_id IN 
-            (
-            SELECT follow_to FROM followers WHERE follow_from = '.$UsId.'
-            /* Fetchen met $UsId werkt nog niet 
-            )
-        ORDER BY posts.date_created desc
-        LIMIT 20
-');*/
-      //    $result->execute();
+            'SELECT posts.*, users.firstname, users.lastname
+            FROM posts INNER JOIN users
+            ON posts.user_id = users.id
+            WHERE
+            posts.user_id IN 
+                (
+                SELECT follow_to FROM followers WHERE follow_from = '.$UsId.'
+                )
+            ORDER BY posts.date_created desc
+            LIMIT 20
+    ');
+        $result->execute();
 
       //  return $result->fetchAll(PDO::FETCH_CLASS, __CLASS__);
    // }
@@ -108,10 +85,11 @@ class Post
         return  $statement->fetchAll(PDO::FETCH_CLASS, __CLASS__);
     }
 
-    /* public static function getThisPost($id){
-         $conn = Db::getInstance();
-         $result = $conn->query("SELECT posts.*,users.firstname,users.lastname,users.picture FROM posts,users WHERE post.id=$id AND posts.user_id=users.id ");
-         return $result->fetch(PDO::FETCH_CLASS, __CLASS__);
-     }
-*/
+    public static function getThisPost($id)
+    {
+        $conn = Db::getInstance();
+        $result = $conn->query("SELECT posts.*,users.firstname,users.lastname,users.picture FROM posts,users WHERE post.id=$id AND posts.user_id=users.id ");
+
+        return $result->fetch(PDO::FETCH_CLASS, __CLASS__);
+    }
 }
