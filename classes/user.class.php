@@ -356,9 +356,18 @@ public function updatePassword() {
      * @return  self
      */ 
     public function setEmail($email)
-    {
-        $this->email = $email;
 
+
+    {
+
+        if(empty($email)) {
+            throw new Exception("email kan niet leeg zijn"); 
+        }
+        
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+            throw new Exception("vull je correcte email in"); }
+        $this->email = $email;
+        
         return $this;
     }
 
