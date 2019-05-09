@@ -1,24 +1,38 @@
-<?php
-    include_once 'classes/user.class.php';
+<?php 
+	include_once("classes/user.class.php");
 
-    if (!empty($_POST)) {
-        $email = htmlspecialchars($_POST['email']);
-        $password = htmlspecialchars($_POST['password']);
 
-        $user = new User();
 
-        if ($user->canILogin($email, $password)) {
-            session_start();
-            $_SESSION['email'] = $email;
-            $_SESSION['loggedin'] = true;
-            $_SESSION['user_id'] = $user->getUserId($email);
-
+	
+	if(!empty($_POST)){
+		
+		$email = htmlspecialchars($_POST['email']);
+		$password = htmlspecialchars($_POST['password']);
+	
+		$user = new User();
+	
+		if($user->canILogin($email, $password)){
+		
+            session_start(); 
+			$_SESSION['email'] = $email;
+			$_SESSION['loggedin'] = true;
+			$_SESSION["user_id"] = $user->getUserId($email);  
+			
+			
+			
+		
+			
+			
+			
+			    
             header('Location: index.php');
-        } else {
-            echo 'het werkt niet';
+		}else {
+           
+		   
+		  echo "het werkt niet";
         }
-    }
-
+	}
+	
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
