@@ -1,18 +1,11 @@
 <?php
-
+session_start();
     include_once("classes/user.class.php");
-    include_once("helpers/security.class.php");
-
-    if ( !empty($_POST) ){
-        try{
-            $security = new Security();
-            $security->password = $_POST['password'];
-            $security->passwordConfirmation = $_POST['password_confirmation'];
-
-            if($security->passwordsAreSecure()){  
+    
+    if( !empty($_POST) ){
+        if( $_POST['password'] == $_POST['password_confirmation']){
+            try{
             $user = new User();
-<<<<<<< HEAD
-<<<<<<< HEAD
             $user->setFirstname(htmlspecialchars( $_POST['firstname']));
             $user->setLastname(htmlspecialchars( $_POST['lastname']));
             $user->setEmail(htmlspecialchars( $_POST['email']));
@@ -22,26 +15,12 @@
             $_SESSION['email'] = $user->getEmail();
             $_SESSION['loggedin'] = true;
             $_SESSION["user_id"] = $user->getUserId($email); 
-                header('Location: index.php');
+              /*  header('Location: index.php');*/
+            echo 'gelukt';
             }catch (Exception $e){
-               echo "werkt niet";
-=======
-=======
->>>>>>> parent of 1d6c9b2... register en login zijn in orde
-            $user->setEmail($_POST['email']);
-            $user->setFirstname($_POST['firstname']);
-            $user->setLastname($_POST['lastname']);
-            $user->setPassword($_POST['password']);
-            if($user->register()){
-                $user->login();
-<<<<<<< HEAD
->>>>>>> parent of 1d6c9b2... register en login zijn in orde
-=======
->>>>>>> parent of 1d6c9b2... register en login zijn in orde
+                echo "<script type='text/javascript'>alert('registration failed');</script>";
+                /*header('Location: register.php');     */      
             }
-            }
-        }catch(Exception $e){
-               
         }
     }
 
@@ -49,39 +28,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>IMDFlix</title>
+    <meta name="viewport" content="width=device-width">
+    <title>registration</title>
+    <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div>
-    <div>
-        <form action="" method="post">
-            <h2 form__title>Sign up for an account</h2>
-
-            <?php  if (isset($error)):?>
-            <div class="form__error">
-                <p>
-                    🎣
-                </p>
-            </div>
-            <?php endif; ?>
-
-            <div class="form__field">
-                <label for="email">Email</label>
-                <input type="text" id="email" name="email">
-
-            <div class="form__field">
-            <label for="firstname">First name</label>
-            <input type="text" id="firstname" name="firstname">
-            </div>
-
-            <div class="form__field">
-            <label for="lastname">Last name</label>
-            <input type="text" id="lastname" name="lastname">
-            </div>
+                <?php
+                    if(isset($_SESSION["error"])){
+                        $error = $_SESSION["error"];
+                        echo "<span>$error</span>";
+                    }
+                ?>
+        <div id="registerform">
             
-<<<<<<< HEAD
-<<<<<<< HEAD
             <form action="" method="post">
                 <div class="form__field">
                     <label for="firstname">voornaam:</label>
@@ -107,29 +67,9 @@
             </form>
             <a href="login.php">heb je al een account? login hier!</a>
         </div>
-=======
-=======
->>>>>>> parent of 1d6c9b2... register en login zijn in orde
-            </div>
-            <div class="form__field">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password">
-            </div>
-
-            <div class="form__field">
-                <label for="password_confirmation">Confirm your password</label>
-                <input type="password" id="password_confirmation" name="password_confirmation">
-            </div>
-
-            <div class="form__field">
-                <input type="submit" value="Sign me up!" class="btn btn--primary">
-            </div>
-        </form>
-    </div>
-</div>
-<<<<<<< HEAD
->>>>>>> parent of 1d6c9b2... register en login zijn in orde
-=======
->>>>>>> parent of 1d6c9b2... register en login zijn in orde
 </body>
 </html>
+
+<?php
+    unset($_SESSION["error"]);
+?>
