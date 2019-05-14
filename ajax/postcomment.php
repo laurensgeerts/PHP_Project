@@ -20,6 +20,7 @@ if (!empty($_POST)) {
             'message' => 'ya did it',
             'data'=>[
                 'comment' => htmlspecialchars($_POST['comment'], ENT_QUOTES),
+                'user' => $_SESSION['firstname']+" "+$_SESSION['lastname']
             ],
         ];
     } catch (trowable $t) {

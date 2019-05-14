@@ -59,41 +59,58 @@ $posts = Post::getAll();
           <p class="name"> <?php echo $post->firstname.' '.$post->lastname; ?> </p>
           <img src="<?php echo $post->image; ?>" alt="">
           <p> <?php echo $post->description; ?> </p>
-          <div><a href="#" data-id="<?php echo $post->id ?>" class="like">Like</a> <span id='likes'><?php echo $post->getLikes(); ?></span> people like this </div>
+          <div>
+            <a href="#" data-id="<?php echo $post->id ?>" class="like">Like</a>  
+            <a href="#" data-id="<?php echo $post->id ?>" class="dislike" style="display:none;">Dislike</a>
+            <span class='likes'><?php echo $post->getLikes(); ?></span> people like this
+          </div>
           <a href="detail.php?id=<?php echo $post->id; ?>">More</a>
         </article>
         </div>
     <?php endforeach; ?>
-    
   </div> 
+
   <script
 		src="http://code.jquery.com/jquery-3.4.1.min.js"
 		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 		crossorigin="anonymous">
   </script>
+
   <script>
-		$("a.like").on("click",function(e){
-      e.preventDefault();
+		$("a.like, a.dislike").on("click",function(e){
 			var postId = $(this).data("id");
-      var type = 1;
-			//var elLikes = $(this)parent().find(".likes");
-			var likes=$('#likes').html();
-      console.log(likes);
-			// $.ajax({
-  		// 		method: "POST",
-  		// 		url: "ajax/postlike.php",
-  		// 		data: {postId: postId; type:type},
-			// 	  dataType: "json"
+      if($("a.like")){
+        var type = 1;
+      }else if($("a.dislike")){
+        var type = 0;
+      }
+			var elLikes = $(this).parent().find(".likes");
+			var likes=elLikes.html();
+      console.log(postId);
 
-			// })
-  		// 	.done(function( res ) {
-    	// 		if(res.status=="succes"){
-			// 		likes++;
-			// 		elLikes=html(likes);
-
-			// 	}
-  		// 	});
-
+			$.ajax({
+  				method: "POST",
+  				url: "ajax/postlike.php",
+  				data: {postId: postId, type:type},
+				  dataType: "json"
+			 })
+  		  .done(function( res ) {
+    		  if(res.status=="succes"){
+            console.log(res);
+            if(res.data.like=="1"){
+              likes++;
+					    elLikes=html(likes);
+              $("a.like").css("display","none");
+              $("a.dislike").css("display","inline-block");
+            } else if(res.data.like=="0"){
+              likes++;
+					    elLikes=html(likes);
+              $("a.dislike").css("display","none");
+              $("a.like").css("display","inline-block");
+            }
+				}
+  		});
+      e.preventDefault();
 			
 		});
 	</script>

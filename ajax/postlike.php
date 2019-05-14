@@ -1,7 +1,7 @@
 <?php
     //post?
-    include_once("./classes/db.class.php");
-    include_once("./classes/like.class.php");
+    include_once("../classes/db.class.php");
+    include_once("../classes/like.class.php");
 
     session_start();
 
@@ -18,17 +18,20 @@
             $l->save();
 
             //JSON 
-            $result = [
+            $res = [
                 "status" => "success",
-                "message" => "Like has been saved."
+                "message" => "Like has been saved.",
+                "data" =>[
+                    "like" => $type
+                ]
             ];
         }catch (trowable $t) {
             $res = [
                 'status' => 'failed',
-                'message' => "something went wrong."
+                'message' => $t->getMessage()
             ];
         }
-        echo json_encode($result);
+        echo json_encode($res);
     }
 
 ?>

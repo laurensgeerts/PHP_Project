@@ -121,7 +121,7 @@ class Post
             $result->bindValue(":userid", $userId);
             return $result->execute();
         } else{
-
+            echo "no";
         }
     }
 }

@@ -41,12 +41,14 @@ $comments = Comment::getAll($id);
         <input type="text" name="comment" id="comment" placeholder="write something nice">
         <input id="btnSubmit" type="submit" value="Add comment" />
     </form>
+    <div class="commentBox">
     <?php foreach ($comments as $comment): ?>
-        <div class="commentBox" data-comment=<?php echo $id ?>>
+        <div  data-comment=<?php echo $id ?>>
             <p><?php echo $comment->firstname.' '.$comment->lastname; ?> </p> 
             <p> <?php echo $comment->comment; ?> </p>
         </div>
     <?php endforeach; ?>
+    </div>
     <script
 	    src="https://code.jquery.com/jquery-3.3.1.min.js"
 	    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -68,9 +70,12 @@ $comments = Comment::getAll($id);
                 console.log(res);
 			    if(res.status == 'succes'){
                     var comment = res.data.comment;
-                    var li = "<p>"+ comment+"<p>";
-                    $(this).data("comment").append(p);
-                    $(this).data("comment").last().slideDown();
+                    var user = res.data.user;
+                    var u = "<p>"+user+"</p>";
+                    var com = "<p>"+comment+"</p>";
+                    $(".commentBox").append(u);
+                    $(".commentBox").append(com);
+                    $("commentBox").last().slideDown();
                     $('#comment').val('').focus();
 			    }
   		    });
@@ -78,5 +83,6 @@ $comments = Comment::getAll($id);
 		    e.preventDefault();
 	    });
     </script>
+
 </body>
 </html>
