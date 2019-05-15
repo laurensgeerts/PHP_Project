@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.25)
 # Database: InspHunter_Jonas
-# Generation Time: 2019-04-28 13:48:11 +0000
+# Generation Time: 2019-05-15 09:17:33 +0000
 # ************************************************************
 
 
@@ -47,6 +47,33 @@ VALUES
 UNLOCK TABLES;
 
 
+# Dump of table followers
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `followers`;
+
+CREATE TABLE `followers` (
+  `id` int(11) NOT NULL,
+  `follow_from` int(11) NOT NULL,
+  `follow_to` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `followers` WRITE;
+/*!40000 ALTER TABLE `followers` DISABLE KEYS */;
+
+INSERT INTO `followers` (`id`, `follow_from`, `follow_to`)
+VALUES
+	(1,3,4),
+	(2,5,10),
+	(3,12,4),
+	(4,8,4),
+	(5,16,10);
+
+/*!40000 ALTER TABLE `followers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
 # Dump of table posts
 # ------------------------------------------------------------
 
@@ -60,7 +87,7 @@ CREATE TABLE `posts` (
   `date_created` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  CONSTRAINT `user_id_link` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `posts` WRITE;
@@ -77,7 +104,37 @@ VALUES
 	(52,4,'omg look at this css fail','data/uploads/Screenshot 2018-11-05 at 21.07.39.png','2019-04-25 11:56:21'),
 	(53,4,'daph on a pony. poor pony','data/uploads/Screenshot 2019-01-09 at 17.18.27.png','2019-04-25 12:03:10'),
 	(54,4,'daph on a pony. poor pony','data/uploads/Screenshot 2019-01-09 at 17.18.27.png','2019-04-25 12:04:49'),
-	(55,4,'my barbie dream house','data/uploads/Screen Shot 2018-07-07 at 23.45.59.png','2019-04-25 12:06:15');
+	(55,4,'my barbie dream house','data/uploads/Screen Shot 2018-07-07 at 23.45.59.png','2019-04-25 12:06:15'),
+	(56,10,'loll','data/uploads/303.png','2019-04-28 17:18:25'),
+	(57,10,'lisboa','data/uploads/10093750_20170628-132710.jpg','2019-04-29 15:54:46'),
+	(58,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
+	(59,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
+	(60,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
+	(61,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
+	(62,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
+	(63,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
+	(64,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
+	(65,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
+	(66,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
+	(67,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
+	(68,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
+	(69,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
+	(70,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
+	(71,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
+	(72,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
+	(73,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
+	(74,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
+	(75,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
+	(76,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
+	(77,10,'test','data/uploads/test2.png','2019-05-05 13:00:00'),
+	(78,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
+	(79,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
+	(80,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
+	(81,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
+	(82,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
+	(83,8,'den andere','data/uploads/56592017_2815739688443814_8623986286723596288_n.jpg','2019-05-09 08:37:13'),
+	(84,8,'den andere','data/uploads/56592017_2815739688443814_8623986286723596288_n.jpg','2019-05-09 08:59:09'),
+	(85,8,'den andere','data/uploads/56592017_2815739688443814_8623986286723596288_n.jpg','2019-05-09 09:38:15');
 
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -136,7 +193,13 @@ VALUES
 	(7,'testboy2','lol','','','',''),
 	(8,'r0627643@student.thomasmore.be','Laurens','Geerts','$2y$10$eE4friCtNPoZ80yTG.2CPeL/8zheE7QjnvGWSr5lz/ywmJDO2v1Cu','',''),
 	(9,'testboy2','lol','','','',''),
-	(10,'huts@huts.com','huts','huts','$2y$10$GcJlSz5YZwUAgOrsenInV.LcLUoS8bbrz/3FAb.vQEvmlNS0eN1qy','','');
+	(10,'huts@huts.com','huts','huts','$2y$10$GcJlSz5YZwUAgOrsenInV.LcLUoS8bbrz/3FAb.vQEvmlNS0eN1qy','',''),
+	(11,'testboy2','lol','','','',''),
+	(12,'r0627643@student.thomasmore.be','Laurens','Geerts','$2y$10$uaL/9xPBXP5ngTgf9ZsUuOVYe6Er2R9DfO3gn3n9VYdJecmtQLdbu','',''),
+	(13,'testboy2','lol','','','',''),
+	(14,'tester@tester.com','Laurens','Geerts','$2y$10$vRRz8RVqmEpEd1UVAFSBEubQV.4alOjg3pP0Bhr56/xImM3ale4nO','',''),
+	(15,'testboy2','lol','','','',''),
+	(16,'13@13.com','Laurens','Geerts','$2y$10$rHHH5FE0ZDbWR8ExIxO60e.M2fhlFRguAoTMTl0wjHQTrdG2IB95C','','');
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;

@@ -68,7 +68,6 @@ class Post
                 SELECT follow_to FROM followers WHERE follow_from = '.$UsId.'
                 )
             ORDER BY posts.date_created desc
-            LIMIT 20
     ');
         $result->execute();
 
