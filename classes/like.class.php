@@ -72,7 +72,7 @@
             $statement->bindValue(":userId", $this->getUserId());
             $statement->execute();
             $stm = $statement->fetch(PDO::FETCH_OBJ);
-                var_dump($stm);
+                
              if( $stm->countL=="0"){
                 $result = $conn->prepare("INSERT into likes (post_id, `user_id`, `type`, date_created) VALUES (:postid, :userid, :type ,NOW())");
                 $result->bindValue(":postid", $this->getPostId());

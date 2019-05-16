@@ -61,7 +61,7 @@ $posts = Post::getAll();
           <img src="<?php echo $post->image; ?>" alt="">
           <p> <?php echo $post->description; ?> </p>
           <div>
-            <a href="#" data-id="<?php echo $post->id ?>" class="like">Like</a>  
+            <a href="#" data-id="<?php echo $post->id ?>" class="like <?php echo $post->id ?>">Like</a>  
             <a href="#" data-id="<?php echo $post->id ?>" class="dislike" style="display:none;">Dislike</a>
             <span class='likes' data-id="<?php echo $post->id ?>"><?php echo $post->getLikes(); ?></span> people like this
           </div>
@@ -78,42 +78,82 @@ $posts = Post::getAll();
   </script>
 
   <script>
-		$("a.like, a.dislike").on("click",function(e){
-			var postId = $(this).data("id");
-      if($("a.like")){
-        var type = 1;
-      }else if($("a.dislike")){
-        var type = 0;
-      }
+		$("a.like").on("click",function(e){
+      var postId = $(this).data("id");
+      var type = 1;
+      //var type = 0;
 			var elLikes = $(this).siblings(".likes");
-			var likes=elLikes.html();
+      var likes=elLikes.html();
 
 			$.ajax({
   				method: "POST",
   				url: "ajax/postlike.php",
   				data: {postId: postId, type:type},
-				  dataType: "json"
-			 })
-  		  .done(function( res ) {
-          console.log(res);
-    		  if(res.status=="succes"){
-            //console.log(res);
-            // if(res.data.like=="1"){
-            //   likes++;
-					  //   elLikes=html(likes);
-            //   $("a.like").css("display","none");
-            //   $("a.dislike").css("display","inline-block");
-            // } else if(res.data.like=="0"){
+			})
+  		
+      .done(function (res) {
+        try {
+          var json_obj = JSON.parse(res);
+          if(json_obj.status=="success"){
+            console.log('test1');
+            //if(json_obj.data.like==1){
+              likes++;
+					    elLikes.text(likes);
+              $("a.like").css("display","none");
+              $("a.dislike").css("display","inline-block");
+            // } else if(json_obj.data.like==0){
+            //   console.log('i might just cry')
             //   likes--;
-					  //   elLikes=html(likes);
+					  //   elLikes.text(likes);
             //   $("a.dislike").css("display","none");
             //   $("a.like").css("display","inline-block");
             // }
-				}
-  		});
+          }
+        } catch (e) {
+          console.log('failed to parse');
+        }
+      })    
+      .fail(function (jqXHR, textStatus) { 
+        console.log('failed') 
+      })
+      ;
       e.preventDefault();
 			
-		});
+    });
+    
+    $("a.dislike").on("click",function(e){
+      var postId = $(this).data("id");
+      var type = 0;
+			var elLikes = $(this).siblings(".likes");
+      var likes=elLikes.html();
+
+			$.ajax({
+  				method: "POST",
+  				url: "ajax/postlike.php",
+  				data: {postId: postId, type:type},
+      })
+      .done(function(res) {
+        try {
+          var json_obj = JSON.parse(res);
+          if(json_obj.status=="success"){
+            console.log('test2');
+            //if(json_obj.data.like==0){
+              likes--;
+					    elLikes.text(likes);
+              $("a.dislike").css("display","none");
+              $("a.like").css("display","inline-block");
+            //}
+          } 
+        }catch (e) {
+          console.log('failed to parse 2');
+        }
+      })    
+      .fail(function (jqXHR, textStatus) { 
+        console.log('failed 2') 
+      })
+      ;
+      e.preventDefault();
+      });
 	</script>
 
 </body>

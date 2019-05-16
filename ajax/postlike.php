@@ -8,7 +8,7 @@
     if(!empty($_POST)){
         try {
             $postId=$_POST['postId'];
-            $type=$_POST['type'];
+            $type=htmlspecialchars($_POST['type']);
             $userId=$_SESSION['user_id'];
         
             $l = new Like();
@@ -24,6 +24,7 @@
                     "like" => $type
                 ]
             ];
+            
         }catch (trowable $t) {
             $res = [
                 'status' => 'failed',
@@ -31,6 +32,7 @@
             ];
         }
         echo json_encode($res);
+        //var_dump($res);
     }
 
 ?>
