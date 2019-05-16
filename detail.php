@@ -37,17 +37,17 @@ $comments = Comment::getAll($id);
         </div>
     </div>
     <form method="post" enctype="">
-        <input type="checkbox" name="Inappropriate">Mark this post as inappropriate<br>
+        <input type="checkbox" id="check" name="Inappropriate">Mark this post as inappropriate<br>
         <input type="text" name="comment" id="comment" placeholder="write something nice">
         <input id="btnSubmit" type="submit" value="Add comment" />
     </form>
     <div class="commentBox">
-    <?php foreach ($comments as $comment): ?>
-        <div  data-comment=<?php echo $id ?>>
-            <p><?php echo $comment->firstname.' '.$comment->lastname; ?> </p> 
-            <p> <?php echo $comment->comment; ?> </p>
-        </div>
-    <?php endforeach; ?>
+        <?php foreach ($comments as $comment): ?>
+            <div  data-comment=<?php echo $id ?>>
+                <p><?php echo $comment->firstname.' '.$comment->lastname; ?> </p> 
+                <p> <?php echo $comment->comment; ?> </p>
+            </div>
+        <?php endforeach; ?>
     </div>
     <script
 	    src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -75,13 +75,20 @@ $comments = Comment::getAll($id);
                     var com = "<p>"+comment+"</p>";
                     $(".commentBox").append(u);
                     $(".commentBox").append(com);
-                    $("commentBox").last().slideDown();
+                    $(".commentBox").last().slideDown();
                     $('#comment').val('').focus();
 			    }
   		    });
-              
-		    e.preventDefault();
+            e.preventDefault();
 	    });
+    </script>
+
+    <script>
+        on
+        $("#check").on("click",function(e){
+            var checked = document.getElementById('isAgeSelected').checked;
+            console.log(checked);
+        });
     </script>
 
 </body>

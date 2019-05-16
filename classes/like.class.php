@@ -67,13 +67,13 @@
         public function save(){
             // @todo: hook in a new function that checks if a user has already liked a post
             $conn = Db::getInstance();
-            $statement=$conn->prepare("SELECT count(*) AS count from likes where post_id=:postId AND `user_id`=:userId");
+            $statement=$conn->prepare("SELECT count(*) AS countL from likes where post_id=:postId AND `user_id`=:userId");
             $statement->bindValue(":postId", $this->getPostId());
             $statement->bindValue(":userId", $this->getUserId());
             $statement->execute();
-            $stm = $statement->fetch(PDO::FETCH_BOUND);
-
-            if($stm == 0){
+            $stm = $statement->fetch(PDO::FETCH_OBJ);
+                var_dump($stm);
+             if( $stm->countL=="0"){
                 $result = $conn->prepare("INSERT into likes (post_id, `user_id`, `type`, date_created) VALUES (:postid, :userid, :type ,NOW())");
                 $result->bindValue(":postid", $this->getPostId());
                 $result->bindValue(":userid", $this->getUserId());

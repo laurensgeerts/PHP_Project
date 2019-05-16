@@ -14,7 +14,8 @@
 			$_SESSION['email'] = $email;
 			$_SESSION['loggedin'] = true;
 			$_SESSION["user_id"] = $user->getUserId($email);  
-				    
+			$_SESSION["firstname"] = $user->getFirstname($email);
+            $_SESSION["lastname"] = $user->getLastname($email);
             header('Location: index.php');
 		}else {
 

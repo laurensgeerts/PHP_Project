@@ -17,7 +17,6 @@
             $l->setType($type);
             $l->save();
 
-            //JSON 
             $res = [
                 "status" => "success",
                 "message" => "Like has been saved.",

@@ -19,9 +19,11 @@ div.post{
     background-color: white;
     border-radius: 10px;
     margin: 10px;
+    
 }
 div.post article, div.post p, div.post a{
     background-color: white;
+    line-height: 1em;
 }
 
 div.post img{
@@ -42,6 +44,7 @@ div.post .name{
 
 div.grid-container{
     display: grid;
+    margin: 0px auto;
     /* grid-gap: 10px; */
 }
 
@@ -56,11 +59,50 @@ div.detail img{
     max-width: 700px;
     max-height: 700px;
 }
+.uploadWindow{
+    display: block;
+    height: 300px;
+    width: 90%;
+    font-family: sans-serif;
+    background-color: white;
+    margin: 10px 5% 10px 5%;
+    padding: 20px 30px;
+    border-radius: 10px;
+
+}
+.uploadWindow form{
+    background-color: white;
+}
+.uploadWindow form #description{
+    width: 100%;
+    height: 100px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    resize: none;
+}
+.uploadWindow form p{
+    font-size: 15px;
+    margin-bottom: 10px;
+    background-color: white;
+}
+.uploadWindow form #fileToUpload{
+    background-color: white;
+}
+
 
 
 @media only screen and (min-width:680px){
     div.grid-container{
         grid-template-columns: 1fr 1fr;
+    }
+
+    .uploadWindow{
+        width: 612px;
+        margin: 10px auto;
     }
 
 }

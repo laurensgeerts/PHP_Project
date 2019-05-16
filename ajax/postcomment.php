@@ -12,7 +12,7 @@ if (!empty($_POST)) {
         $comment = new Comment();
         $comment->setUserId($_SESSION['user_id']);
         $comment->setPostId($_POST['postId']);
-        $comment->setComment($_POST['comment']);
+        $comment->setComment(htmlspecialchars($_POST['comment']));
         $comment->newComment();
 
         $res = [
@@ -20,7 +20,7 @@ if (!empty($_POST)) {
             'message' => 'ya did it',
             'data'=>[
                 'comment' => htmlspecialchars($_POST['comment'], ENT_QUOTES),
-                'user' => $_SESSION['firstname']+" "+$_SESSION['lastname']
+                'user' => $_SESSION["firstname"]." ".$_SESSION["lastname"]
             ],
         ];
     } catch (trowable $t) {

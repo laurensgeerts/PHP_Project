@@ -18,7 +18,7 @@ if (!empty($_POST)) {
 
             $post = new Post();
             $post->setImage($target_dir.basename($_FILES['fileToUpload']['name']));
-            $post->setDescription($_POST['description']);
+            $post->setDescription(htmlspecialchars($_POST['description']));
             $post->setUserId($_SESSION['user_id']);
             $post->newPost();
         } else {
@@ -42,13 +42,14 @@ $posts = Post::getAll();
 </head>
 <body>
   <?php include_once 'nav.inc.php'; ?>
-  <!-- <form action="upload.php" method="post" enctype="multipart/form-data"> -->
-  <form method="post" enctype="multipart/form-data">
-    	Select image to upload:
-    	<input type="file" name="fileToUpload" id="fileToUpload" value="upload picture">
-		  <input type="text" name="description" id="description" placeholder="describe your picture">
+  <div class="uploadWindow" id="uploadWindow">
+    <form method="post" enctype="multipart/form-data">
+    	<p>Select image to upload:</p>
+    	<input type="file" name="fileToUpload" id="fileToUpload" value="upload picture"><br>
+		  <input type="text" name="description" id="description" placeholder="describe your picture"><br>
     	<input type="submit" value="Upload Image" name="submit" value="submit">
-  </form>
+    </form>
+  </div>
   <div class="grid-container">
   
 	  <?php foreach ($posts as $post): ?>
@@ -62,7 +63,7 @@ $posts = Post::getAll();
           <div>
             <a href="#" data-id="<?php echo $post->id ?>" class="like">Like</a>  
             <a href="#" data-id="<?php echo $post->id ?>" class="dislike" style="display:none;">Dislike</a>
-            <span class='likes'><?php echo $post->getLikes(); ?></span> people like this
+            <span class='likes' data-id="<?php echo $post->id ?>"><?php echo $post->getLikes(); ?></span> people like this
           </div>
           <a href="detail.php?id=<?php echo $post->id; ?>">More</a>
         </article>
@@ -84,9 +85,8 @@ $posts = Post::getAll();
       }else if($("a.dislike")){
         var type = 0;
       }
-			var elLikes = $(this).parent().find(".likes");
+			var elLikes = $(this).siblings(".likes");
 			var likes=elLikes.html();
-      console.log(postId);
 
 			$.ajax({
   				method: "POST",
@@ -95,19 +95,20 @@ $posts = Post::getAll();
 				  dataType: "json"
 			 })
   		  .done(function( res ) {
+          console.log(res);
     		  if(res.status=="succes"){
-            console.log(res);
-            if(res.data.like=="1"){
-              likes++;
-					    elLikes=html(likes);
-              $("a.like").css("display","none");
-              $("a.dislike").css("display","inline-block");
-            } else if(res.data.like=="0"){
-              likes++;
-					    elLikes=html(likes);
-              $("a.dislike").css("display","none");
-              $("a.like").css("display","inline-block");
-            }
+            //console.log(res);
+            // if(res.data.like=="1"){
+            //   likes++;
+					  //   elLikes=html(likes);
+            //   $("a.like").css("display","none");
+            //   $("a.dislike").css("display","inline-block");
+            // } else if(res.data.like=="0"){
+            //   likes--;
+					  //   elLikes=html(likes);
+            //   $("a.dislike").css("display","none");
+            //   $("a.like").css("display","inline-block");
+            // }
 				}
   		});
       e.preventDefault();

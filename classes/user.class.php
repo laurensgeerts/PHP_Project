@@ -31,9 +31,14 @@ class User{
     /**
      * Get the value of firstname
      */ 
-    public function getFirstname()
+    public function getFirstname($email)
     {
-        return $this->firstname;
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("select * from users where email = :email");
+        $statement->bindParam(':email', $email);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_OBJ);
+        return $result->firstname;
     }
         /**
      * Set the value of lastname
@@ -42,18 +47,23 @@ class User{
      */ 
     public function setLastname($lastname)
     {   if(empty($lastname)){
-        throw new Exception("lastname fout");
-    }
-    //todo valid emai? -> filter_var()
+            throw new Exception("lastname fout");
+        }   
+        //todo valid emai? -> filter_var()
         $this->lastname = $lastname;
         return $this;
     }
     /**
      * Get the value of firstname
      */ 
-    public function getLastname()
+    public function getLastname($email)
     {
-        return $this->lastname;
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("select * from users where email = :email");
+        $statement->bindParam(':email', $email);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_OBJ);
+        return $result->lastname;
     }
 
 

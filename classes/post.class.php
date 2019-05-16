@@ -116,12 +116,24 @@ class Post
         $stm=$statement->fetch(PDO::FETCH_BOUND);
 
         if($stm=false){
-            $result = $conn->prepare("INSERT into likes (post_id, `user_id`) VALUES (:postid, :userid");
+            $result = $conn->prepare("INSERT into inappropriate (post_id, `user_id`) VALUES (:postid, :userid)");
             $result->bindValue(":postid", $this->getPostId());
             $result->bindValue(":userid", $userId);
             return $result->execute();
         } else{
-            echo "no";
+            $result = $conn->prepare("DELETE FROM `inappropriate` WHERE post_id=:postId AND `user_id`=:userId");
+            $result->bindValue(":postid", $this->getPostId());
+            $result->bindValue(":userid", $userId);
+            return $result->execute();
         }
+    }
+
+    public function getInappropriate(){
+        $conn = Db::getInstance();
+        $statement=$conn->prepare("SELECT count(*) AS countInapp from inappropriate where post_id=:postId");
+        $statement->bindValue(":postId", $this->getPostId());
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result['countInapp'];
     }
 }
