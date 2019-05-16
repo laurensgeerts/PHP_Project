@@ -132,8 +132,8 @@ $posts = Post::getAll();
             console.log('test2');
             likes--;
 					  elLikes.text(likes);
-            $("a.dislike"+postId).css("display","none");
-            $("a.like"+postId).css("display","inline-block");
+            $("a.dislike."+postId).css("display","none");
+            $("a.like."+postId).css("display","inline-block");
 
           } 
         }catch (e) {
