@@ -1,6 +1,7 @@
 *{
     background-color: white;
     font-family: sans-serif;
+    font-size: 1em;
 }
 
 body{
@@ -60,27 +61,39 @@ div.header{
     font-family: sans-serif;
     z-index: 2;
 }
-nav.navbar img{
+nav.navbar img.logo{
     float: left;
     width: 150px;
-    margin: -20px 10px;
+    margin: 6px 10px;
 }
 
 nav.navbar p{
     display: none;
     margin: 30px 0px 0px 40px
 }
-nav.navbar a img{
-    height: 30px;
-    float: right;
-    margin: -10px -40px;
+a img.profile,a img.home,a img.Out{
+    height: 25px;
+    position: fixed;
+    margin-top: 20px;
+}
+
+a img.profile{
+    right: 20px;
+}
+
+a img.home{
+    right: 60px;
+}
+a img.Out{
+    right: 100px;
 }
 
 div.post{
     max-width: 300px;
     padding: 10px;
     border-radius: 10px;
-    margin: 10px;
+    margin: 10px auto;
+    font-family: sans-serif;
     
 }
 div.post article, div.post p, div.post a, div.post span{
@@ -111,17 +124,6 @@ div.grid-container{
     margin: 70px auto 0px auto;
     background-color: #e8e8e8;
     /* grid-gap: 10px; */
-}
-
-div.detail{
-    width: 90%;
-    margin: 20px 5%;
-    display: grid;
-    grid-column: 60% 40%;
-}
-div.detail img{
-    max-width: 700px;
-    max-height: 700px;
 }
 .overlay{
     height: 0%;
@@ -173,7 +175,57 @@ input[type=text]#description{
     font-size: 15px;
     margin-bottom: 10px;
 }
+div.detail{
+    width: 90%;
+    margin: 80px auto 10px auto;
+    padding:10px;
+    border-radius: 10px;
+    display: grid;
+    grid-column: 60% 40%;
+    font-family: sans-serif;
+}
+div.detail img{
+    width:95%;
+    margin: 0px auto;
+    line-height: 1.2em;
+    /* max-width: 700px;
+    max-height: 700px; */
+}
+div.textOfPost{
+    font-size: 1em;
+    margin: 3px;
+    line-height: 1.2em;
+}
+div.textOfPost a img{
+    width:25px;
+    margin: 5px 2px;
+}
+div.comments{
+    width: 90%;
+    margin: 10px auto;
+    padding:10px;
+    border-radius: 10px;
+    border: 2px solid #009245;
+    font-family: sans-serif;
+}
+div.commentBox div{
+    width:90%;
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #F15A24;
+    border-radius: 20px;
 
+}
+form.edit_post{
+    width:90%;
+    margin:80px auto 0px;
+    z-index: 0;
+}
+form.edit_post .ed{
+    width:90%;
+    margin:0px auto;
+    z-index: 0;
+}
 
 @media only screen and (min-width:680px){
     div.grid-container{
@@ -186,6 +238,14 @@ input[type=text]#description{
     }
     nav.navbar p{
         display: block;
+    }
+
+    nav.navbar img.logo{
+        margin-top: -20px; 
+    }
+
+    a img.profile,a img.home,a img.Out{
+        margin-top: -10px; 
     }
 }
 @media only screen and (min-width:750px){

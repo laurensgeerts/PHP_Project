@@ -73,43 +73,39 @@ $profile = $user->getUserInfo();
     <title>Document</title>
 </head>
 <body>
+    <?php include_once("nav.inc.php"); ?>
+    <form method="post" action="" enctype="multipart/form-data" class="edit_profile 1">
+        <h2>Edit profile</h2>
 
+        <label for="profileImg">Mijn profielfoto</label>
+        <img src="<?php echo $profile['image'] ?>" alt="profiel" style="width:100px;">
+        <input type="file" name="profileImg" id="profileImg" accept="image/gif, image/jpeg, image/png, image/jpg">
 
-<?php include_once("nav.inc.php"); ?>
+        <label for="firstname">firstname</label>
+        <input type="text" name="firstname" id="firstname" value="<?php echo $profile['firstname']; ?>" class="ed">
 
+        <label for="lastname">lastname</label>
+        <input type="text" name="lastname" id="lastname" value="<?php echo $profile['lastname'];?>" class="ed"> 
 
+        <label for="bio">Bio</label>
+        <textarea rows="4" cols="50" name="bio" id="bio" class="ed"><?php echo $profile['bio'];?></textarea>
 
+        <label for="email">E-mail</label>
+        <input type="email" name="email" id="email" class="ed" value="<?php echo $profile['email']; ?>">
 
-    <form method="post" action="" enctype="multipart/form-data" class="edit_profile">
-    <h2>Edit profile</h2>
-    <label for="profileImg">Mijn profielfoto</label>
-    <img src="<?php echo $profile['image'] ?>" alt="profiel" style="width:100px;">
-    <input type="file" name="profileImg" id="profileImg" accept="image/gif, image/jpeg, image/png, image/jpg">
+        <input type="submit" name="edit" value="Edit">
+    </form>
 
-    <label for="firstname">firstname</label>
-    <input type="text" name="firstname" id="firstname" value="<?php echo $profile['firstname']; ?>">
+    <form method="post" action="" class="edit_profile">
+        <h2>Wachtwoord aanpassen</h2>
 
-    <label for="lastname">lastname</label>
-    <input type="text" name="lastname" id="lastname" value="<?php echo $profile['lastname'];?>"> 
+        <label for="password">New password</label>
+        <input type="password" name="password" id="password" placeholder="New password">
 
-    <label for="bio">Bio</label>
-    <textarea rows="4" cols="50" name="bio" id="bio"><?php echo $profile['bio'];?></textarea>
+        <label for="repassword">Retype New password</label>
+        <input type="password" name="repassword" id="repassword" placeholder="Retype New password">
 
-    <label for="email">E-mail</label>
-    <input type="email" name="email" id="email" value="<?php echo $profile['email']; ?>">
-
-    <input type="submit" name="edit" value="Edit">
-</form>
-
-<form method="post" action="" class="edit_profile">
-    <h2>Wachtwoord aanpassen</h2>
-    <label for="password">New password</label>
-    <input type="password" name="password" id="password" placeholder="New password">
-
-     <label for="repassword">Retype New password</label>
-    <input type="password" name="repassword" id="repassword" placeholder="Retype New password">
-
-    <input type="submit" name="passwordedit" value="Edit">
-</form>
+        <input type="submit" name="passwordedit" value="Edit">
+    </form>
 </body>
 </html>

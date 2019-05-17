@@ -88,7 +88,7 @@ class Post
     {
         try {
             $conn = Db::getInstance();
-            $statement = $conn->prepare('SELECT posts.*,users.firstname,users.lastname,users.picture FROM posts,users WHERE posts.id=:id AND posts.user_id=users.id ORDER BY id ASC ');
+            $statement = $conn->prepare('SELECT posts.*,users.firstname,users.lastname,users.picture FROM posts,users WHERE posts.id=:id AND posts.user_id=users.id ORDER BY id DESC ');
             $statement->bindValue(':id', $id);
             $statement->execute();
 

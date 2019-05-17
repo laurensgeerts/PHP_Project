@@ -26,29 +26,45 @@ $comments = Comment::getAll($id);
     <title>post <?php echo $id; ?></title>
 </head>
 <body>
-    <?php include_once 'nav.inc.php'; ?>
-    <div class="detail">
-        <img src="<?php echo $post->image; ?>" alt="picture of this post" class="postImage">
-        <div class="textOfPost">
-            <img src="<?php echo $post->picture; ?>" class="profilepic">
-            <p> <?php echo $post->firstname.' '.$post->lastname; ?> </p>
-            <p> <?php echo $post->date_created; ?> </p>
-            <p> <?php echo $post->description; ?> </p>
+    <div class="header">
+        <div class="forceMiddle">
+            <?php include_once 'nav.inc.php'; ?>
         </div>
     </div>
-    <form method="post" enctype="">
-        <input type="checkbox" id="check" name="Inappropriate">Mark this post as inappropriate<br>
-        <input type="text" name="comment" id="comment" placeholder="write something nice">
-        <input id="btnSubmit" type="submit" value="Add comment" />
-    </form>
-    <div class="commentBox">
-        <?php foreach ($comments as $comment): ?>
-            <div  data-comment=<?php echo $id ?>>
-                <p><?php echo $comment->firstname.' '.$comment->lastname; ?> </p> 
-                <p> <?php echo $comment->comment; ?> </p>
+    <div class="forceMiddle">
+        <div class="detail">
+            <img src="<?php echo $post->image; ?>" alt="picture of this post" class="postImage">
+            <div class="textOfPost">
+                <img src="<?php echo $post->picture; ?>" class="profilepic">
+                <p> <?php echo $post->firstname.' '.$post->lastname; ?> </p>
+                <p> <?php echo $post->date_created; ?> </p>
+                <p> <?php echo $post->description; ?> </p>
+                <div>
+                    <a href="#" data-id="<?php echo $post->id ?>" class="like <?php echo $post->id ?>"><img src="data/images/Asset 6.svg"></a>  
+                    <a href="#" data-id="<?php echo $post->id ?>" class="dislike <?php echo $post->id ?>" style="display:none;"><img src="data/images/Asset 7.svg"></a>
+                    <!-- <span class='likes' data-id="<?php //echo $post->id ?>"><?php //echo $post->getLikes(); ?></span> people like this -->
+                </div>
+                <form method="post" enctype="">
+                    <input type="checkbox" id="check" name="Inappropriate">Mark this post as inappropriate<br>
+                </form>
             </div>
-        <?php endforeach; ?>
-    </div>
+        </div>
+        <div class="comments">
+            <p>Comments</p>
+            <form method="post" enctype="">
+                <input type="text" name="comment" id="comment" placeholder="write something nice">
+                <input id="btnSubmit" type="submit" value="Add comment" />
+            </form>
+            <div class="commentBox">
+                <?php foreach ($comments as $comment): ?>
+                    <div  data-comment=<?php echo $id ?>>
+                        <p><?php echo $comment->firstname.' '.$comment->lastname; ?> </p> 
+                        <p> <?php echo $comment->comment; ?> </p>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div> 
     <script
 	    src="https://code.jquery.com/jquery-3.3.1.min.js"
 	    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -90,6 +106,6 @@ $comments = Comment::getAll($id);
             console.log(checked);
         });
     </script>
-
+    <?php include_once 'likeScript.inc.php'; ?>
 </body>
 </html>
