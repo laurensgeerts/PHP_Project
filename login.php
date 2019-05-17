@@ -37,49 +37,30 @@
 </head>
 
 <body>
-
-
-	<div id="loginform">
+	<div class="forceMiddle">
+	<div class="loginform">
+		<div class="loginImage">
+			<img src="data/images/Asset 1.svg">
+		</div>
 		<div class="form">
-
-
-
-		<form action="" method="post" >
-			<h2>login </h2>
-
-			
-    </div>
-
-	 <div class="container">
-
-			<div class="container1">
-	
-				
-				<input type="text" id="Email" name="email">
-			</div>
-			<div class="container2">
-				<label for="Password">Password</label>
-				<input type="password" id="Password" name="password">
-			</div>
-
-			<div class="container3">
-				<input type="submit" value="Sign in" class="btn">	
-			</div>
-
-
-		
-		<a href="register.php" class="link">geen account? registreer hier!</a>
-
-		
-
+			<form action="" method="post" >
+				<h2>login </h2>
+	 			<div class="container">
+					<div class="container1">
+						<input type="text" id="Email" name="email">
+					</div>
+					<div class="container2">
+						<label for="Password">Password</label>
+						<input type="password" id="Password" name="password">
+					</div>
+					<div class="container3">
+						<input type="submit" value="Sign in" class="btn">	
+					</div>
+					<a href="register.php" class="link">geen account? registreer hier!</a>
+				</div>
+			</form>
 		</div>
-		</form>
-		</div>
-
-		</div>
-
-
-	
 	</div>
+</div>
 </body>
 </html>

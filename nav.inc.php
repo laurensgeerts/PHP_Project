@@ -1,6 +1,7 @@
 <nav class="navbar">
-    <a href="edit_profile.php">profiel aanpassen?</a>
-    <a href="index.php">ga naar index</a>
-    <a href="logout.php" class="logout">uitloggen?</a>
-    <p><?php echo $_SESSION['email'];?></p>
+    <img src="data/images/Asset 2.svg">
+    <a href="edit_profile.php"><img src="data/images/Asset 8.svg"></a>
+    <a href="index.php"><img src="data/images/Asset 4.svg"></a>
+    <a href="logout.php" class="logout"><img src="data/images/Asset 5.svg"></a>
+    <p>Welcome <?php echo $_SESSION['firstname']." ".$_SESSION['lastname'];?>!</p>
 </nav>

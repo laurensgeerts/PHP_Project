@@ -1,29 +1,89 @@
 *{
-    background-color:#e8e8e8;
+    background-color: white;
     font-family: sans-serif;
 }
 
-nav.navbar{
+body{
+    background-color: #e8e8e8;
     width: 100%;
-    height: 50px;
-    background-color: white;
-    position: fixed;
-    margin-top: -10px;
+    height: 100%;
+    display: inline-block;
 }
-nav.navbar a, nav.navbar p{
-    background-color: white;
+.forceMiddle{
+    background-color: rgba(0,0,0,0);
+    margin: 0px auto;
+}
+img{
+    background-color: rgba(0,0,0,0);
+}
+
+div.loginform{
+    width: 99%;
+    height: 99%;
+    margin: auto;
+    /* border-radius: 50px; */
+}
+
+div.loginImage img{
+    width:80%;
+    margin: 50px 10%;
+    background-color: rgba(0,0,0,0);
+}
+
+div.form{
+    width:80%;
+    margin:10px 10%;
+    font-family: sans-serif;
+}
+
+input[type=text],input[type=password] {
+    width: 100%;
+    height: 30px;
+    padding: 8px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ed1e79;
+    border-radius: 4px;
+    resize: horizontal;
+}
+input[type=submit]{
+    padding: 10px 15px;
+    background-color: #F15A24;
+    box-sizing: border-box;
+    border-radius: 25px;
+    margin: 5px auto;
+}
+div.header{
+    width: 100%;
+    height: 70px;
+    position: fixed;
+    font-family: sans-serif;
+    z-index: 2;
+}
+nav.navbar img{
+    float: left;
+    width: 150px;
+    margin: -20px 10px;
+}
+
+nav.navbar p{
+    display: none;
+    margin: 30px 0px 0px 40px
+}
+nav.navbar a img{
+    height: 30px;
+    float: right;
+    margin: -10px -40px;
 }
 
 div.post{
     max-width: 300px;
     padding: 10px;
-    background-color: white;
     border-radius: 10px;
     margin: 10px;
     
 }
 div.post article, div.post p, div.post a, div.post span{
-    background-color: white;
     line-height: 1.2em;
 }
 
@@ -42,15 +102,18 @@ div.post img{
 div.post .name{
     float: right;
 }
+div.post a img{
+    width: 25px; 
+}
 
 div.grid-container{
     display: grid;
     margin: 70px auto 0px auto;
+    background-color: #e8e8e8;
     /* grid-gap: 10px; */
 }
 
 div.detail{
-    background-color: white;
     width: 90%;
     margin: 20px 5%;
     display: grid;
@@ -60,40 +123,56 @@ div.detail img{
     max-width: 700px;
     max-height: 700px;
 }
+.overlay{
+    height: 0%;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: #e8e8e8; /* Black fallback color */
+    background-color: rgba(0,0,0, 0.5);
+    /* overflow-x: hidden; */
+    overflow: hidden; 
+    transition: 0.5s;
+    z-index: 1;
+}
+.overlay .closebtn{
+    width: 60px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(0,0,0, 0);
+}
+
+.openbtn {
+    width: 60px;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
 .uploadWindow{
     display: block;
     height: 300px;
-    width: 90%;
+    width: 80%;
     font-family: sans-serif;
-    background-color: white;
-    margin: 10px 5% 10px 5%;
+    margin: 180px auto;
     padding: 20px 30px;
     border-radius: 10px;
+    position: relative;
+    /* top: 25%; */
+}
 
-}
-.uploadWindow form{
-    background-color: white;
-}
 input[type=text]#description{
-    width: 100%;
     height: 100px;
     padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    background-color: white;
-    resize: horizontal;
+    width: 90%
 }
 .uploadWindow form p{
     font-size: 15px;
     margin-bottom: 10px;
-    background-color: white;
 }
-.uploadWindow form #fileToUpload{
-    background-color: white;
-}
-
 
 
 @media only screen and (min-width:680px){
@@ -105,12 +184,38 @@ input[type=text]#description{
         width: 612px;
         margin: 10px auto;
     }
+    nav.navbar p{
+        display: block;
+    }
+}
+@media only screen and (min-width:750px){
+    div.loginform{
+        width: 80%;
+        height: 240px;
+        margin: 190px auto;
+        border-radius: 50px;
+        padding: 45px 0px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .uploadWindow{
+        top: 25%;
+    }
+}
 
+@media only screen and (min-width:830px){
+    div.loginform{
+        height: 280px;
+    }
 }
 
 @media only screen and (min-width:1020px){
     div.grid-container{
         grid-template-columns: 1fr 1fr 1fr;
+    }
+    div.loginform{
+        height: 350px;
     }
 
 }
@@ -118,6 +223,9 @@ input[type=text]#description{
 @media only screen and (min-width:1360px){
     div.grid-container{
         grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+    .forceMiddle{
+        width:1360px;
     }
 
 }

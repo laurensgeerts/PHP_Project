@@ -41,40 +41,58 @@ $posts = Post::getAll();
   <title>Inspiration Hunter</title>
 </head>
 <body>
-  <?php include_once 'nav.inc.php'; ?>
-  <div class="uploadWindow" id="uploadWindow">
-    <form method="post" enctype="multipart/form-data">
-    	<p>Select image to upload:</p>
-    	<input type="file" name="fileToUpload" id="fileToUpload" value="upload picture"><br>
-		  <input type="text" name="description" id="description" placeholder="describe your picture"><br>
-    	<input type="submit" value="Upload Image" name="submit" value="submit">
-    </form>
+  <div class="header">
+    <div class="forceMiddle">
+      <?php include_once 'nav.inc.php'; ?>
+    </div>
   </div>
-  <div class="grid-container">
-  
-	  <?php foreach ($posts as $post): ?>
-    <div class="post">
-	      <article >
-          <img src="<?php echo $post->picture; ?>" class="profilepic">
-          <p> <?php echo $post->date_created; ?> </p>
-          <p class="name"> <?php echo $post->firstname.' '.$post->lastname; ?> </p>
-          <img src="<?php echo $post->image; ?>" alt="">
-          <p> <?php echo $post->description; ?> </p>
-          <div>
-            <a href="#" data-id="<?php echo $post->id ?>" class="like <?php echo $post->id ?>">Like</a>  
-            <a href="#" data-id="<?php echo $post->id ?>" class="dislike <?php echo $post->id ?>" style="display:none;">Dislike</a>
-            <span class='likes' data-id="<?php echo $post->id ?>"><?php echo $post->getLikes(); ?></span> people like this
-          </div>
-          <a href="detail.php?id=<?php echo $post->id; ?>">More</a>
-        </article>
+  <div class="overlay" id="overlay">
+    <div class="uploadWindow" id="uploadWindow">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeOverlay()"><img src="data/images/Asset 9.svg"></a>
+      <form method="post" enctype="multipart/form-data">
+        <p>Select image to upload:</p>
+  	    <input type="file" name="fileToUpload" id="fileToUpload" value="upload picture"><br>
+	      <input type="text" name="description" id="description" placeholder="describe your picture"><br>    	  <input type="submit" value="Upload Image" name="submit" value="submit">
+      </form>
+    </div>
+  </div>
+  <a class="openbtn" onclick="openOverlay()"><img src="data/images/Asset 3.svg"></a>
+  <div class="forceMiddle">
+    <div class="grid-container">
+	    <?php foreach ($posts as $post): ?>
+        <div class="post">
+	        <article >
+            <img src="<?php echo $post->picture; ?>" class="profilepic">
+            <p> <?php echo $post->date_created; ?> </p>
+            <p class="name"> <?php echo $post->firstname.' '.$post->lastname; ?> </p>
+            <img src="<?php echo $post->image; ?>" alt="">
+            <p> <?php echo $post->description; ?> </p>
+            <div>
+              <a href="#" data-id="<?php echo $post->id ?>" class="like <?php echo $post->id ?>"><img src="data/images/Asset 6.svg"></a>  
+              <a href="#" data-id="<?php echo $post->id ?>" class="dislike <?php echo $post->id ?>" style="display:none;"><img src="data/images/Asset 7.svg"></a>
+              <span class='likes' data-id="<?php echo $post->id ?>"><?php echo $post->getLikes(); ?></span> people like this
+            </div>
+            <a href="detail.php?id=<?php echo $post->id; ?>">More</a>
+          </article>
         </div>
-    <?php endforeach; ?>
-  </div> 
+      <?php endforeach; ?>
+    </div> 
+  </div>
 
   <script
 		src="http://code.jquery.com/jquery-3.4.1.min.js"
 		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 		crossorigin="anonymous">
+  </script>
+
+  <script>
+    function openOverlay() {
+      document.getElementById("overlay").style.height = "100%";
+    }
+
+    function closeOverlay() {
+      document.getElementById("overlay").style.height = "0%";
+    }
   </script>
 
   <script>
