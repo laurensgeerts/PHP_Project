@@ -61,26 +61,17 @@ $posts = Post::getAll($_SESSION['user_id']);
 		  <input type="text" name="description" id="description" placeholder="describe your picture">
     	<input type="submit" value="Upload Image" name="submit" value="submit">
 	</form>
-	<?php foreach ($posts as $post): ?>
   <?php foreach ($posts as $post):
-
     ?>
-
-  
-
     <div class="grid-container">
       <div class="post">
 	      <article >
           <img src="<?php echo $post->picture; ?>">
 			    <p> <?php echo $post->firstname.' '.$post->lastname; ?> </p>
-          <p> <?php echo $post->date_created; ?> </p>
-          <!--<p> <?php; // echo $post->date_created;?> </p>-->
-          <p><?php echo $convertedDate = Post::convertTime($time_ago); ?></p>
           <img src="<?php echo $post->image; ?>" alt="" href="detail.php?id=<?php echo $post->id; ?>">
 		      <p> <?php echo $post->description; ?> </p>
         </article>
       </div>
-    </div>  
     </div>
 	<?php endforeach; ?>
   <script>
