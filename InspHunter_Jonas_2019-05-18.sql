@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.25)
 # Database: InspHunter_Jonas
-# Generation Time: 2019-05-15 09:17:33 +0000
+# Generation Time: 2019-05-18 13:32:15 +0000
 # ************************************************************
 
 
@@ -84,7 +84,7 @@ CREATE TABLE `posts` (
   `user_id` int(11) NOT NULL,
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `date_created` datetime NOT NULL,
+  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `user_id_link` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
@@ -105,63 +105,16 @@ VALUES
 	(53,4,'daph on a pony. poor pony','data/uploads/Screenshot 2019-01-09 at 17.18.27.png','2019-04-25 12:03:10'),
 	(54,4,'daph on a pony. poor pony','data/uploads/Screenshot 2019-01-09 at 17.18.27.png','2019-04-25 12:04:49'),
 	(55,4,'my barbie dream house','data/uploads/Screen Shot 2018-07-07 at 23.45.59.png','2019-04-25 12:06:15'),
-	(56,10,'loll','data/uploads/303.png','2019-04-28 17:18:25'),
-	(57,10,'lisboa','data/uploads/10093750_20170628-132710.jpg','2019-04-29 15:54:46'),
-	(58,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
+	(58,10,'test','data/uploads/test2.png','2019-01-01 13:00:00'),
 	(59,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
 	(60,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
 	(61,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
 	(62,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
-	(63,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
-	(64,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
-	(65,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
-	(66,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
-	(67,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
-	(68,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
-	(69,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
-	(70,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
-	(71,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
-	(72,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
-	(73,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
-	(74,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
-	(75,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
-	(76,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
-	(77,10,'test','data/uploads/test2.png','2019-05-05 13:00:00'),
-	(78,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
-	(79,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
-	(80,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
-	(81,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
-	(82,10,'test','data/uploads/test.png','2019-05-05 13:00:00'),
 	(83,8,'den andere','data/uploads/56592017_2815739688443814_8623986286723596288_n.jpg','2019-05-09 08:37:13'),
 	(84,8,'den andere','data/uploads/56592017_2815739688443814_8623986286723596288_n.jpg','2019-05-09 08:59:09'),
 	(85,8,'den andere','data/uploads/56592017_2815739688443814_8623986286723596288_n.jpg','2019-05-09 09:38:15');
 
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table test
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `test`;
-
-CREATE TABLE `test` (
-  `test` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-LOCK TABLES `test` WRITE;
-/*!40000 ALTER TABLE `test` DISABLE KEYS */;
-
-INSERT INTO `test` (`test`)
-VALUES
-	('test'),
-	('testerrrr'),
-	('hutsss'),
-	('gang'),
-	('gang'),
-	('gang');
-
-/*!40000 ALTER TABLE `test` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
