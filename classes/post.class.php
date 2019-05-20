@@ -8,6 +8,9 @@ class Post
     public $image;
     public $description;
     public $postId;
+    public $city;
+    public $lng;
+    public $lat;
 
     public function getUserId()
     {
@@ -67,11 +70,18 @@ class Post
 
     public function newPost()
     {
+
+        $lng = floatval($this->getLng());
+        $lat = floatval($this->getLat());
         $conn = Db::getInstance();
-        $statement = $conn->prepare('INSERT INTO posts (user_id, description, image, date_created) values (:userid, :description, :image, NOW())');
+        $statement = $conn->prepare('INSERT INTO posts (user_id, description, image, city, lng, lat,  date_created) values (:userid, :description, :image, :city, :lng, :lat, NOW())');
         $statement->bindValue(':userid', $this->getUserId());
         $statement->bindValue(':image', $this->getImage());
+        $statement->bindValue(':city', $this->getCity());
+        $statement->bindValue(':lng', $lng);
+        $statement->bindValue(':lat', $lat);
         $statement->bindValue(':description', $this->getDescription());
+      
 
         return $statement->execute();
     }
@@ -105,12 +115,73 @@ class Post
         }
     }
 
-    public function searchPost($searchPost){
-        $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT posts.*,users.firstname,users.lastname, users.picture FROM posts,users WHERE posts.user_id=users.id AND (posts.description LIKE '%$searchPost%' OR CONCAT(users.firstname, ' ', users.lastname) LIKE '%$searchPost%' OR  users.firstname LIKE '%$searchPost%' OR users.lastname  LIKE '%$searchPost%')");
-        $statement->bindValue(1, "%$searchPost%", PDO::PARAM_STR);
-        $statement->execute();
-        
-        return  $statement->fetchAll(PDO::FETCH_CLASS, __CLASS__);
-}
+   
+
+// function to get  the address
+
+
+
+    /**
+     * Get the value of city
+     */ 
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set the value of city
+     *
+     * @return  self
+     */ 
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+   
+
+    /**
+     * Get the value of lat
+     */ 
+    public function getLat()
+    {
+        return $this->lat;
+    }
+
+    /**
+     * Set the value of lat
+     *
+     * @return  self
+     */ 
+    public function setLat($lat)
+    {
+        $this->lat = $lat;
+
+        return $this;
+    }
+
+   
+
+    /**
+     * Get the value of lng
+     */ 
+    public function getLng()
+    {
+        return $this->lng;
+    }
+
+    /**
+     * Set the value of lng
+     *
+     * @return  self
+     */ 
+    public function setLng($lng)
+    {
+        $this->lng = $lng;
+
+        return $this;
+    }
 }
