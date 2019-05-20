@@ -71,7 +71,9 @@ $profile = $user->getUserInfo();
 <body>
 
 
-<?php include_once 'nav.inc.php'; ?>
+
+<?php include_once("includes/nav.inc.php"); ?>
+<?php include_once("includes/error.inc.php"); ?>
 
 
 

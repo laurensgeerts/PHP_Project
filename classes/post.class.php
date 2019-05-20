@@ -11,6 +11,10 @@ class Post
     public $city;
     public $lng;
     public $lat;
+    public $hashtag1;
+    public $hashtag2;
+    public $hashtag3;
+
 
     public function getUserId()
     {
@@ -73,13 +77,21 @@ class Post
 
         $lng = floatval($this->getLng());
         $lat = floatval($this->getLat());
+        $h1 = "#" . $this->getHashtag1();
+        $h2 = "#" . $this->getHashtag2();
+        $h3 = "#" . $this->getHashtag3();
+
         $conn = Db::getInstance();
-        $statement = $conn->prepare('INSERT INTO posts (user_id, description, image, city, lng, lat,  date_created) values (:userid, :description, :image, :city, :lng, :lat, NOW())');
+        $statement = $conn->prepare('INSERT INTO posts (user_id, description, image, city, lng, lat, hashtag1, hashtag2, hashtag3, date_created) values (:userid, :description, :image, :city, :lng, :lat, :hashtag1, :hashtag2, :hashtag3, NOW())');
         $statement->bindValue(':userid', $this->getUserId());
         $statement->bindValue(':image', $this->getImage());
         $statement->bindValue(':city', $this->getCity());
         $statement->bindValue(':lng', $lng);
         $statement->bindValue(':lat', $lat);
+        $statement->bindValue(':hashtag1', $h1);
+        $statement->bindValue(':hashtag2', $h2);
+        $statement->bindValue(':hashtag3', $h3);
+
         $statement->bindValue(':description', $this->getDescription());
       
 
@@ -181,6 +193,66 @@ class Post
     public function setLng($lng)
     {
         $this->lng = $lng;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of hashtag1
+     */ 
+    public function getHashtag1()
+    {
+        return $this->hashtag1;
+    }
+
+    /**
+     * Set the value of hashtag1
+     *
+     * @return  self
+     */ 
+    public function setHashtag1($hashtag1)
+    {
+        $this->hashtag1 = $hashtag1;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of hashtag2
+     */ 
+    public function getHashtag2()
+    {
+        return $this->hashtag2;
+    }
+
+    /**
+     * Set the value of hashtag2
+     *
+     * @return  self
+     */ 
+    public function setHashtag2($hashtag2)
+    {
+        $this->hashtag2 = $hashtag2;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of hashtag3
+     */ 
+    public function getHashtag3()
+    {
+        return $this->hashtag3;
+    }
+
+    /**
+     * Set the value of hashtag3
+     *
+     * @return  self
+     */ 
+    public function setHashtag3($hashtag3)
+    {
+        $this->hashtag3 = $hashtag3;
 
         return $this;
     }

@@ -33,7 +33,7 @@ if (!empty($_POST['city'])){
   //$long = floatval($_POST['lng']);
   $res_geo = Search::searchLocation(htmlspecialchars($_POST['lng']),htmlspecialchars($_POST['lat']));
 
-var_dump($res_geo);
+//var_dump($res_geo);
   //var_dump(floatval($_POST['lat']));
   //var_dump(floatval($_POST['lat']));
 
@@ -78,13 +78,13 @@ else
 </form>
 
 <form action="" method="post" id="form2">
-<input type="text" id= "city" name="city">
+<input type="text" id= "city" name="city"placeholder=" zoek hier naar een post ">
 <input   id="lng" name="lng" type="hidden">
   <input  id="lat" name="lat"type="hidden">
-  <input id="btn" type="button" value="confirm location" />
+  <input id="btn" type="button" value="1. confirm location" />
 
 
- <input type="submit" value="Search for city" name="submit_search" id="submit">
+ <input type="submit" value="2. Search for city" name="submit_search" id="submit">
 
 
   </form>
@@ -100,6 +100,7 @@ else
           <p> <?php echo $res->city; ?> </p>
           <img src="<?php echo $res->image; ?>" alt="">
           <p> <?php echo $res->description; ?> </p>
+          <p> <?php echo $post->hashtag1. '  ' .$post->hashtag2. ' ' .$post->hashtag3;?> </p>
           <a href="detail.php?id=<?php echo $res->id; ?>">More</a>
           
         </article>
@@ -121,6 +122,8 @@ else
           <p> <?php echo $geo->city; ?> </p>
           <img src="<?php echo $geo->image; ?>" alt="">
           <p> <?php echo $geo->description; ?> </p>
+          <p> <?php echo $post->hashtag1. '  ' .$post->hashtag2. '  ' .$post->hashtag3;?> </p>
+          <a href="detail.php?id=<?php echo $geo->id; ?>">More</a>
         
           
         </article>
@@ -161,7 +164,7 @@ $("#btn").click(function(){
 
           // $('.push-down').text("location : " + results[0].geometry.location.lat() + " " +results[0].geometry.location.lng()); 
        } else {
-        innerHTML = "something went wrong"
+        innerHTML = "something went wrong";
           }
 
 

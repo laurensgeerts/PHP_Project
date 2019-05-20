@@ -21,6 +21,9 @@ if (!empty($_POST)) {
             $post->setCity($_POST['city']);
             $post->setLng($_POST['lng']);
             $post->setLat($_POST['lat']);
+            $post->setHashtag1($_POST['hashtag1']);
+            $post->setHashtag2($_POST['hashtag2']);
+            $post->setHashtag3($_POST['hashtag3']);
             $post->setDescription($_POST['description']);
             $post->setUserId($_SESSION['user_id']);
             $post->newPost();
@@ -32,6 +35,8 @@ if (!empty($_POST)) {
     }
 }
 $posts = Post::getAll();
+
+
 
 ?>
 <!DOCTYPE html>
@@ -59,9 +64,15 @@ $posts = Post::getAll();
     	Select image to upload:
     	<input type="file" name="fileToUpload" id="fileToUpload" value="upload picture">
       <input type="text" name="description" id="description" placeholder="describe your picture">
+      add hashtags:
+     # <input type="text" name="hashtag1" id="hashtag1">
+     #<input type="text" name="hashtag2" id="hashtag2">
+     #<input type="text" name="hashtag3" id="hashtag3">
+
       <input type="hidden" name="city" id="city">
       <input type="hidden" name="lng" id="lng">
             <input type="hidden" name="lat" id="lat">
+
  
      
     	<input type="submit" value="Upload Image" name="submit" value="submit">
@@ -77,6 +88,8 @@ $posts = Post::getAll();
           <img src="<?php echo $post->image; ?>" alt="">
           <p> <?php echo $post->description; ?> </p>
           <p> <?php echo $post->city; ?> </p>
+          <p> <?php echo $post->hashtag1. '  ' .$post->hashtag2. '  ' .$post->hashtag3;?> </p>
+
           <a href="detail.php?id=<?php echo $post->id; ?>">More</a>
         </article>
         </div>
