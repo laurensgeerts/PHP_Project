@@ -1,25 +1,27 @@
 <?php
 session_start();
-include_once 'classes/user.class.php';
-
-    if (!empty($_POST)) {
-        if ($_POST['password'] == $_POST['password_confirmation']) {
-            try {
+include_once("classes/user.class.php");
+    
+    if( !empty($_POST) ){
+        if( $_POST['password'] == $_POST['password_confirmation']){
+            try{
                 $user = new User();
-                $user->setFirstname(htmlspecialchars($_POST['firstname']));
-                $user->setLastname(htmlspecialchars($_POST['lastname']));
-                $user->setEmail(htmlspecialchars($_POST['email']));
-                $user->setPassword(htmlspecialchars($_POST['password']));
+                $user->setFirstname(htmlspecialchars( $_POST['firstname']));
+                $user->setLastname(htmlspecialchars( $_POST['lastname']));
+                $user->setEmail(htmlspecialchars( $_POST['email']));
+                $user->setPassword(htmlspecialchars( $_POST['password']));
                 $user->register();
 
+                session_start();
                 $_SESSION['email'] = $user->getEmail();
                 $_SESSION['loggedin'] = true;
-                $_SESSION['user_id'] = $user->getUserId($email);
-                /*  header('Location: index.php');*/
-                echo 'gelukt';
-            } catch (Exception $e) {
-                echo "<script type='text/javascript'>alert('registration failed');</script>";
-                /*header('Location: register.php');     */
+                $_SESSION['user_id'] = $user->getUserId($email); 
+                $_SESSION["firstname"] = $user->getFirstname($email);
+                $_SESSION["lastname"] = $user->getLastname($email);
+                header('Location: index.php');
+
+            }catch (Exception $e){
+                echo "werkt niet";
             }
         }
     }

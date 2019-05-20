@@ -1,22 +1,292 @@
 *{
-    background-color:#e8e8e8;
+    background-color: white;
+    font-family: sans-serif;
+    font-size: 1em;
+}
+
+body{
+    background-color: #e8e8e8;
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+}
+.forceMiddle{
+    background-color: rgba(0,0,0,0);
+    margin: 0px auto;
+}
+img{
+    background-color: rgba(0,0,0,0);
+}
+
+div.loginform{
+    width: 99%;
+    height: 99%;
+    margin: auto;
+    /* border-radius: 50px; */
+}
+
+div.loginImage img{
+    width:80%;
+    margin: 50px 10%;
+    background-color: rgba(0,0,0,0);
+}
+
+div.form{
+    width:80%;
+    margin:10px 10%;
+    font-family: sans-serif;
+}
+
+input[type=text],input[type=password] {
+    width: 100%;
+    height: 30px;
+    padding: 8px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ed1e79;
+    border-radius: 4px;
+    resize: horizontal;
+}
+input[type=submit]{
+    padding: 10px 15px;
+    background-color: #F15A24;
+    box-sizing: border-box;
+    border-radius: 25px;
+    margin: 5px auto;
+}
+div.header{
+    width: 100%;
+    height: 70px;
+    position: fixed;
+    top:0px;
+    font-family: sans-serif;
+    z-index: 2;
+}
+nav.navbar img.logo{
+    float: left;
+    width: 150px;
+    margin: 6px 10px;
+}
+
+nav.navbar p{
+    display: none;
+    margin: 30px 0px 0px 40px
+}
+a img.profile,a img.home,a img.Out{
+    height: 25px;
+    position: fixed;
+    margin-top: 20px;
+}
+
+a img.profile{
+    right: 20px;
+}
+
+a img.home{
+    right: 60px;
+}
+a img.Out{
+    right: 100px;
 }
 
 div.post{
-    width: 300px;
-    /* min-height: 400px; */
+    max-width: 300px;
     padding: 10px;
-    background-color: white;
     border-radius: 10px;
+    margin: 10px auto;
+    font-family: sans-serif;
+    
+}
+div.post article, div.post p, div.post a, div.post span{
+    line-height: 1.2em;
 }
 
 div.post img{
-    width: 300px;
+    max-width: 300px;
+}
+
+.profilepic{
+    max-width: 45px;
+    height: 45px;
+    border-radius: 40px;
+    margin-bottom: 5px;
+    float: left;
+}
+
+div.post .name{
+    float: right;
+}
+div.post a img{
+    width: 25px; 
 }
 
 div.grid-container{
-    display: inline-grid;
-    grid-column: 25% 25% 25% 25%;
-    /* grid-row-gap: 50px;
-    grid-column-gap: 20px; */
+    display: grid;
+    margin: 70px auto 0px auto;
+    background-color: #e8e8e8;
+    /* grid-gap: 10px; */
+}
+.overlay{
+    height: 0%;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: #e8e8e8; /* Black fallback color */
+    background-color: rgba(0,0,0, 0.5);
+    /* overflow-x: hidden; */
+    overflow: hidden; 
+    transition: 0.5s;
+    z-index: 1;
+}
+.overlay .closebtn{
+    width: 60px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(0,0,0, 0);
+}
+
+.openbtn {
+    width: 60px;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.uploadWindow{
+    display: block;
+    height: 300px;
+    width: 80%;
+    font-family: sans-serif;
+    margin: 180px auto;
+    padding: 20px 30px;
+    border-radius: 10px;
+    position: relative;
+    /* top: 25%; */
+}
+
+input[type=text]#description{
+    height: 100px;
+    padding: 12px 20px;
+    width: 90%
+}
+.uploadWindow form p{
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+div.detail{
+    width: 90%;
+    margin: 80px auto 10px auto;
+    padding:10px;
+    border-radius: 10px;
+    display: grid;
+    grid-column: 60% 40%;
+    font-family: sans-serif;
+}
+div.detail img{
+    width:95%;
+    margin: 0px auto;
+    line-height: 1.2em;
+    /* max-width: 700px;
+    max-height: 700px; */
+}
+div.textOfPost{
+    font-size: 1em;
+    margin: 3px;
+    line-height: 1.2em;
+}
+div.textOfPost a img{
+    width:25px;
+    margin: 5px 2px;
+}
+div.comments{
+    width: 90%;
+    margin: 10px auto;
+    padding:10px;
+    border-radius: 10px;
+    border: 2px solid #009245;
+    font-family: sans-serif;
+}
+div.commentBox div{
+    width:90%;
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #F15A24;
+    border-radius: 20px;
+
+}
+form.edit_post{
+    width:90%;
+    margin:80px auto 0px;
+    z-index: 0;
+}
+form.edit_post .ed{
+    width:90%;
+    margin:0px auto;
+    z-index: 0;
+}
+
+@media only screen and (min-width:680px){
+    div.grid-container{
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .uploadWindow{
+        width: 612px;
+        margin: 10px auto;
+    }
+    nav.navbar p{
+        display: block;
+    }
+
+    nav.navbar img.logo{
+        margin-top: -20px; 
+    }
+
+    a img.profile,a img.home,a img.Out{
+        margin-top: -10px; 
+    }
+}
+@media only screen and (min-width:750px){
+    div.loginform{
+        width: 80%;
+        height: 240px;
+        margin: 190px auto;
+        border-radius: 50px;
+        padding: 45px 0px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .uploadWindow{
+        top: 25%;
+    }
+}
+
+@media only screen and (min-width:830px){
+    div.loginform{
+        height: 280px;
+    }
+}
+
+@media only screen and (min-width:1020px){
+    div.grid-container{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    div.loginform{
+        height: 350px;
+    }
+
+}
+
+@media only screen and (min-width:1360px){
+    div.grid-container{
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+    .forceMiddle{
+        width:1360px;
+    }
+
 }

@@ -28,11 +28,16 @@ class User
     }
 
     /**
-     * Get the value of firstname.
-     */
-    public function getFirstname()
+     * Get the value of firstname
+     */ 
+    public function getFirstname($email)
     {
-        return $this->firstname;
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("select * from users where email = :email");
+        $statement->bindParam(':email', $email);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_OBJ);
+        return $result->firstname;
     }
 
     /**
@@ -41,10 +46,9 @@ class User
      * @return self
      */
     public function setLastname($lastname)
-    {
-        if (empty($lastname)) {
-            throw new Exception('lastname fout');
-        }
+    {   if(empty($lastname)){
+            throw new Exception("lastname fout");
+        }   
         //todo valid emai? -> filter_var()
         $this->lastname = $lastname;
 
@@ -52,11 +56,16 @@ class User
     }
 
     /**
-     * Get the value of firstname.
-     */
-    public function getLastname()
+     * Get the value of firstname
+     */ 
+    public function getLastname($email)
     {
-        return $this->lastname;
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("select * from users where email = :email");
+        $statement->bindParam(':email', $email);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_OBJ);
+        return $result->lastname;
     }
 
     public function getPassword()
@@ -182,16 +191,15 @@ class User
 
     public function update()
     {
-        $conn = Db::getInstance();
-
-        $statement = $conn->prepare('UPDATE users SET email=:email,firstname = :firstname,lastname=:lastname,bio=:bio,picture=:image WHERE id = :user_id');
-        $statement->bindParam(':email', $this->email);
-        $statement->bindParam(':user_id', $this->user_id);
-        $statement->bindParam(':firstname', $this->firstname);
-        $statement->bindParam(':lastname', $this->lastname);
-
-        $statement->bindParam(':bio', $this->bio);
-        $statement->bindParam(':image', $this->image);
+        $conn = Db::getInstance();  
+        $statement = $conn->prepare("UPDATE users SET email=:email,firstname = :firstname,lastname=:lastname,bio=:bio,picture=:image WHERE id = :user_id");
+        $statement->bindParam(":email", $this->email);
+        $statement->bindParam(":user_id", $this->user_id);
+        $statement->bindParam(":firstname", $this->firstname);
+        $statement->bindParam(":lastname", $this->lastname);
+       
+        $statement->bindParam(":bio", $this->bio);
+        $statement->bindParam(":image", $this->image);
         $statement->execute();
 
         return $statement;
