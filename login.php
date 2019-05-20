@@ -1,3 +1,4 @@
+
 <?php
     include_once 'classes/user.class.php';
 
@@ -22,6 +23,7 @@
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
+
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -70,12 +72,6 @@
 
 		</div>
 		</form>
-		</div>
 
-		</div>
-
-
-	
-	</div>
-</body>
+		</body>
 </html>

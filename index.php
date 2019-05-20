@@ -9,8 +9,8 @@ $profile = $user->getUserInfo();
 $target_dir = 'data/uploads/'; // zet in config
 
 if (!empty($_POST)) {
-    $target_file = $target_dir.basename($_FILES['fileToUpload']['name']);
     if (!empty($_POST['description'])) {
+        $target_file = $target_dir.basename($_FILES['fileToUpload']['name']);
         if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file)) {
             $message = 'The file '.basename($_FILES['fileToUpload']['name']).' has been uploaded.';
           //  echo "<script type='text/javascript'>alert('$message');</script>";
@@ -37,11 +37,16 @@ $posts = Post::getAll();
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" media="screen" href="css/reset.css">
   <link rel="stylesheet" media="screen" href="css/style.css">
   <title>Inspiration Hunter</title>
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
 </head>
 <body onload="getLocation()">
 
