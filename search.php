@@ -100,7 +100,7 @@ else
           <p> <?php echo $res->city; ?> </p>
           <img src="<?php echo $res->image; ?>" alt="">
           <p> <?php echo $res->description; ?> </p>
-          <p> <?php echo $post->hashtag1. '  ' .$post->hashtag2. ' ' .$post->hashtag3;?> </p>
+          <p> <?php echo $res->hashtag1. '  ' .$res->hashtag2. ' ' .$res->hashtag3;?> </p>
           <a href="detail.php?id=<?php echo $res->id; ?>">More</a>
           
         </article>
@@ -122,7 +122,7 @@ else
           <p> <?php echo $geo->city; ?> </p>
           <img src="<?php echo $geo->image; ?>" alt="">
           <p> <?php echo $geo->description; ?> </p>
-          <p> <?php echo $post->hashtag1. '  ' .$post->hashtag2. '  ' .$post->hashtag3;?> </p>
+          <p> <?php echo $geo->hashtag1. '  ' .$geo->hashtag2. '  ' .$geo->hashtag3;?> </p>
           <a href="detail.php?id=<?php echo $geo->id; ?>">More</a>
         
           
