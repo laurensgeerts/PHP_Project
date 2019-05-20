@@ -46,7 +46,8 @@ $colors = $extractor->extract(5);
 </head>
 <body>
     
-    <?php include_once 'nav.inc.php'; ?>
+<?php include_once("includes/nav.inc.php"); ?>
+<?php include_once("includes/error.inc.php"); ?>
     <div class="detail">
         <img src="<?php echo $post->image; ?>" alt="picture of this post" class="postImage">
         <div class="textOfPost">

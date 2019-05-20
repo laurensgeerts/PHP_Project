@@ -47,7 +47,8 @@ $posts = Post::getAll();
 
 
 
-  <?php include_once 'nav.inc.php'; ?>
+<?php include_once("includes/nav.inc.php"); ?>
+<?php include_once("includes/error.inc.php"); ?>
   <!-- <form action="upload.php" method="post" enctype="multipart/form-data"> -->
   <form method="post" enctype="multipart/form-data">
     	Select image to upload:

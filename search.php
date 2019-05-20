@@ -19,7 +19,7 @@ if (!empty($_POST['searchPost'])){
 
 else 
 {
-  echo "vul hier iets in";
+  $message = "vul hier iets in";
 }
 
 if (!empty($_POST['city'])){
@@ -33,7 +33,7 @@ if (!empty($_POST['city'])){
   //$long = floatval($_POST['lng']);
   $res_geo = Search::searchLocation(htmlspecialchars($_POST['lng']),htmlspecialchars($_POST['lat']));
 
-  //var_dump($res_geo);
+var_dump($res_geo);
   //var_dump(floatval($_POST['lat']));
   //var_dump(floatval($_POST['lat']));
 
@@ -45,28 +45,8 @@ if (!empty($_POST['city'])){
 
 else 
 {
-  echo "vul hier iets in";
+  $message = "vul hier iets in";
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
 
 
 
@@ -84,7 +64,8 @@ else
 </head>
 <body onload="getLocation()">
 
-<?php include_once("nav.inc.php"); ?>
+<?php include_once("includes/nav.inc.php"); ?>
+<?php include_once("includes/error.inc.php"); ?>
 
 
 
@@ -100,10 +81,10 @@ else
 <input type="text" id= "city" name="city">
 <input   id="lng" name="lng" type="hidden">
   <input  id="lat" name="lat"type="hidden">
-  <input id="btn" type="button" value="get Lat&Long" />
+  <input id="btn" type="button" value="confirm location" />
 
 
- <input type="submit" value="Search geolocatin" name="submit_search" id="submit">
+ <input type="submit" value="Search for city" name="submit_search" id="submit">
 
 
   </form>
@@ -140,7 +121,7 @@ else
           <p> <?php echo $geo->city; ?> </p>
           <img src="<?php echo $geo->image; ?>" alt="">
           <p> <?php echo $geo->description; ?> </p>
-          <a href="detail.php?id=<?php echo $geo->id; ?>">More</a>
+        
           
         </article>
       </div>
@@ -179,8 +160,8 @@ $("#btn").click(function(){
         console.log(y);
 
           // $('.push-down').text("location : " + results[0].geometry.location.lat() + " " +results[0].geometry.location.lng()); 
-      //  } else {
-     //      $('.push-down').text("Something got wrong " + status);
+       } else {
+        innerHTML = "something went wrong"
           }
 
 
