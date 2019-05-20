@@ -64,18 +64,20 @@ else
 </head>
 <body onload="getLocation()">
 
-<?php include_once("includes/nav.inc.php"); ?>
+<?php include_once("nav.inc.php"); ?>
 <?php include_once("includes/error.inc.php"); ?>
 
 
+<div class="uploadWindow" id="uploadWindow">
 
-
-
+<div class="forceMiddle">
+    <div class="grid-container">
     <form action="" method="post" id="form">
     <input type="text" name="searchPost" placeholder=" zoek hier naar een post " />
     
     <input type="submit" value="Search" name="submit_search" id="submit">
 </form>
+
 
 <form action="" method="post" id="form2">
 <input type="text" id= "city" name="city"placeholder=" zoek hier naar een post ">
@@ -88,6 +90,9 @@ else
 
 
   </form>
+
+    </div>
+  
 
   
   <?php foreach ($res_post as $res): ?>

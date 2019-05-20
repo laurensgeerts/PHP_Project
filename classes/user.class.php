@@ -395,4 +395,21 @@ public function updatePassword() {
 
         return $this;
     }
+
+
+    public static function getUserInfoDetail($id)
+    {
+       
+            $conn = Db::getInstance();
+            $statement = $conn->prepare("SELECT * FROM users WHERE id =:id");
+            $statement->bindParam(":id",$id);
+            $statement->execute();
+            $result = $statement->fetch();
+            return $result;
+
+        
+    }
+
+
+  
 }
