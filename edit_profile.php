@@ -6,7 +6,7 @@ include_once 'classes/user.class.php';
 $user = new User();
 $user->setUser_id($_SESSION['user_id']);
 
-$profile = $user->getInfo();
+$profile = $user->getUserInfo();
 
 if (!empty($_POST['edit'])) {
     if (!empty($_FILES['profileImg']['name'])) {
@@ -57,7 +57,7 @@ if (!empty($_POST['passwordedit']) && !empty($_POST['password']) && !empty($_POS
     $error = 'invullen';
 }
 
-$profile = $user->getInfo();
+$profile = $user->getUserInfo();
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -74,6 +74,7 @@ $profile = $user->getInfo();
             <?php include_once 'nav.inc.php'; ?>
         </div>
     </div>
+    <?php include_once("includes/error.inc.php"); ?>
     <form method="post" action="" enctype="multipart/form-data" class="edit_profile 1">
         <h2>Edit profile</h2>
 
@@ -99,11 +100,13 @@ $profile = $user->getInfo();
     <form method="post" action="" class="edit_profile">
         <h2>Wachtwoord aanpassen</h2>
 
-        <label for="password">New password</label>
-        <input type="password" name="password" id="password" placeholder="New password">
+<form method="post" action="" class="edit_profile">
+    <h2>Wachtwoord aanpassen</h2>
+    <label for="password">nieuw password</label>
+    <input type="password" name="password" id="password" placeholder="New password">
 
-        <label for="repassword">Retype New password</label>
-        <input type="password" name="repassword" id="repassword" placeholder="Retype New password">
+     <label for="repassword">bevestig nieuw password</label>
+    <input type="password" name="repassword" id="repassword" placeholder="Retype New password">
 
         <input type="submit" name="passwordedit" value="Edit">
     </form>

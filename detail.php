@@ -2,6 +2,14 @@
 
 include_once 'bootstrap.php';
 include_once 'ajax/postcomment.php';
+require_once 'ColorExtractor/Color.php';
+require_once 'ColorExtractor/ColorExtractor.php';
+require_once 'ColorExtractor/Palette.php';
+
+
+     use ColorExtractor\Color;
+     use ColorExtractor\ColorExtractor;
+     use ColorExtractor\Palette;
 
 $id = $_GET['id'];
 
@@ -14,7 +22,18 @@ $post = Post::getById($id);
 
 $comments = Comment::getAll($id);
 
+$picture = $post->image;
+
+$palette = Palette::fromFilename($picture);
+
+$extractor = new ColorExtractor($palette);
+
+$colors = $extractor->extract(5);
+
+
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,6 +63,9 @@ $comments = Comment::getAll($id);
                     <a href="#" data-id="<?php echo $post->id ?>" class="dislike <?php echo $post->id ?>" style="display:none;"><img src="data/images/Asset 7.svg"></a>
                     <!-- <span class='likes' data-id="<?php //echo $post->id ?>"><?php //echo $post->getLikes(); ?></span> people like this -->
                 </div>
+                <?php foreach($colors as $c):?>
+                    <div style="width:40px;height:40px;background-color:<?php  echo Color::fromIntToHex($c); ?>;display:inline-block;border-radius:30px;"></div>
+                <?php endforeach; ?> 
                 <form method="post" enctype="">
                     <input type="checkbox" id="check" name="Inappropriate">Mark this post as inappropriate<br>
                 </form>
