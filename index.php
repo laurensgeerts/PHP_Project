@@ -71,6 +71,7 @@ $posts = Post::getAll();
         #<input type="text" name="hashtag3" id="hashtag3">
 
         <div class="filterBox">
+          <p>add filter:</p>
           <div>
             <img src="data/images/TechSquare.jpg" class="">
             <p></p>

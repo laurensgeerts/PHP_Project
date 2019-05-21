@@ -14,6 +14,7 @@ class Post
     public $hashtag1;
     public $hashtag2;
     public $hashtag3;
+    public $filter;
 
 
     public function getUserId()
@@ -72,6 +73,26 @@ class Post
         return $this;
     }
 
+    /**
+     * Get the value of filter
+     */ 
+    public function getFilter()
+    {
+        return $this->filter;
+    }
+
+    /**
+     * Set the value of filter
+     *
+     * @return  self
+     */ 
+    public function setFilter($filter)
+    {
+        $this->filter = $filter;
+
+        return $this;
+    }
+
     public function newPost()
     {
 
@@ -82,7 +103,8 @@ class Post
         $h3 = "#" . $this->getHashtag3();
 
         $conn = Db::getInstance();
-        $statement = $conn->prepare('INSERT INTO posts (user_id, description, image, city, lng, lat, hashtag1, hashtag2, hashtag3, date_created) values (:userid, :description, :image, :city, :lng, :lat, :hashtag1, :hashtag2, :hashtag3, NOW())');
+        $statement = $conn->prepare('INSERT INTO posts (`user_id`, `description`, `image`, city, lng, lat, hashtag1, hashtag2, hashtag3, `filter`, date_created) 
+        values (:userid, :description, :image, :city, :lng, :lat, :hashtag1, :hashtag2, :hashtag3, `:filter`, NOW())');
         $statement->bindValue(':userid', $this->getUserId());
         $statement->bindValue(':image', $this->getImage());
         $statement->bindValue(':city', $this->getCity());
@@ -91,6 +113,7 @@ class Post
         $statement->bindValue(':hashtag1', $h1);
         $statement->bindValue(':hashtag2', $h2);
         $statement->bindValue(':hashtag3', $h3);
+        $statement->bindValue(':filter', $this->getFilter());
 
         $statement->bindValue(':description', $this->getDescription());
       
@@ -365,4 +388,6 @@ public function updatePosts($id, $user_id)
         $statement->execute();
         return $statement;
 }
+
+    
 }
