@@ -77,9 +77,9 @@ class Post
 
         $lng = floatval($this->getLng());
         $lat = floatval($this->getLat());
-        $h1 = "#" . $this->getHashtag1();
-        $h2 = "#" . $this->getHashtag2();
-        $h3 = "#" . $this->getHashtag3();
+        $h1 =  $this->getHashtag1();
+        $h2 =  $this->getHashtag2();
+        $h3 = $this->getHashtag3();
 
         $conn = Db::getInstance();
         $statement = $conn->prepare('INSERT INTO posts (user_id, description, image, city, lng, lat, hashtag1, hashtag2, hashtag3, date_created) values (:userid, :description, :image, :city, :lng, :lat, :hashtag1, :hashtag2, :hashtag3, NOW())');
@@ -324,11 +324,12 @@ class Post
     }
 
 
-    public function delete($id){
+    public function delete($id, $user_id){
 
         $conn = Db::getInstance();
-        $statement =$conn->prepare("DELETE FROM posts  WHERE user_id = :id");
+        $statement =$conn->prepare("DELETE FROM posts  WHERE user_id = :user_id AND  id =  :id ");
         $statement->bindValue(':id', $id);
+        $statement->bindValue(":user_id",$user_id);
         $statement->execute();
 }
 
@@ -357,7 +358,7 @@ public function updatePosts($id, $user_id)
         $statement->bindValue(':description', $this->getDescription());
         $statement->bindValue(':hashtag1', $this->getHashtag2());
         $statement->bindValue(':hashtag2', $this->getHashtag2());
-        $statement->bindValue(':hashtag3', $$this->getHashtag3()  );
+        $statement->bindValue(':hashtag3', $this->getHashtag3()  );
         $statement->bindValue(":id",$id);
         $statement->bindValue(":user_id",$user_id);
 

@@ -6,7 +6,12 @@ class Search
 {
     public static function searchPost($searchPost){
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT posts.*,users.firstname,users.lastname, users.picture FROM posts,users WHERE posts.user_id=users.id AND (posts.description LIKE '%$searchPost%' OR CONCAT(users.firstname, ' ', users.lastname) LIKE '%$searchPost%' OR  users.firstname LIKE '%$searchPost%' OR users.lastname  LIKE '%$searchPost%')");
+        $statement = $conn->prepare("SELECT posts.*,users.firstname,users.lastname, users.picture 
+        FROM posts,users WHERE posts.user_id=users.id AND (posts.description    LIKE '%$searchPost%' OR posts.hashtag1 LIKE
+         '%$searchPost%' OR posts.hashtag2 LIKE
+         '%$searchPost%' OR posts.hashtag3 LIKE
+         '%$searchPost%' OR CONCAT(users.firstname, ' ', users.lastname) 
+        LIKE '%$searchPost%' OR  users.firstname LIKE '%$searchPost%' OR users.lastname  LIKE '%$searchPost%')");
         $statement->bindValue(1, "%$searchPost%", PDO::PARAM_STR);
         $statement->execute();
         

@@ -6,51 +6,47 @@ include_once 'classes/search.class.php';
 
 
 
-
-if (!empty($_POST['searchPost'])){
-
+if(!empty($_POST)){
 
 
- 
-  $res_post = Search::searchPost(htmlspecialchars($_POST['searchPost']));
+  if (!empty($_POST['searchPost'])){
 
 
-}
-
-else 
-{
-  $message = "vul hier iets in";
-}
-
-if (!empty($_POST['city'])){
-
-
-
-
+   
+    $res_post = Search::searchPost(htmlspecialchars($_POST['searchPost']));
+     $message = "zoeken geslaagd. ✅";
+   
+  }
   
-
-  //$latt = floatval($_POST['lat']);
-  //$long = floatval($_POST['lng']);
-  $res_geo = Search::searchLocation(htmlspecialchars($_POST['lng']),htmlspecialchars($_POST['lat']));
-
-//var_dump($res_geo);
-  //var_dump(floatval($_POST['lat']));
-  //var_dump(floatval($_POST['lat']));
-
-
-
+  else 
+  {
+    $error = "Er is iets fout gegaan. Sorry! 🆘";
+  }
   
+  if (!empty($_POST['city'])){
+  
+  
+  if($res_geo = Search::searchLocation(htmlspecialchars($_POST['lng']),htmlspecialchars($_POST['lat']))){
+    $message = "zoeken geslaagd. ✅";
+  }
+
+  else
+
+  {
+    $error = "Er is iets fout gegaan. Sorry! 🆘";
+  }
+
+   //$latt = floatval($_POST['lat']);
+    //$long = floatval($_POST['lng']);
+    
+  
+  //var_dump($res_geo);
+    //var_dump(floatval($_POST['lat']));
+    //var_dump(floatval($_POST['lat'])
+  
+  }
 
 }
-
-else 
-{
-  $message = "vul hier iets in";
-}
-
-
-
-
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -59,19 +55,26 @@ else
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" media="screen" href="css/reset.css">
-  <link rel="stylesheet" media="screen" href="css/style.css">  
-    <title>search </title>
+  <link rel="stylesheet" media="screen" href="css/style.css">
+  <link rel="stylesheet" media="screen" href="css/CSSgram.css">
+  <title>Inspiration Hunter</title>
 </head>
 <body onload="getLocation()">
 
 <?php include_once("nav.inc.php"); ?>
-<?php include_once("includes/error.inc.php"); ?>
 
 
-<div class="uploadWindow" id="uploadWindow">
+
+<div class="searchwindow" >
+
+<h1>ZOEKEN</h1>
+
+<?php if(isset($error)): ?>
+        <div class="error"><p><?php echo $error; ?></p></div>
+    <?php endif; ?>
 
 <div class="forceMiddle">
-    <div class="grid-container">
+    <div class="grid-containerJ">
     <form action="" method="post" id="form">
     <input type="text" name="searchPost" placeholder=" zoek hier naar een post " />
     
@@ -80,7 +83,7 @@ else
 
 
 <form action="" method="post" id="form2">
-<input type="text" id= "city" name="city"placeholder=" zoek hier naar een post ">
+<input type="text" id= "city" name="city"placeholder=" zoek hier naar een locatie ">
 <input   id="lng" name="lng" type="hidden">
   <input  id="lat" name="lat"type="hidden">
   <input id="btn" type="button" value="1. confirm location" />
@@ -91,13 +94,17 @@ else
 
   </form>
 
+  <?php if(isset($message)): ?>
+        <div class="message"><p><?php echo $message; ?></p></div>
+    <?php endif; ?>
+
     </div>
   
+<div class="searchmargin">
 
-  
-  <?php foreach ($res_post as $res): ?>
-    <div class="grid-container">
-      <div class="post">
+<?php foreach ($res_post as $res): ?>
+    <div class="grid-container color" >
+      <div class="post color" >
 	      <article >
           <img src="<?php echo $res->picture; ?>" class="profilepic">
           <p> <?php echo $res->firstname.' '.$res->lastname; ?> </p>
@@ -135,6 +142,9 @@ else
       </div>
     </div>  
   <?php endforeach; ?>
+  
+
+</div>
   
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJdC938sjnGDKKf1fq5N060TkvFfdAhgk"
