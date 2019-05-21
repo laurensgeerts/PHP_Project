@@ -104,7 +104,7 @@ input[type=textarea]
     resize: horizontal;
 }
 
-input[type=text],input[type=password] {
+input[type=text],input[type=password], input[type=email]  {
     width: 100%;
     height: 30px;
     padding: 8px;
@@ -115,6 +115,19 @@ input[type=text],input[type=password] {
     resize: horizontal;
 }
 
+
+textarea 
+
+{
+    width: 100%;
+    height: 60px;
+    padding: 8px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ed1e79;
+    border-radius: 4px;
+    
+}
 #btn
 
 {

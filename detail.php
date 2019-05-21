@@ -14,8 +14,8 @@ require_once 'ColorExtractor/Palette.php';
 $id = htmlspecialchars($_GET['id']);
 
 $user = new User();
-$user->setUser_id($_SESSION['user_id']);
-$profile = $user->getUserInfo();
+$user_id = $_SESSION['user_id']; 
+$profile = $user->getUserInfo($user_id);
 
 //get post --> display image, description, date, name poster, image poster
 $post = Post::getById($id);

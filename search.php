@@ -14,7 +14,7 @@ if(!empty($_POST)){
 
    
     $res_post = Search::searchPost(htmlspecialchars($_POST['searchPost']));
-     $message = "zoeken geslaagd. ✅";
+     $message = "Zoeken geslaagd. ✅";
    
   }
   
@@ -27,7 +27,7 @@ if(!empty($_POST)){
   
   
   if($res_geo = Search::searchLocation(htmlspecialchars($_POST['lng']),htmlspecialchars($_POST['lat']))){
-    $message = "zoeken geslaagd. ✅";
+    $message = "Zoeken geslaagd. ✅";
   }
 
   else

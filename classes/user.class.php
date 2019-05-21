@@ -148,13 +148,13 @@ class User{
    
 
   
-     public function getUserInfo() {
+     public function getUserInfo($user_id) {
        
         $conn = Db::getInstance();
 
         
-        $statement = $conn->prepare("SELECT * FROM users WHERE id = :user_id LIMIT 1");
-        $statement->bindParam(":user_id", $this->user_id);
+        $statement = $conn->prepare("SELECT * FROM users WHERE id= :user_id LIMIT 1");
+        $statement->bindParam(":user_id", $user_id);
         $statement->execute();
         $result = $statement->fetch();
         return $result;

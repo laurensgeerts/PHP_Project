@@ -9,13 +9,13 @@ $post_id = $_GET['post_id'];
 $post = new Post();
 $getInfo = $post->getPostInfoDetail($post_id);
 
-if (!empty($_POST)) {
+if (!empty($_POST['submit'])) {
 
   $post = new Post();
-  $post->setHashtag1($_POST['hashtag1']);
-  $post->setHashtag2($_POST['hashtag2']);
-  $post->setHashtag3($_POST['hashtag3']);
-  $post->setDescription($_POST['description']);
+  $post->setHashtag1(htmlspecialchars($_POST['hashtag1']));
+  $post->setHashtag2(htmlspecialchars($_POST['hashtag2']));
+  $post->setHashtag3(htmlspecialchars($_POST['hashtag3']));
+  $post->setDescription(htmlspecialchars($_POST['description']));
   $post->updatePosts($post_id, $user_id);
   
   header('Location: index.php');
@@ -25,7 +25,7 @@ if (!empty($_POST)) {
     else
 
     {
-      $error = "please write a descrition";
+      $error = "Vul alles mooi in. ";
     }
 
 
@@ -55,17 +55,23 @@ if ($user_id !== $getInfo['user_id']) {
 
 <div class="uploadWindow" >
 
- 
-  <img src="<?php  echo $getInfo['image'];  ?>"  alt="edit_post" style="width:200px;">
+<?php if(isset($error)): ?>
+        <div ><?php echo $error; ?></div>
+        <?php endif; ?>
+
+        <br>
+
+<p>Jouw foto: </p>
+  <img src="<?php  echo $getInfo['image'];  ?>"  alt="edit_post" style="width:300px;">
   <form method="post" enctype="multipart/form-data">
-        <p>change description;</p>
+        <p>Pas hier je beschrijving aan: </p>
         <input type="text" name="description" id="description" placeholder="<?php  echo $getInfo['description'];  ?>"><br>    	  
-        <p>change your hashtags:</p>
+        <p>Verander jouw hashtags: </p>
          <input type="text" name="hashtag1" id="hashtag1" value="<?php  echo $getInfo['hashtag1'];  ?>">
         <input type="text" name="hashtag2" id="hashtag2"value="<?php  echo $getInfo['hashtag2'];  ?>" >
         <input type="text" name="hashtag3" id="hashtag3"value="<?php  echo $getInfo['hashtag3'];  ?>">
 
-        <input type="submit" value="update your post" name="submit" value="submit">
+        <input type="submit" value="Update je post. " name="submit" value="submit">
       </form>
     </div>
 

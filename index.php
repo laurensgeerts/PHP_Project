@@ -2,10 +2,12 @@
 
 include_once 'bootstrap.php';
 
-$user = new User();
-$user->setUser_id($_SESSION['user_id']);
-$profile = $user->getUserInfo();
 
+
+$user = new User();
+$user_id = $_SESSION['user_id']; 
+
+$profile = $user->getUserInfo($user_id);
 
 $target_dir = 'data/uploads/'; // zet in config
 
@@ -19,13 +21,13 @@ if (!empty($_POST)) {
 
             $post = new Post();
             $post->setImage($target_dir.basename($_FILES['fileToUpload']['name']));
-            $post->setCity($_POST['city']);
-            $post->setLng($_POST['lng']);
-            $post->setLat($_POST['lat']);
-            $post->setHashtag1($_POST['hashtag1']);
-            $post->setHashtag2($_POST['hashtag2']);
-            $post->setHashtag3($_POST['hashtag3']);
-            $post->setDescription($_POST['description']);
+            $post->setCity(htmlspecialchars( $_POST['city']));
+            $post->setLng(htmlspecialchars($_POST['lng']));
+            $post->setLat(htmlspecialchars($_POST['lat']));
+            $post->setHashtag1(htmlspecialchars($_POST['hashtag1']));
+            $post->setHashtag2(htmlspecialchars($_POST['hashtag2']));
+            $post->setHashtag3(htmlspecialchars($_POST['hashtag3']));
+            $post->setDescription(htmlspecialchars($_POST['description']));
             $post->setUserId($_SESSION['user_id']);
             $post->newPost();
         } else {
