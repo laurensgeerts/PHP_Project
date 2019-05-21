@@ -6,6 +6,7 @@ $user = new User();
 $user->setUser_id($_SESSION['user_id']);
 $profile = $user->getUserInfo();
 
+
 $target_dir = 'data/uploads/'; // zet in config
 
 if (!empty($_POST)) {
@@ -85,7 +86,7 @@ $posts = Post::getAll();
 	        <article >
             <img src="<?php echo $post->picture; ?>" class="profilepic">
             <p> <?php echo $post->date_created; ?> </p>
-            <p class="name"> <?php echo $post->firstname.' '.$post->lastname; ?> </p>
+            <p class="name"><a href="profile.php?id=<?php echo  $post->user_id  ?>"> <?php echo $post->firstname.' '.$post->lastname; ?></a> </p>
             <img src="<?php echo $post->image; ?>" alt="">
             <p> <?php echo $post->description; ?> </p>
             <p> <?php echo $post->city; ?> </p>
@@ -96,11 +97,20 @@ $posts = Post::getAll();
               <span class='likes' data-id="<?php echo $post->id ?>"><?php echo $post->getLikes(); ?></span> people like this
             </div>
             <a href="detail.php?id=<?php echo $post->id; ?>">More</a>
+            <a href="delete.php?id=<?php echo $_SESSION['user_id']; ?>">delete post</a>
+            <a href="edit_post.php?post_id=<?php echo $post->id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>">edit post</a>
+
+
           </article>
         </div>
       <?php endforeach; ?>
     </div> 
   </div>
+
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJdC938sjnGDKKf1fq5N060TkvFfdAhgk"
+  type="text/javascript"></script>
 
   <script
 		src="http://code.jquery.com/jquery-3.4.1.min.js"

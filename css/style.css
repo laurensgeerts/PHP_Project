@@ -68,19 +68,30 @@ nav.navbar img.logo{
     margin: 6px 10px;
 }
 
+
+
 nav.navbar p{
     display: none;
     margin: 30px 0px 0px 40px
 }
-a img.profile,a img.home,a img.Out{
+a img.profile,a img.home,a img.Out,  a img.search{
     height: 25px;
     position: fixed;
     margin-top: 20px;
+
 }
+
 
 a img.profile{
     right: 20px;
 }
+
+a img.search {
+    right: 40px;
+}
+
+
+
 
 a img.home{
     right: 60px;
@@ -88,6 +99,8 @@ a img.home{
 a img.Out{
     right: 100px;
 }
+
+
 
 div.post{
     max-width: 300px;
@@ -157,7 +170,7 @@ div.grid-container{
 
 .uploadWindow{
     display: block;
-    height: 300px;
+    height: 550px;
     width: 80%;
     font-family: sans-serif;
     margin: 180px auto;

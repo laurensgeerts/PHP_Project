@@ -98,22 +98,11 @@ class Post
         return $statement->execute();
     }
 
+    
     public static function getAll()
     {
         $conn = Db::getInstance();
-        $result = $conn->prepare(
-            'SELECT posts.*, users.firstname, users.lastname, users.picture
-            FROM posts INNER JOIN users
-            ON posts.user_id = users.id
-            WHERE
-            posts.user_id IN 
-                (
-                SELECT follow_to FROM followers WHERE follow_from = :usId
-                )
-            ORDER BY posts.date_created desc
-            LIMIT 5');
-        $result->bindParam(':usId',$UsId);
-        $result->execute();
+        $result = $conn->query('SELECT posts.*,users.firstname,users.lastname, users.picture FROM posts,users WHERE posts.user_id=users.id ');
 
         return $result->fetchAll(PDO::FETCH_CLASS, __CLASS__);
     }
@@ -323,4 +312,57 @@ class Post
         $result = $statement->fetch(PDO::FETCH_ASSOC);
         return $result['countInapp'];
     }
+
+    public static function getallPostDetail($id, $user_id)
+    {
+        $conn = Db::getInstance();
+        $statement = $conn->prepare('SELECT posts.*,users.firstname,users.lastname, users.picture FROM posts,users WHERE posts.user_id = :user_id AND users.id=  :id ');
+        $statement->bindValue(":id",$id);
+         $statement->bindValue(":user_id",$user_id);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_CLASS, __CLASS__);
+    }
+
+
+    public function delete($id){
+
+        $conn = Db::getInstance();
+        $statement =$conn->prepare("DELETE FROM posts  WHERE user_id = :id");
+        $statement->bindValue(':id', $id);
+        $statement->execute();
+}
+
+public  function getPostInfoDetail($id)
+{
+   
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT * FROM posts WHERE id =:id");
+        $statement->bindParam(":id",$id);
+        $statement->execute();
+        $result = $statement->fetch();
+        return $result;
+
+    
+}
+
+public function updatePosts($id, $user_id)
+
+
+
+    {
+       
+        $conn = Db::getInstance();
+       
+        $statement = $conn->prepare("UPDATE posts SET description = :description ,hashtag1 = :hashtag1,hashtag2=:hashtag2, hashtag3=:hashtag3 WHERE user_id = :user_id AND  id=  :id ");
+        $statement->bindValue(':description', $this->getDescription());
+        $statement->bindValue(':hashtag1', $this->getHashtag2());
+        $statement->bindValue(':hashtag2', $this->getHashtag2());
+        $statement->bindValue(':hashtag3', $$this->getHashtag3()  );
+        $statement->bindValue(":id",$id);
+        $statement->bindValue(":user_id",$user_id);
+
+       
+        $statement->execute();
+        return $statement;
+}
 }
