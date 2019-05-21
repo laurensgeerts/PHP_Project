@@ -173,11 +173,13 @@ div.grid-container{
     height: 550px;
     width: 80%;
     font-family: sans-serif;
-    margin: 180px auto;
+    /* margin: auto; */
     padding: 20px 30px;
     border-radius: 10px;
-    position: relative;
-    /* top: 25%; */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }
 
 input[type=text]#description{
@@ -248,7 +250,7 @@ form.edit_post .ed{
 
     .uploadWindow{
         width: 612px;
-        margin: 10px auto;
+        /* margin: 10px auto; */
     }
     nav.navbar p{
         display: block;
@@ -274,7 +276,7 @@ form.edit_post .ed{
     }
     
     .uploadWindow{
-        top: 25%;
+        /* top: 25%; */
     }
 }
 

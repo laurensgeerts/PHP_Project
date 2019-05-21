@@ -92,8 +92,13 @@ $posts = Post::getAll();
             <p> <?php echo $post->city; ?> </p>
             <p> <?php echo $post->hashtag1. '  ' .$post->hashtag2. '  ' .$post->hashtag3;?> </p>
             <div>
-              <a href="#" data-id="<?php echo $post->id ?>" class="like <?php echo $post->id ?>"><img src="data/images/Asset 6.svg"></a>  
-              <a href="#" data-id="<?php echo $post->id ?>" class="dislike <?php echo $post->id ?>" style="display:none;"><img src="data/images/Asset 7.svg"></a>
+              <?php if(Post::checkLike($post->id, $_SESSION['user_id'])->type==0) { ?>
+                <?php echo '<a href="#" data-id="<?php echo $post->id ?>" class="like <?php echo $post->id ?>"><img src="data/images/Asset 6.svg"></a>'?>
+                <?php echo '<a href="#" data-id="<?php echo $post->id ?>" class="dislike <?php echo $post->id ?>" style="display:none;"><img src="data/images/Asset 7.svg"></a>'?>
+              <?php } else if(Post::checkLike($post->id, $_SESSION['user_id'])->type==1) {?>
+                <?php echo '<a href="#" data-id="<?php echo $post->id ?>" class="like <?php echo $post->id ?>" style="display:none;"><img src="data/images/Asset 6.svg"></a>'?>
+                <?php echo '<a href="#" data-id="<?php echo $post->id ?>" class="dislike <?php echo $post->id ?>" ><img src="data/images/Asset 7.svg"></a>' ?>
+              <?php }?>
               <span class='likes' data-id="<?php echo $post->id ?>"><?php echo $post->getLikes(); ?></span> people like this
             </div>
             <a href="detail.php?id=<?php echo $post->id; ?>">More</a>

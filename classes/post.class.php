@@ -274,6 +274,16 @@ class Post
         }
     }
 
+    public static function checkLike($pId, $uId){
+        $conn = Db::getInstance();
+        $statement=$conn->prepare("SELECT * from likes where post_id=:postid and `user_id`=:userid");
+        $statement->bindValue(":postid", $pId);
+        $statement->bindValue(":userid", $uId);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_OBJ);
+        return $result->type;
+    }
+
     public function getLikes(){
         $conn = Db::getInstance();
         $statement = $conn->prepare("SELECT count(*) AS countLikes FROM likes WHERE post_id=:postid AND `type`=1");
@@ -318,7 +328,7 @@ class Post
         $conn = Db::getInstance();
         $statement = $conn->prepare('SELECT posts.*,users.firstname,users.lastname, users.picture FROM posts,users WHERE posts.user_id = :user_id AND users.id=  :id ');
         $statement->bindValue(":id",$id);
-         $statement->bindValue(":user_id",$user_id);
+        $statement->bindValue(":user_id",$user_id);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_CLASS, __CLASS__);
     }
