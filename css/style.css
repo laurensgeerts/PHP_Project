@@ -114,6 +114,16 @@ input[type=text],input[type=password] {
     border-radius: 4px;
     resize: horizontal;
 }
+
+#btn
+
+{
+    padding: 10px 15px;
+    background-color: #F15A24;
+    box-sizing: border-box;
+    border-radius: 25px;
+    margin: 5px auto;
+}
 input[type=submit]{
     padding: 10px 15px;
     background-color: #F15A24;

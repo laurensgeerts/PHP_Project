@@ -61,9 +61,9 @@ if ($user_id !== $getInfo['user_id']) {
         <p>change description;</p>
         <input type="text" name="description" id="description" placeholder="<?php  echo $getInfo['description'];  ?>"><br>    	  
         <p>change your hashtags:</p>
-         <input type="text" name="hashtag1" id="hashtag1" value="#<?php  echo $getInfo['hashtag1'];  ?>">
-        <input type="text" name="hashtag2" id="hashtag2"value="#<?php  echo $getInfo['hashtag2'];  ?>" >
-        <input type="text" name="hashtag3" id="hashtag3"value="#<?php  echo $getInfo['hashtag3'];  ?>">
+         <input type="text" name="hashtag1" id="hashtag1" value="<?php  echo $getInfo['hashtag1'];  ?>">
+        <input type="text" name="hashtag2" id="hashtag2"value="<?php  echo $getInfo['hashtag2'];  ?>" >
+        <input type="text" name="hashtag3" id="hashtag3"value="<?php  echo $getInfo['hashtag3'];  ?>">
 
         <input type="submit" value="update your post" name="submit" value="submit">
       </form>

@@ -20,7 +20,7 @@ if(!empty($_POST)){
   
   else 
   {
-    $error = "Er is iets fout gegaan. Sorry! 🆘";
+    $error = "Vul eerst iets in. 🔍";
   }
   
   if (!empty($_POST['city'])){
@@ -33,7 +33,7 @@ if(!empty($_POST)){
   else
 
   {
-    $error = "Er is iets fout gegaan. Sorry! 🆘";
+    $error = "Vul eerst iets in. 🔍";
   }
 
    //$latt = floatval($_POST['lat']);
@@ -73,12 +73,19 @@ if(!empty($_POST)){
         <div class="error"><p><?php echo $error; ?></p></div>
     <?php endif; ?>
 
+  <?php if(isset($message)): ?>
+        <div class="message"><p><?php echo $message; ?></p></div>
+    <?php endif; ?>
+
+
+
+
 <div class="forceMiddle">
     <div class="grid-containerJ">
     <form action="" method="post" id="form">
-    <input type="text" name="searchPost" placeholder=" zoek hier naar een post " />
+    <input type="text" name="searchPost" placeholder=" Zoek hier naar een post. " />
     
-    <input type="submit" value="Search" name="submit_search" id="submit">
+    <input type="submit" value="Zoeken op posts." name="submit_search" id="submit">
 </form>
 
 
@@ -86,34 +93,42 @@ if(!empty($_POST)){
 <input type="text" id= "city" name="city"placeholder=" zoek hier naar een locatie ">
 <input   id="lng" name="lng" type="hidden">
   <input  id="lat" name="lat"type="hidden">
-  <input id="btn" type="button" value="1. confirm location" />
+  <input id="btn" type="button" value="1. Bevestig eerst de locatie. " />
 
 
- <input type="submit" value="2. Search for city" name="submit_search" id="submit">
+ <input type="submit" value="2. Zoek nu op een locatie. " name="submit_search" >
 
 
   </form>
 
-  <?php if(isset($message)): ?>
-        <div class="message"><p><?php echo $message; ?></p></div>
-    <?php endif; ?>
+
+    
 
     </div>
   
 <div class="searchmargin">
 
-<?php foreach ($res_post as $res): ?>
+<?php foreach ($res_post as $post): ?>
     <div class="grid-container color" >
       <div class="post color" >
 	      <article >
-          <img src="<?php echo $res->picture; ?>" class="profilepic">
-          <p> <?php echo $res->firstname.' '.$res->lastname; ?> </p>
-          <p> <?php echo $res->date_created; ?> </p>
-          <p> <?php echo $res->city; ?> </p>
-          <img src="<?php echo $res->image; ?>" alt="">
-          <p> <?php echo $res->description; ?> </p>
-          <p> <?php echo $res->hashtag1. '  ' .$res->hashtag2. ' ' .$res->hashtag3;?> </p>
-          <a href="detail.php?id=<?php echo $res->id; ?>">More</a>
+        <article >
+            <div class="userOfPost">
+              <img src="<?php echo $post->picture; ?>" class="profilepic">
+              <p class="name"><a href="profile.php?id=<?php echo  $post->user_id  ?>"> <?php echo $post->firstname.' '.$post->lastname; ?></a> </p>
+              <p class="date"> <?php echo $post->date_created; ?> </p>
+            </div>
+            <img src="<?php echo $post->image; ?>" alt="">
+            <p> <?php echo $post->description; ?> </p>
+            <p> <?php echo $post->city; ?> </p>
+            <p> <?php echo $post->hashtag1. '  ' .$post->hashtag2. '  ' .$post->hashtag3;?> </p>
+       
+            <a href="detail.php?id=<?php echo $post->id; ?>">More</a>
+            <a href="delete.php?id=<?php echo $post->id; ?>">delete post</a>
+            <a href="edit_post.php?post_id=<?php echo $post->id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>">edit post</a>
+
+
+          </article>
           
         </article>
       </div>
@@ -124,21 +139,30 @@ if(!empty($_POST)){
 
 
 
-<?php foreach ($res_geo as $geo): ?>
+<?php foreach ($res_geo as $post): ?>
     <div class="grid-container">
       <div class="post">
-	      <article >
-          <img src="<?php echo $geo->picture; ?>" class="profilepic">
-          <p> <?php echo $geo->firstname.' '.$geo->lastname; ?> </p>
-          <p> <?php echo $geo->date_created; ?> </p>
-          <p> <?php echo $geo->city; ?> </p>
-          <img src="<?php echo $geo->image; ?>" alt="">
-          <p> <?php echo $geo->description; ?> </p>
-          <p> <?php echo $geo->hashtag1. '  ' .$geo->hashtag2. '  ' .$geo->hashtag3;?> </p>
-          <a href="detail.php?id=<?php echo $geo->id; ?>">More</a>
+	    
+        <article >
+            <div class="userOfPost">
+              <img src="<?php echo $post->picture; ?>" class="profilepic">
+              <p class="name"><a href="profile.php?id=<?php echo  $post->user_id  ?>"> <?php echo $post->firstname.' '.$post->lastname; ?></a> </p>
+              <p class="date"> <?php echo $post->date_created; ?> </p>
+            </div>
+            <img src="<?php echo $post->image; ?>" alt="">
+            <p> <?php echo $post->description; ?> </p>
+            <p> <?php echo $post->city; ?> </p>
+            <p> <?php echo $post->hashtag1. '  ' .$post->hashtag2. '  ' .$post->hashtag3;?> </p>
+           
+            <a href="detail.php?id=<?php echo $post->id; ?>">More</a>
+            <a href="delete.php?id=<?php echo $post->id; ?>">delete post</a>
+            <a href="edit_post.php?post_id=<?php echo $post->id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>">edit post</a>
+
+
+          </article>
         
           
-        </article>
+      
       </div>
     </div>  
   <?php endforeach; ?>

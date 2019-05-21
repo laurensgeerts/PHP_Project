@@ -70,32 +70,7 @@ $posts = Post::getAll();
         <input type="text" name="hashtag2" id="hashtag2" class="hashtag"value="#" >
         <input type="text" name="hashtag3" id="hashtag3"class="hashtag"value="#"  >
 
-        <div class="filterBox">
-          <div>
-            <img src="data/images/TechSquare.jpg" class="">
-            <p></p>
-          </div>
-          <div>
-            <img src="data/images/TechSquare.jpg">
-            <p></p>
-          </div>
-          <div>
-            <img src="data/images/TechSquare.jpg">
-            <p></p>
-          </div>
-          <div>
-            <img src="data/images/TechSquare.jpg">
-            <p></p>
-          </div>
-          <div>
-            <img src="data/images/TechSquare.jpg">
-            <p></p>
-          </div>
-          <div>
-            <img src="data/images/TechSquare.jpg">
-            <p></p>
-          </div>
-        </div>
+      
 
         <input type="hidden" name="city" id="city">
         <input type="hidden" name="lng" id="lng">
