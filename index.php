@@ -96,10 +96,10 @@ $posts = Post::getAll();
                 <?php echo '<a href="#" data-id="'.$post->id.'" class="like '.$post->id.'"><img src="data/images/Asset 6.svg"></a>'?>
                 <?php echo '<a href="#" data-id="'.$post->id.'" class="dislike '.$post->id.'" style="display:none;"><img src="data/images/Asset 7.svg"></a>'?>
               <?php } else if(Post::checkLike($post->id, $_SESSION['user_id'])==1) {?>
-                <?php echo '<a href="#" data-id="<?php echo $post->id ?>" class="like <?php echo $post->id ?>" style="display:none;"><img src="data/images/Asset 6.svg"></a>'?>
-                <?php echo '<a href="#" data-id="<?php echo $post->id ?>" class="dislike <?php echo $post->id ?>" ><img src="data/images/Asset 7.svg"></a>' ?>
+                <?php echo '<a href="#" data-id="'.$post->id.'" class="like '.$post->id.'" style="display:none;"><img src="data/images/Asset 6.svg"></a>'?>
+                <?php echo '<a href="#" data-id="'.$post->id.'" class="dislike '.$post->id.'" ><img src="data/images/Asset 7.svg"></a>' ?>
               <?php }?>
-              <span class='likes' data-id="<?php echo $post->id ?>"><?php echo $post->getLikes(); ?></span> people like this
+              <span class='likes' data-id="<?php echo $post->id ?>"><?php echo Post::getLikes($post->id); ?></span> people like this
             </div>
             <a href="detail.php?id=<?php echo $post->id; ?>">More</a>
             <a href="delete.php?id=<?php echo $_SESSION['user_id']; ?>">delete post</a>

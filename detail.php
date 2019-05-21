@@ -11,7 +11,7 @@ require_once 'ColorExtractor/Palette.php';
      use ColorExtractor\ColorExtractor;
      use ColorExtractor\Palette;
 
-$id = $_GET['id'];
+$id = htmlspecialchars($_GET['id']);
 
 $user = new User();
 $user->setUser_id($_SESSION['user_id']);
@@ -58,11 +58,14 @@ $colors = $extractor->extract(5);
                 <p> <?php echo $post->firstname.' '.$post->lastname; ?> </p>
                 <p> <?php echo $post->date_created; ?> </p>
                 <p> <?php echo $post->description; ?> </p>
-                <div>
-                    <a href="#" data-id="<?php echo $post->id ?>" class="like <?php echo $post->id ?>"><img src="data/images/Asset 6.svg"></a>  
-                    <a href="#" data-id="<?php echo $post->id ?>" class="dislike <?php echo $post->id ?>" style="display:none;"><img src="data/images/Asset 7.svg"></a>
-                    <!-- <span class='likes' data-id="<?php //echo $post->id ?>"><?php //echo $post->getLikes(); ?></span> people like this -->
-                </div>
+                <?php if(Post::checkLike($post->id, $_SESSION['user_id'])==0) { ?>
+                    <?php echo '<a href="#" data-id="'.$post->id.'" class="like '.$post->id.'"><img src="data/images/Asset 6.svg"></a>'?>
+                    <?php echo '<a href="#" data-id="'.$post->id.'" class="dislike '.$post->id.'" style="display:none;"><img src="data/images/Asset 7.svg"></a>'?>
+                <?php } else if(Post::checkLike($post->id, $_SESSION['user_id'])==1){ ?>
+                    <?php echo '<a href="#" data-id="'.$post->id.'" class="like '.$post->id.'" style="display:none;"><img src="data/images/Asset 6.svg"></a>'?>
+                    <?php echo '<a href="#" data-id="'.$post->id.'" class="dislike '.$post->id.'" ><img src="data/images/Asset 7.svg"></a>' ?>
+                <?php }?>
+                <span class='likes' data-id="<?php echo $post->id ?>"><?php echo Post::getLikes($id); ?></span> people like this <br>
                 <?php foreach($colors as $c):?>
                     <div style="width:40px;height:40px;background-color:<?php  echo Color::fromIntToHex($c); ?>;display:inline-block;border-radius:30px;"></div>
                 <?php endforeach; ?> 
