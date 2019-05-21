@@ -9,18 +9,11 @@ var_dump($id);
 
 $user = new User();
 
-
-
-
-
 $profile = $user->getUserInfoDetail($user_id);
 
 $id = $profile['id'];
 
 $posts = Post::getallPostDetail($id, $user_id);
-
-
-
 
 
 ?><!DOCTYPE html>
@@ -35,25 +28,27 @@ $posts = Post::getallPostDetail($id, $user_id);
 </head>
 <body>
     <div class="header">
-        <div class="forceMiddle">
+       
             <?php include_once 'nav.inc.php'; ?>
         </div>
     </div>
-<br>
-<br>
-<br>
-    <img src="<?php echo $profile['picture'] ?>" alt="profiel" style="width:100px;">
 
-     <?php echo $profile['firstname']; ?>
-     <br>
-      <?php echo $profile['lastname'];?>
-      <br>
-      <?php echo $profile['bio'];?>
-      <br>
+
+    <h1> MIJN PROFIEL </h1>
+
+   <p>Hier is jouw profielfoto:</p> 
+
+    <img src="<?php echo $profile['picture'] ?>" alt="profiel" style="width:100px;">
+    <p>Jouw naam :   <?php echo $profile['firstname']. " " .$profile['lastname']; ?>  </p> 
+  <p>  Vind hier jou biografie terug (als je er eentje hebt):  <?php echo $profile['bio'];?></p>
+
+
+  <a href="edit_profile.php" style="">Pas hier je profiel aan!</a>
+   
+      <?php //echo $profile['lastname'];?>
+   
+        <P>hier zie je al jouw posts:</p>
       
-        <h1>hier zie je al jouw posts:</h1>
-      <div class="forceMiddle">
-    <div class="grid-container">
 	    <?php foreach ($posts as $post): ?>
         <div class="post">
 	        <article >
@@ -70,13 +65,13 @@ $posts = Post::getallPostDetail($id, $user_id);
               <span class='likes' data-id="<?php echo $post->id ?>"><?php echo $post->getLikes(); ?></span> people like this
             </div>
             <a href="detail.php?id=<?php echo $post->id; ?>">More</a>
+            <a href="delete.php?id=<?php echo $post->id; ?>">Verwijder je post</a>
+            <a href="edit_post.php?post_id=<?php echo $post->id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>">Pas je post aan</a>
           </article>
         </div>
       <?php endforeach; ?>
-    </div> 
-  </div>
+  
 
 
-    <a href="edit_profile.php" style="display:block;margin-top: 80px;">edit profile</a>
 </body>
 </html>

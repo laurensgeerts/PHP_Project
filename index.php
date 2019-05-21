@@ -57,7 +57,7 @@ $posts = Post::getAll();
       <?php include_once 'nav.inc.php'; ?>
     </div>
   </div>
-  <?php include_once("includes/error.inc.php"); ?>
+  
   <div class="overlay" id="overlay">
     <div class="uploadWindow" id="uploadWindow">
       <a href="javascript:void(0)" class="closebtn" onclick="closeOverlay()"><img src="data/images/Asset 9.svg"></a>
@@ -66,9 +66,9 @@ $posts = Post::getAll();
   	    <input type="file" name="fileToUpload" id="fileToUpload" value="upload picture"><br>
         <input type="text" name="description" id="description" placeholder="describe your picture"><br>    	  
         <p>add hashtags:</p>
-        # <input type="text" name="hashtag1" id="hashtag1">
-        #<input type="text" name="hashtag2" id="hashtag2">
-        #<input type="text" name="hashtag3" id="hashtag3">
+        <input type="text" name="hashtag1" id="hashtag1" class="hashtag"value="#" >
+        <input type="text" name="hashtag2" id="hashtag2" class="hashtag"value="#" >
+        <input type="text" name="hashtag3" id="hashtag3"class="hashtag"value="#"  >
 
         <input type="hidden" name="city" id="city">
         <input type="hidden" name="lng" id="lng">
@@ -97,7 +97,7 @@ $posts = Post::getAll();
               <span class='likes' data-id="<?php echo $post->id ?>"><?php echo $post->getLikes(); ?></span> people like this
             </div>
             <a href="detail.php?id=<?php echo $post->id; ?>">More</a>
-            <a href="delete.php?id=<?php echo $_SESSION['user_id']; ?>">delete post</a>
+            <a href="delete.php?id=<?php echo $post->id; ?>">delete post</a>
             <a href="edit_post.php?post_id=<?php echo $post->id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>">edit post</a>
 
 
