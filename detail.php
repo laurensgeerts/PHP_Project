@@ -70,7 +70,7 @@ $colors = $extractor->extract(5);
                     <div style="width:40px;height:40px;background-color:<?php  echo Color::fromIntToHex($c); ?>;display:inline-block;border-radius:30px;"></div>
                 <?php endforeach; ?> 
                 <form method="post" enctype="">
-                    <input type="checkbox" id="check" name="Inappropriate">Mark this post as inappropriate<br>
+                    <input type="checkbox" id="check" class="inappropriate" name="Inappropriate">Mark this post as inappropriate<br>
                 </form>
             </div>
         </div>
@@ -125,10 +125,19 @@ $colors = $extractor->extract(5);
     </script>
 
     <script>
-        on
-        $("#check").on("click",function(e){
-            var checked = document.getElementById('isAgeSelected').checked;
-            console.log(checked);
+        $(".inappropriate").on("click",function(e){
+            var checked = document.getElementById('check').checked;
+            var postId = <?php echo $id ?>;
+
+            $.ajax({
+                // method: "POST",
+  			    // url: "ajax/checkInappropriate.php",
+ 			    // data: {checked:checked,postId:postId}, 
+            })
+            .done(function(res){
+
+            });
+            e.preventDefault();
         });
     </script>
     <?php include_once 'likeScript.inc.php'; ?>

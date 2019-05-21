@@ -66,9 +66,36 @@ $posts = Post::getAll();
   	    <input type="file" name="fileToUpload" id="fileToUpload" value="upload picture"><br>
         <input type="text" name="description" id="description" placeholder="describe your picture"><br>    	  
         <p>add hashtags:</p>
-        # <input type="text" name="hashtag1" id="hashtag1">
+        #<input type="text" name="hashtag1" id="hashtag1">
         #<input type="text" name="hashtag2" id="hashtag2">
         #<input type="text" name="hashtag3" id="hashtag3">
+
+        <div class="filterBox">
+          <div>
+            <img src="data/images/TechSquare.jpg" class="">
+            <p></p>
+          </div>
+          <div>
+            <img src="data/images/TechSquare.jpg">
+            <p></p>
+          </div>
+          <div>
+            <img src="data/images/TechSquare.jpg">
+            <p></p>
+          </div>
+          <div>
+            <img src="data/images/TechSquare.jpg">
+            <p></p>
+          </div>
+          <div>
+            <img src="data/images/TechSquare.jpg">
+            <p></p>
+          </div>
+          <div>
+            <img src="data/images/TechSquare.jpg">
+            <p></p>
+          </div>
+        </div>
 
         <input type="hidden" name="city" id="city">
         <input type="hidden" name="lng" id="lng">
@@ -84,9 +111,11 @@ $posts = Post::getAll();
 	    <?php foreach ($posts as $post): ?>
         <div class="post">
 	        <article >
-            <img src="<?php echo $post->picture; ?>" class="profilepic">
-            <p> <?php echo $post->date_created; ?> </p>
-            <p class="name"><a href="profile.php?id=<?php echo  $post->user_id  ?>"> <?php echo $post->firstname.' '.$post->lastname; ?></a> </p>
+            <div class="userOfPost">
+              <img src="<?php echo $post->picture; ?>" class="profilepic">
+              <p class="name"><a href="profile.php?id=<?php echo  $post->user_id  ?>"> <?php echo $post->firstname.' '.$post->lastname; ?></a> </p>
+              <p class="date"> <?php echo $post->date_created; ?> </p>
+            </div>
             <img src="<?php echo $post->image; ?>" alt="">
             <p> <?php echo $post->description; ?> </p>
             <p> <?php echo $post->city; ?> </p>

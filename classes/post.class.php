@@ -304,27 +304,6 @@ class Post
         return $result['countLikes'];
     }
 
-    public function setInappropriate($userId){
-        $conn = Db::getInstance();
-        $statement=$conn->prepare("SELECT * from inappropriate where post_id=:postId AND `user_id`=:userId");
-        $statement->bindValue(":postId", $this->getPostId());
-        $statement->bindValue(":userId", $userId);
-        $statement->execute();
-        $stm=$statement->fetch(PDO::FETCH_BOUND);
-
-        if($stm=false){
-            $result = $conn->prepare("INSERT into inappropriate (post_id, `user_id`) VALUES (:postid, :userid)");
-            $result->bindValue(":postid", $this->getPostId());
-            $result->bindValue(":userid", $userId);
-            return $result->execute();
-        } else{
-            $result = $conn->prepare("DELETE FROM `inappropriate` WHERE post_id=:postId AND `user_id`=:userId");
-            $result->bindValue(":postid", $this->getPostId());
-            $result->bindValue(":userid", $userId);
-            return $result->execute();
-        }
-    }
-
     public function getInappropriate(){
         $conn = Db::getInstance();
         $statement=$conn->prepare("SELECT count(*) AS countInapp from inappropriate where post_id=:postId");

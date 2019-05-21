@@ -36,7 +36,7 @@
     <title>login </title>
 </head>
 
-<body>
+<body class="login">
 	<div class="forceMiddle">
 	<div class="loginform">
 		<div class="loginImage">
