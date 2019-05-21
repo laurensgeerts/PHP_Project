@@ -274,14 +274,25 @@ class Post
         }
     }
 
-    public static function checkLike($pId, $uId){
+    public static function checkLike($postId, $userId){
         $conn = Db::getInstance();
+        $state=$conn->prepare("SELECT count(*) As checkLike from likes where post_id=:postid and `user_id`=:userid");
+        $state->bindParam(":postid", $postId);
+        $state->bindParam(":userid", $userId);
+        $state->execute();
+        $stm = $state->fetch(PDO::FETCH_OBJ);
+
+        if($stm->checkLike==1){
         $statement=$conn->prepare("SELECT * from likes where post_id=:postid and `user_id`=:userid");
-        $statement->bindValue(":postid", $pId);
-        $statement->bindValue(":userid", $uId);
+        $statement->bindParam(":postid", $postId);
+        $statement->bindParam(":userid", $userId);
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_OBJ);
         return $result->type;
+        } else if($stm->checkLike==0){
+            $type=0;
+            return $type;
+        }
     }
 
     public function getLikes(){
