@@ -63,24 +63,25 @@ $posts = Post::getAll();
       <a href="javascript:void(0)" class="closebtn" onclick="closeOverlay()"><img src="data/images/Asset 9.svg"></a>
       <form method="post" enctype="multipart/form-data">
         <p>Select image to upload:</p>
-        <input type="file" name="fileToUpload" id="fileToUpload" value="upload picture" onchange="preview()"><br>
-        <img src="#" class="preview">
+        <!--  preview()-->
+        <input type="file" name="fileToUpload" id="fileToUpload" value="upload picture" onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])"><br>
+        <img src="#" id="preview">
         <input type="text" name="description" id="description" placeholder="describe your picture"><br>    	  
         <p>add hashtags:</p>
         #<input type="text" name="hashtag1" id="hashtag1">
         #<input type="text" name="hashtag2" id="hashtag2">
         #<input type="text" name="hashtag3" id="hashtag3">
 
-        <p>add filter:</p>
+        <!-- <p>add filter:</p> -->
         <div class="filterBox">
-          <div>
+          <!-- <div>
             <img src="#" class="filters aden">
             <p>Aden</p>
           </div>
           <div>
             <img src="#" class="filters inkwell" >
             <p>Inkwell</p>
-          </div>
+          </div> -->
           <!-- <div>
             <img src="#" id="preview" class="perpetua">
             <p>Perpetua</p>
@@ -170,7 +171,7 @@ $posts = Post::getAll();
           $('.preview').attr('src', e.target.result);
           $('.filters').attr('src', e.target.result);
         }
-        reader.readAsDataURL(input.files[0]);
+      reader.readAsDataURL(input.files[0]);
     }
   }
   $("#fileToUpload").change(function() {
