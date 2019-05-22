@@ -55,13 +55,14 @@ if(!empty($_POST)){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" media="screen" href="css/reset.css">
-    <link rel="stylesheet" media="screen" href="css/CSSgram.css">
-    <title>Inspiration Hunter</title>
+  <link rel="stylesheet" media="screen" href="css/style.css">
+  <link rel="stylesheet" media="screen" href="css/CSSgram.css">
+  <title>Inspiration Hunter</title>
   </head>
 <body onload="getLocation()">
-  <?php include_once("nav.inc.php"); ?><div class="header">
+  <?php include_once 'nav.inc.php' ; ?><div class="header">
     <div class="forceMiddle">
-      <?php include_once 'nav.inc.php'; ?>
+     
     </div>
   </div>
   <div class="searchwindow" >
