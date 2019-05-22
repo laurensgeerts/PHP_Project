@@ -5,7 +5,6 @@ include_once 'bootstrap.php';
 
 $user = new User();
 $user_id = $_SESSION['user_id']; 
-
 $profile = $user->getUserInfo($user_id);
 
 if (!empty($_POST['edit'])) {
@@ -129,9 +128,6 @@ $profile = $user->getUserInfo($user_id);
 
 
    
-    <?php if(isset($error_pass)): ?>
-        <div class="message"><?php echo $error_pass; ?></div>
-        <?php endif; ?>
         <div class="forceMiddle">
     <div class="grid-container">
 <form method="post" action="" class="edit_profile">
@@ -146,11 +142,6 @@ $profile = $user->getUserInfo($user_id);
         <input type="submit" name="passwordedit" value="Veranderen">
     </form>
 
-    <?php if(isset($message_pass)): ?>
-        <div class="message"><?php echo $message_pass; ?></div>
-        <?php endif; ?>
-        </div>
-        </div>
 </div>
 </body>
 </html>
