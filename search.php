@@ -26,7 +26,7 @@ if(!empty($_POST)){
   if (!empty($_POST['city'])){
   
   
-  if($res_geo = Search::searchLocation(htmlspecialchars($_POST['lng']),htmlspecialchars($_POST['lat']))){
+  $res_geo = Search::searchLocation(htmlspecialchars($_POST['lng']),htmlspecialchars($_POST['lat']));
     $message = "Zoeken geslaagd. ✅";
   }
 
@@ -46,7 +46,7 @@ if(!empty($_POST)){
   
   }
 
-}
+
 
 ?><!DOCTYPE html>
 <html lang="en">
