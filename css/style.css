@@ -5,7 +5,7 @@
 }
 
 body{
-    
+    background-color: #e8e8e8;
     width: 100%;
     padding-bottom: 20px;
     display: block;
@@ -48,6 +48,7 @@ div.loginform{
 
 div.loginImage img{
     width:80%;
+    max-height: 90%;
     margin: 50px 10%;
     background-color: rgba(0,0,0,0);
 }
@@ -153,39 +154,38 @@ div.header{
     font-family: sans-serif;
     z-index: 2;
 }
+
 nav.navbar img.logo{
     float: left;
     width: 150px;
     margin: 6px 10px;
 }
 
-
-
 nav.navbar p{
     display: none;
     margin: 30px 0px 0px 40px
 }
-a img.profile,a img.home,a img.Out, .search{
-    height: 30px;
+a img.profile,a img.home,a img.Out, a img.search{
+    height: 25px;
     position: fixed;
     top: 30px;
 
 }
 
-
 a img.profile{
     right: 10px;
 }
 
-.search {
-    right: 120px;
+a img.search {
+    top: 20px;
+    right: 130px;
 }
 
 a img.home{
-    right: 70px;
+    right: 50px;
 }
 a img.Out{
-    right: 110px;
+    right: 90px;
 }
 div.post{
     min-width: 280px;
@@ -231,7 +231,7 @@ div.post a img{
 div.grid-container{
     display: grid;
     margin: 70px auto 0px auto;
-    background-color: white;
+    background-color: #e8e8e8;
     /* grid-gap: 10px; */
 }
 
@@ -396,27 +396,27 @@ form.edit_post .ed{
 
     .uploadWindow{
         width: 612px;
-        /* margin: 10px auto; */
     }
     nav.navbar p{
         display: block;
+        float: left;
     }
 
     nav.navbar img.logo{
-        margin-top: -20px; 
+        margin-top: 10px; 
     }
 
     a img.profile,a img.home,a img.Out{
         margin-top: -10px; 
     }
 }
+
 .color
 {
     background-color: white;
 }
 
 .searchmargin
-
 {
 margin-top: 150px; 
 background-color: white;
@@ -439,7 +439,7 @@ background-color: white;
 }
 
 @media only screen and (min-width:830px){
-    div.loginform{
+    div.form{
         height: 280px;
     }
 }
