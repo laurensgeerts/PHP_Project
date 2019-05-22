@@ -35,39 +35,43 @@ include_once("classes/user.class.php");
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="login">
                 <?php
                     if (isset($_SESSION['error'])) {
                         $error = $_SESSION['error'];
                         echo "<span>$error</span>";
                     }
                 ?>
-        <div id="registerform">
-            
-            <form action="" method="post">
-                <div class="form__field">
-                    <label for="firstname">voornaam:</label>
-                    <input type="text" id="firstname" name="firstname" <?php if (isset($user)):?> value="<?php echo $user->getFirstname()(); ?>" <?php endif; ?>>
-                    <label for="lastname">achternaam:</label>
-                    <input type="text" id="lastname" name="lastname" <?php if (isset($user)):?> value="<?php echo $user->getLastname()(); ?>" <?php endif; ?>>
+        <div id="registerform" class="loginform">
+            <div class="loginImage">
+			    <img src="data/images/Asset 1.svg">
+            </div>
+            <div class="form">
+                <form action="" method="post">
+                    <div class="form__field">
+                        <label for="firstname">voornaam:</label>
+                        <input type="text" id="firstname" name="firstname" <?php if (isset($user)):?> value="<?php echo $user->getFirstname()(); ?>" <?php endif; ?>>
+                        <label for="lastname">achternaam:</label>
+                        <input type="text" id="lastname" name="lastname" <?php if (isset($user)):?> value="<?php echo $user->getLastname()(); ?>" <?php endif; ?>>
                     </div>
-                <div class="form__field">
-                    <label for="email">email:</label>
-                    <input type="text" id="email" name="email" <?php if (isset($user)):?> value="<?php echo $user->getEmail(); ?>" <?php endif; ?>>
-                </div>
-                <div class="form__field">
-                    <label for="password">wachtwoord:</label>
-                    <input type="password" id="password" name="password">
-                </div>
-                <div class="form__field">
-                    <label for="password_confirmation">bevestig je wachtwoord:</label>
-                    <input type="password" id="password_confirmation" name="password_confirmation">
-                </div>
-                <div class="form__field">
-                    <input type="submit" value="Sign me up!" class="btn btn--primary">
-                </div>
-            </form>
-            <a href="login.php">heb je al een account? login hier!</a>
+                    <div class="form__field">
+                        <label for="email">email:</label>
+                        <input type="text" id="email" name="email" <?php if (isset($user)):?> value="<?php echo $user->getEmail(); ?>" <?php endif; ?>>
+                    </div>
+                    <div class="form__field">
+                        <label for="password">wachtwoord:</label>
+                        <input type="password" id="password" name="password">
+                    </div>
+                    <div class="form__field">
+                        <label for="password_confirmation">bevestig je wachtwoord:</label>
+                        <input type="password" id="password_confirmation" name="password_confirmation">
+                    </div>
+                    <div class="form__field">
+                        <input type="submit" value="Sign me up!" class="btn btn--primary">
+                    </div>
+                </form>
+                <a href="login.php">heb je al een account? login hier!</a>
+            </div>
         </div>
 </body>
 </html>

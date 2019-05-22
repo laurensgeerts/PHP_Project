@@ -55,14 +55,14 @@ if(!empty($_POST)){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" media="screen" href="css/reset.css">
-  <link rel="stylesheet" media="screen" href="css/style.css">
-  <link rel="stylesheet" media="screen" href="css/CSSgram.css">
-  <title>Inspiration Hunter</title>
+    <link rel="stylesheet" media="screen" href="css/style.css">
+    <link rel="stylesheet" media="screen" href="css/CSSgram.css">
+    <title>Inspiration Hunter</title>
   </head>
-<body onload="getLocation()">
-  <?php include_once 'nav.inc.php' ; ?><div class="header">
+<body onload="getLocation()" class="whiteBody">
+  <div class="header">
     <div class="forceMiddle">
-     
+    <?php include_once 'nav.inc.php'; ?>
     </div>
   </div>
   <div class="searchwindow" >
@@ -91,7 +91,7 @@ if(!empty($_POST)){
       </div>
       <div class="searchmargin">
         <?php foreach ($res_post as $post): ?>
-          <div class="grid-container color" >
+          <div class="div.grid-containerJ" >
             <div class="post color" >
 	          <article >
               <article >
@@ -115,7 +115,7 @@ if(!empty($_POST)){
         <?php endforeach; ?>
 
         <?php foreach ($res_geo as $post): ?>
-          <div class="grid-container">
+          <div class="div.grid-containerJ">
             <div class="post">
 	            <article >
                 <div class="userOfPost">
