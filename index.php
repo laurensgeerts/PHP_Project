@@ -65,14 +65,50 @@ $posts = Post::getAll();
       <a href="javascript:void(0)" class="closebtn" onclick="closeOverlay()"><img src="data/images/Asset 9.svg"></a>
       <form method="post" enctype="multipart/form-data">
         <p>Select image to upload:</p>
-  	    <input type="file" name="fileToUpload" id="fileToUpload" value="upload picture"><br>
+        <!--  preview()-->
+        <input type="file" name="fileToUpload" id="fileToUpload" value="upload picture" onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])"><br>
+        <img src="#" id="preview">
         <input type="text" name="description" id="description" placeholder="describe your picture"><br>    	  
         <p>add hashtags:</p>
-        <input type="text" name="hashtag1" id="hashtag1" class="hashtag"value="#" >
-        <input type="text" name="hashtag2" id="hashtag2" class="hashtag"value="#" >
-        <input type="text" name="hashtag3" id="hashtag3"class="hashtag"value="#"  >
+        #<input type="text" name="hashtag1" id="hashtag1">
+        #<input type="text" name="hashtag2" id="hashtag2">
+        #<input type="text" name="hashtag3" id="hashtag3">
 
-      
+        <!-- <p>add filter:</p> -->
+        <div class="filterBox">
+          <!-- <div>
+            <img src="#" class="filters aden">
+            <p>Aden</p>
+          </div>
+          <div>
+            <img src="#" class="filters inkwell" >
+            <p>Inkwell</p>
+          </div> -->
+          <!-- <div>
+            <img src="#" id="preview" class="perpetua">
+            <p>Perpetua</p>
+          </div>
+          <div>
+            <img src="#" id="preview" class="reyes">
+            <p>Reyes</p>
+          </div>
+          <div>
+            <img src="#" id="preview" class="gingham">
+            <p>Gingham</p>
+          </div>
+          <div>
+            <img src="#" id="preview" class="toaster">
+            <p>Toaster</p>
+          </div>
+          <div>
+            <img src="#" id="preview" class="walden">
+            <p>Walden</p>
+          </div>
+          <div>
+            <img src="#" id="preview" class="hudson">
+            <p>Hudson</p>
+          </div> -->
+        </div>
 
         <input type="hidden" name="city" id="city">
         <input type="hidden" name="lng" id="lng">
@@ -118,15 +154,31 @@ $posts = Post::getAll();
     </div> 
   </div>
 
-
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJdC938sjnGDKKf1fq5N060TkvFfdAhgk"
-  type="text/javascript"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJdC938sjnGDKKf1fq5N060TkvFfdAhgk" type="text/javascript"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
   <script
 		src="http://code.jquery.com/jquery-3.4.1.min.js"
 		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 		crossorigin="anonymous">
+  </script>
+
+  <script>
+    function preview(){
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          $('.preview').attr('src', e.target.result);
+          $('.filters').attr('src', e.target.result);
+        }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+  $("#fileToUpload").change(function() {
+    readURL(this);
+  });
   </script>
 
   <script>

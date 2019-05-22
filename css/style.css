@@ -11,8 +11,9 @@ body{
     display: block;
 }
 
-body.login{
+body.login, body.search{
     height: 100%;
+    padding-top: 1px;
 }
 
 .forceMiddle{
@@ -272,11 +273,8 @@ div.grid-containerJ
 
 .uploadWindow{
     display: block;
-    height: 300px;
     width: 80%;
     font-family: sans-serif;
-    margin: 100px auto;
-    
     padding: 20px 30px;
     padding-bottom: 70px;
     border-radius: 10px;
@@ -284,6 +282,20 @@ div.grid-containerJ
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
+}
+#preview{
+    height: 100px;
+    display: block;
+    float:left;
+}
+div.filterbox{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+}
+
+div.filterbox div img#preview{
+    height: 60px;
 }
 
 .searchwindow
@@ -300,14 +312,14 @@ div.grid-containerJ
     border-radius: 10px;
     position: relative;
 }
-h1
 
+h1
 {
-    color: red;
+    color: #ed1e79;
     font-weight: 900;
     font-size: 30px;
-    c
 }
+
 input[type=text]#description{
     height: 100px;
     padding: 12px 20px;
