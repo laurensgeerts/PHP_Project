@@ -27,7 +27,7 @@ $posts = Post::getallPostDetail($id, $user_id);
   <link rel="stylesheet" media="screen" href="css/CSSgram.css">
   <title>Inspiration Hunter</title>
 </head>
-<body>
+<body class="whiteBody">
     <div class="header">
        
             <?php include_once 'nav.inc.php'; ?>
@@ -57,7 +57,8 @@ $posts = Post::getallPostDetail($id, $user_id);
    <br>
    <br>
         <h1>HIER ZIE JE AL JOUW POSTS:</h1>
-      
+        <div class="forceMiddle">
+    <div class="grid-container">
 	    <?php foreach ($posts as $post): ?>
         <div class="post">
 	        <article >
@@ -76,7 +77,8 @@ $posts = Post::getallPostDetail($id, $user_id);
         </div>
       <?php endforeach; ?>
   
-
+</div>
+</div>
 
 </body>
 </html>

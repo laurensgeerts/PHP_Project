@@ -11,6 +11,12 @@ body{
     display: block;
 }
 
+.whiteBody
+
+{
+    background-color: white; 
+}
+
 body.login, body.search{
     height: 100%;
     padding-top: 1px;
