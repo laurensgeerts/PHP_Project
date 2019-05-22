@@ -138,9 +138,33 @@ class Post
     // }
    
 
-// function to get  the address
+    public static function timeConverter($timeCalc)
+    {
+        //Verschil huidig tijdstip en tijdstip post
+        $calculated_time = time() - $timeCalc;
 
+        if ($calculated_time < 1) {
+            return 'Uploaded just now.';
+        }
 
+        $secondsTo = array(
+            12 * 31 * 24 * 60 * 60 => 'year',
+            31 * 24 * 60 * 60 => 'month',
+            24 * 60 * 60 => 'day',
+            60 * 60 => 'hour',
+            60 => 'minute',
+            1 => 'second',
+        );
+
+        foreach ($secondsTo as $secs => $str) {
+            $c = $calculated_time / $secs;
+            if ($c >= 1) {
+                $roundC = round($c);
+
+                return 'Uploaded about '.$roundC.' '.$str.($roundC > 1 ? 's' : '').' ago.';
+            }
+        }
+    }
 
     /**
      * Get the value of city

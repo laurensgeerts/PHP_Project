@@ -6,7 +6,7 @@ include_once 'bootstrap.php';
 
 $user = new User();
 $user_id = $_SESSION['user_id']; 
-
+$following = $_SESSION['user_id'];
 $profile = $user->getUserInfo($user_id);
 
 $target_dir = 'data/uploads/'; // zet in config
@@ -66,7 +66,8 @@ $posts = Post::getAll();
       <form method="post" enctype="multipart/form-data">
         <p>Select image to upload:</p>
         <!--  preview()-->
-        <input type="file" name="fileToUpload" id="fileToUpload" value="upload picture" onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])"><br>
+        <!-- onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])" -->
+        <input type="file" name="fileToUpload" id="fileToUpload" value="upload picture" ><br>
         <img src="#" id="preview">
         <input type="text" name="description" id="description" placeholder="describe your picture"><br>    	  
         <p>add hashtags:</p>
@@ -121,7 +122,9 @@ $posts = Post::getAll();
   <a class="openbtn" onclick="openOverlay()"><img src="data/images/Asset 3.svg"></a>
   <div class="forceMiddle">
     <div class="grid-container">
-	    <?php foreach ($posts as $post): ?>
+      <?php foreach ($posts as $post): 
+        $time_post = $post->date_created;
+        $time_post_str = strtotime($time_post);?>
         <div class="post">
 	        <article >
             <div class="userOfPost">
