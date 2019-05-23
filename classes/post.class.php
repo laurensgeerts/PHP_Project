@@ -93,42 +93,50 @@ class Post
         return $this;
     }
 
-    public function newPost()
-    {
-
-        $lng = floatval($this->getLng());
-        $lat = floatval($this->getLat());
-        $h1 =  $this->getHashtag1();
-        $h2 =  $this->getHashtag2();
-        $h3 = $this->getHashtag3();
-
+    public function newPost(){
         $conn = Db::getInstance();
-        $statement = $conn->prepare('INSERT INTO posts (`user_id`, `description`, `image`, city, lng, lat, hashtag1, hashtag2, hashtag3, `filter`, date_created) 
-        values (:userid, :description, :image, :city, :lng, :lat, :hashtag1, :hashtag2, :hashtag3, `:filter`, NOW())');
+        $statement = $conn->prepare('INSERT INTO posts (`user_id`, `description`, `image`, `city`, `lng`, `lat`, `hashtag1`, `hashtag2`, `hashtag3`, `date_created`) 
+        values (:userid, :description, :image, :city, :lng, :lat, :hashtag1, :hashtag2, :hashtag3, NOW())');
         $statement->bindValue(':userid', $this->getUserId());
+        $statement->bindValue(':description', $this->getDescription());
         $statement->bindValue(':image', $this->getImage());
         $statement->bindValue(':city', $this->getCity());
-        $statement->bindValue(':lng', $lng);
-        $statement->bindValue(':lat', $lat);
-        $statement->bindValue(':hashtag1', $h1);
-        $statement->bindValue(':hashtag2', $h2);
-        $statement->bindValue(':hashtag3', $h3);
-        $statement->bindValue(':filter', $this->getFilter());
-
-        $statement->bindValue(':description', $this->getDescription());
-      
-
+        $statement->bindValue(':lng', floatval($this->getLng()));
+        $statement->bindValue(':lat', floatval($this->getLat()));
+        $statement->bindValue(':hashtag1', $this->getHashtag1());
+        $statement->bindValue(':hashtag2', $this->getHashtag2());
+        $statement->bindValue(':hashtag3', $this->getHashtag3());
+        //$statement->bindValue(':filter', $this->getFilter());
         return $statement->execute();
     }
 
     
-    public static function getAll()
+    public static function getAll($ids, $start, $end)
     {
         $conn = Db::getInstance();
-        $result = $conn->query('SELECT posts.*,users.firstname,users.lastname, users.picture FROM posts,users WHERE posts.user_id=users.id ');
+        $result = $conn->prepare(
+            'SELECT posts.*, users.firstname, users.lastname, users.picture
+            FROM posts INNER JOIN users
+            ON posts.user_id = users.id
+            WHERE
+            posts.user_id IN 
+                (
+                SELECT follow_to FROM followers WHERE follow_from = '.$ids.'
+                )
+            ORDER BY posts.date_created desc
+            LIMIT '.$start.' OFFSET '.$end
+    );
+        $result->execute();
 
         return $result->fetchAll(PDO::FETCH_CLASS, __CLASS__);
     }
+    // public static function getAll()
+    // {
+    //     $conn = Db::getInstance();
+    //     $result = $conn->query('SELECT posts.*,users.firstname,users.lastname, users.picture FROM posts,users WHERE posts.user_id=users.id ');
+
+    //     return $result->fetchAll(PDO::FETCH_CLASS, __CLASS__);
+    // }
 
     // public static function getThisPost($id){
     //     $conn = Db::getInstance();
@@ -161,7 +169,7 @@ class Post
             if ($c >= 1) {
                 $roundC = round($c);
 
-                return 'Uploaded about '.$roundC.' '.$str.($roundC > 1 ? 's' : '').' ago.';
+                return $roundC.' '.$str.($roundC > 1 ? 's' : '').' ago.';
             }
         }
     }
@@ -183,23 +191,7 @@ class Post
     {
         $this->city = $city;
 
-        $secondsTo = array(
-                12 * 31 * 24 * 60 * 60 => 'year',
-                31 * 24 * 60 * 60 => 'month',
-                24 * 60 * 60 => 'day',
-                60 * 60 => 'hour',
-                60 => 'minute',
-                1 => 'second',
-        );
-
-        foreach ($secondsTo as $secs => $str) {
-            $c = $calculated_time / $secs;
-            if ($c >= 1) {
-                $roundC = round($c);
-
-                return 'Uploaded about '.$roundC.' '.$str.($roundC > 1 ? 's' : '').' ago.';
-            }
-        }
+       
         return $this;
     }
 

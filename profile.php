@@ -27,7 +27,7 @@ $posts = Post::getallPostDetail($id, $user_id);
   <link rel="stylesheet" media="screen" href="css/CSSgram.css">
   <title>Inspiration Hunter</title>
 </head>
-<body>
+<body class="whiteBody">
     <div class="header">
        
             <?php include_once 'nav.inc.php'; ?>

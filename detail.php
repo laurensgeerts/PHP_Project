@@ -43,6 +43,13 @@ $colors = $extractor->extract(5);
     <link rel="stylesheet" media="screen" href="css/reset.css">
     <link rel="stylesheet" media="screen" href="css/style.css">
     <title>post <?php echo $id; ?></title>
+
+    <script
+	    src="https://code.jquery.com/jquery-3.3.1.min.js"
+	    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	    crossorigin="anonymous">
+    </script>
+    
 </head>
 <body>
     <div class="header">
@@ -90,11 +97,7 @@ $colors = $extractor->extract(5);
             </div>
         </div>
     </div> 
-    <script
-	    src="https://code.jquery.com/jquery-3.3.1.min.js"
-	    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-	    crossorigin="anonymous">
-    </script>
+    
     <script>
 	    $("#btnSubmit").on("click",function(e){
 		    var comment = $("#comment").val(); //waarde van de text input

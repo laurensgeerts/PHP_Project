@@ -15,7 +15,7 @@
         try {
           var json_obj = JSON.parse(res);
           if(json_obj.status=="success"){
-            console.log('test1');
+            //console.log('test1');
             likes++;
 					  elLikes.text(likes);
             $("a.like."+postId).css("display","none");
@@ -23,11 +23,11 @@
     
           }
         } catch (e) {
-          console.log('failed to parse');
+          //console.log('failed to parse');
         }
       })    
       .fail(function (jqXHR, textStatus) { 
-        console.log('failed') 
+        //console.log('failed') 
       });
       e.preventDefault();
 			
@@ -50,7 +50,7 @@
         try {
           var json_obj = JSON.parse(res);
           if(json_obj.status=="success"){
-            console.log('test2');
+            //console.log('test2');
             likes--;
 					  elLikes.text(likes);
             $("a.dislike."+postId).css("display","none");
@@ -58,11 +58,11 @@
 
           } 
         }catch (e) {
-          console.log('failed to parse 2');
+          //console.log('failed to parse 2');
         }
       })    
       .fail(function (jqXHR, textStatus) { 
-        console.log('failed 2') 
+        //console.log('failed 2') 
       });
       e.preventDefault();
       });

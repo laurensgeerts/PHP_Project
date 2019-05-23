@@ -23,7 +23,7 @@ if (!empty($_POST['edit'])) {
 
     $user_edit = new User();
     $user_edit->setUser_id($_SESSION['user_id']);
-    $user_edit->setFirstnamehtmlspecialchars(($_POST['firstname']));
+    $user_edit->setFirstname(htmlspecialchars($_POST['firstname']));
     $user_edit->setLastname(htmlspecialchars($_POST['lastname']));
     if ($profile['email'] == $_POST['email']) {
         $user_edit->setEmail(htmlspecialchars($_POST['email']));

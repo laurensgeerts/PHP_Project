@@ -1,8 +1,9 @@
 <?php
-
 include_once 'bootstrap.php';
 
-
+if ($_SESSION['loggedin'] === false) {
+  header('Location: login.php');
+}
 
 $user = new User();
 $user_id = $_SESSION['user_id']; 
@@ -16,7 +17,7 @@ if (!empty($_POST)) {
     if (!empty($_POST['description'])) {
         if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file)) {
             $message = 'The file '.basename($_FILES['fileToUpload']['name']).' has been uploaded.';
-            //  echo "<script type='text/javascript'>alert('$message');</script>";
+            //echo "<script type='text/javascript'>alert('$message');</script>";
             // zet potentieel in image classe bv Image::upload($file)
 
             $post = new Post();
@@ -37,7 +38,7 @@ if (!empty($_POST)) {
         echo 'Please write a description';
     }
 }
-$posts = Post::getAll();
+$posts = Post::getAll($following, 28, 0);
 
 
 
@@ -51,6 +52,17 @@ $posts = Post::getAll();
   <link rel="stylesheet" media="screen" href="css/style.css">
   <link rel="stylesheet" media="screen" href="css/CSSgram.css">
   <title>Inspiration Hunter</title>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJdC938sjnGDKKf1fq5N060TkvFfdAhgk" type="text/javascript"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+  <script
+		src="http://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+		crossorigin="anonymous">
+  </script>
+  
 </head>
 
 <body onload="getLocation()">
@@ -66,17 +78,16 @@ $posts = Post::getAll();
       <form method="post" enctype="multipart/form-data">
         <p>Select image to upload:</p>
         <!--  preview()-->
-        <!-- onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])" -->
-        <input type="file" name="fileToUpload" id="fileToUpload" value="upload picture" ><br>
+        <input type="file" name="fileToUpload" id="fileToUpload" value="upload picture" onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])" ><br>
         <img src="#" id="preview">
         <input type="text" name="description" id="description" placeholder="describe your picture"><br>    	  
         <p>add hashtags:</p>
-        #<input type="text" name="hashtag1" id="hashtag1">
-        #<input type="text" name="hashtag2" id="hashtag2">
-        #<input type="text" name="hashtag3" id="hashtag3">
+        <input type="text" name="hashtag1" id="hashtag1" class="hashtag"value="#" >
+        <input type="text" name="hashtag2" id="hashtag2" class="hashtag"value="#" >
+        <input type="text" name="hashtag3" id="hashtag3"class="hashtag"value="#"  >
 
         <!-- <p>add filter:</p> -->
-        <div class="filterBox">
+        <!-- <div class="filterBox"> -->
           <!-- <div>
             <img src="#" class="filters aden">
             <p>Aden</p>
@@ -109,7 +120,7 @@ $posts = Post::getAll();
             <img src="#" id="preview" class="hudson">
             <p>Hudson</p>
           </div> -->
-        </div>
+        <!-- </div> -->
 
         <input type="hidden" name="city" id="city">
         <input type="hidden" name="lng" id="lng">
@@ -130,7 +141,7 @@ $posts = Post::getAll();
             <div class="userOfPost">
               <img src="<?php echo $post->picture; ?>" class="profilepic">
               <p class="name"><a href="profile.php?id=<?php echo  $post->user_id  ?>"> <?php echo $post->firstname.' '.$post->lastname; ?></a> </p>
-              <p class="date"> <?php echo $post->date_created; ?> </p>
+              <p class="date"> <?php echo $convertedTime = Post::timeConverter($time_post_str); ?> </p>
             </div>
             <img src="<?php echo $post->image; ?>" alt="">
             <p> <?php echo $post->description; ?> </p>
@@ -154,20 +165,15 @@ $posts = Post::getAll();
           </article>
         </div>
       <?php endforeach; ?>
-    </div> 
+      </div> 
+      <input type="hidden" id="start" value="3">
+      <input type="hidden" id="end" value="3">
+      <input type="hidden" id="ids" value="<?php echo $following; ?>">
+      <button class="loadmore"> Load more </button>
+    
   </div>
 
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJdC938sjnGDKKf1fq5N060TkvFfdAhgk" type="text/javascript"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
-  <script
-		src="http://code.jquery.com/jquery-3.4.1.min.js"
-		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-		crossorigin="anonymous">
-  </script>
-
-  <script>
+  <!-- <script>
     function preview(){
       if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -182,7 +188,7 @@ $posts = Post::getAll();
   $("#fileToUpload").change(function() {
     readURL(this);
   });
-  </script>
+  </script> -->
 
   <script>
     var x = document.getElementById("city");

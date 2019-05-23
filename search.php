@@ -8,14 +8,9 @@ include_once 'classes/search.class.php';
 
 if(!empty($_POST)){
 
-
   if (!empty($_POST['searchPost'])){
-
-
-   
     $res_post = Search::searchPost(htmlspecialchars($_POST['searchPost']));
-     $message = "Zoeken geslaagd. ✅";
-   
+    $message = "Zoeken geslaagd. ✅";
   }
   
   else 
@@ -58,8 +53,12 @@ if(!empty($_POST)){
     <link rel="stylesheet" media="screen" href="css/style.css">
     <link rel="stylesheet" media="screen" href="css/CSSgram.css">
     <title>Inspiration Hunter</title>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJdC938sjnGDKKf1fq5N060TkvFfdAhgk" type="text/javascript"></script>
+
   </head>
-<body onload="getLocation()">
+<body onload="getLocation()" class="whiteBody">
   <div class="header">
     <div class="forceMiddle">
       <?php include_once 'nav.inc.php'; ?>
@@ -137,8 +136,7 @@ if(!empty($_POST)){
         <?php endforeach; ?>
       </div>
   
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJdC938sjnGDKKf1fq5N060TkvFfdAhgk" type="text/javascript"></script>
+  
 
   <script type="text/javascript">
     var lat = document.getElementById("lng");

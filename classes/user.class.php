@@ -17,9 +17,6 @@ class User{
     private $ImageTmpName;
 
 
-
-
-  
     public function setFirstname($firstname)
     {   if(empty($firstname)){
         throw new Exception("firstname fout");
