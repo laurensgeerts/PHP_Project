@@ -70,7 +70,7 @@ $profile = $user->getUserInfo($user_id);
   <link rel="stylesheet" media="screen" href="css/CSSgram.css">
   <title>Inspiration Hunter</title>
 </head>
-<body>
+<body class="whiteBody">
     
             <?php include_once 'nav.inc.php'; ?>
        
@@ -129,7 +129,7 @@ $profile = $user->getUserInfo($user_id);
 
    
         <div class="forceMiddle">
-    <div class="grid-container">
+    <div class="grid-containerJ">
 <form method="post" action="" class="edit_profile">
     <h2>Wachtwoord aanpassen:</h2>
     <br>

@@ -61,7 +61,7 @@ if(!empty($_POST)){
 <body onload="getLocation()" class="whiteBody">
   <div class="header">
     <div class="forceMiddle">
-      <?php include_once 'nav.inc.php'; ?>
+    <?php include_once 'nav.inc.php'; ?>
     </div>
   </div>
   <div class="searchwindow" >
@@ -90,7 +90,7 @@ if(!empty($_POST)){
       </div>
       <div class="searchmargin">
         <?php foreach ($res_post as $post): ?>
-          <div class="grid-container color" >
+          <div class="div.grid-containerJ" >
             <div class="post color" >
 	          <article >
               <article >
@@ -114,7 +114,7 @@ if(!empty($_POST)){
         <?php endforeach; ?>
 
         <?php foreach ($res_geo as $post): ?>
-          <div class="grid-container">
+          <div class="div.grid-containerJ">
             <div class="post">
 	            <article >
                 <div class="userOfPost">
